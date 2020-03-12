@@ -7,8 +7,6 @@
 *.launch
 .settings/
 *.sublime-workspace
-*.pdsbak
-*.workspace
 
 # IDE - emacs
 *~
@@ -21,6 +19,10 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Proteus ISIS
+*.pdsbak
+*.workspace
 
 # System Files
 .DS_Store
