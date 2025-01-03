@@ -1,0 +1,185 @@
+<circuit version="1.1.0-SR0" rev="2278" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="Subcircuit" CircId="L298P-8" mainComp="false" Show_id="true" Show_Val="false" Pos="188,-848" rotation="0" hflip="1" vflip="1" label="L298P-8" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+09 Ω" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" Logic_Symbol="true" />
+
+<item itemtype="DcMotor" CircId="DcMotor-10" mainComp="false" Show_id="true" Show_Val="false" Pos="576,-880" rotation="0" hflip="1" vflip="1" label="DcMotor-10" idLabPos="-22,-48" labelrot="0" valLabPos="-14,36" valLabRot="0" RPM_Nominal="17200 _RPM" Volt_Nominal="12 V" Resistance="0.17 Ω" />
+
+<item itemtype="Amperimeter" CircId="Amperimeter-13" mainComp="false" Show_id="false" Show_Val="false" Pos="500,-912" rotation="0" hflip="1" vflip="1" label="Amperimeter-13" idLabPos="-24,-40" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Fixed Voltage" CircId="Fixed Voltage-19" mainComp="false" Show_id="false" Show_Val="false" Pos="608,-1028" rotation="-180" hflip="1" vflip="1" label="Fixed Voltage-19" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="12 V" Out="true" />
+
+<item itemtype="Rail" CircId="Rail-25" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="164,-908" rotation="90" hflip="1" vflip="1" label="Rail-25" idLabPos="-5,-10" labelrot="-90" valLabPos="-12.794,5.20604" valLabRot="-90" Voltage="5 V" />
+
+<item itemtype="Ground" CircId="Ground-27" mainComp="false" Show_id="false" Show_Val="false" Pos="152,-740" rotation="0" hflip="1" vflip="1" label="Ground-27" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Diode" CircId="Diode-31" mainComp="false" Show_id="false" Show_Val="false" Pos="448,-904" rotation="270" hflip="1" vflip="1" label="Diode-31" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Model="Diode Default" Threshold="0.634767 V" MaxCurrent="1 A" Resistance="0.05 Ω" BrkDownV="0 V" SatCurrent="171.435 nA" EmCoef="2" />
+
+<item itemtype="Diode" CircId="Diode-32" mainComp="false" Show_id="false" Show_Val="false" Pos="640,-904" rotation="270" hflip="1" vflip="1" label="Diode-32" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Model="Diode Default" Threshold="0.634767 V" MaxCurrent="1 A" Resistance="0.05 Ω" BrkDownV="0 V" SatCurrent="171.435 nA" EmCoef="2" />
+
+<item itemtype="Diode" CircId="Diode-33" mainComp="false" Show_id="false" Show_Val="false" Pos="640,-844" rotation="270" hflip="1" vflip="1" label="Diode-33" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Model="Diode Default" Threshold="0.634767 V" MaxCurrent="1 A" Resistance="0.05 Ω" BrkDownV="0 V" SatCurrent="171.435 nA" EmCoef="2" />
+
+<item itemtype="Diode" CircId="Diode-34" mainComp="false" Show_id="false" Show_Val="false" Pos="448,-844" rotation="270" hflip="1" vflip="1" label="Diode-34" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Model="Diode Default" Threshold="0.634767 V" MaxCurrent="1 A" Resistance="0.05 Ω" BrkDownV="0 V" SatCurrent="171.435 nA" EmCoef="2" />
+
+<item itemtype="Ground" CircId="Ground-40" mainComp="false" Show_id="false" Show_Val="false" Pos="532,-784" rotation="0" hflip="1" vflip="1" label="Ground-40" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Diode" CircId="Diode-44" mainComp="false" Show_id="false" Show_Val="false" Pos="496,-696" rotation="270" hflip="1" vflip="1" label="Diode-44" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Model="Diode Default" Threshold="0.634767 V" MaxCurrent="1 A" Resistance="0.05 Ω" BrkDownV="0 V" SatCurrent="171.435 nA" EmCoef="2" />
+
+<item itemtype="Diode" CircId="Diode-45" mainComp="false" Show_id="false" Show_Val="false" Pos="304,-696" rotation="270" hflip="1" vflip="1" label="Diode-45" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Model="Diode Default" Threshold="0.634767 V" MaxCurrent="1 A" Resistance="0.05 Ω" BrkDownV="0 V" SatCurrent="171.435 nA" EmCoef="2" />
+
+<item itemtype="DcMotor" CircId="DcMotor-46" mainComp="false" Show_id="true" Show_Val="false" Pos="432,-732" rotation="0" hflip="1" vflip="1" label="DcMotor-46" idLabPos="-22,-48" labelrot="0" valLabPos="-14,36" valLabRot="0" RPM_Nominal="17200 _RPM" Volt_Nominal="12 V" Resistance="0.17 Ω" />
+
+<item itemtype="Diode" CircId="Diode-48" mainComp="false" Show_id="false" Show_Val="false" Pos="496,-756" rotation="270" hflip="1" vflip="1" label="Diode-48" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Model="Diode Default" Threshold="0.634767 V" MaxCurrent="1 A" Resistance="0.05 Ω" BrkDownV="0 V" SatCurrent="171.435 nA" EmCoef="2" />
+
+<item itemtype="Diode" CircId="Diode-51" mainComp="false" Show_id="false" Show_Val="false" Pos="304,-756" rotation="270" hflip="1" vflip="1" label="Diode-51" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Model="Diode Default" Threshold="0.634767 V" MaxCurrent="1 A" Resistance="0.05 Ω" BrkDownV="0 V" SatCurrent="171.435 nA" EmCoef="2" />
+
+<item itemtype="Ground" CircId="Ground-52" mainComp="false" Show_id="false" Show_Val="false" Pos="388,-636" rotation="0" hflip="1" vflip="1" label="Ground-52" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Ground" CircId="Ground-58" mainComp="false" Show_id="false" Show_Val="false" Pos="248,-740" rotation="0" hflip="1" vflip="1" label="Ground-58" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Amperimeter" CircId="Amperimeter-47" mainComp="false" Show_id="false" Show_Val="false" Pos="356,-764" rotation="0" hflip="1" vflip="1" label="Amperimeter-47" idLabPos="-24,-40" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Lm555" CircId="Lm555-76" mainComp="false" Show_id="false" Show_Val="false" Pos="84,-864" rotation="0" hflip="-1" vflip="1" label="Lm555-76" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Rail" CircId="Rail-78" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="32,-908" rotation="90" hflip="1" vflip="1" label="Rail-78" idLabPos="-5,-10" labelrot="-90" valLabPos="-12,6" valLabRot="-90" Voltage="5 V" />
+
+<item itemtype="Ground" CircId="Ground-82" mainComp="false" Show_id="false" Show_Val="false" Pos="100,-740" rotation="0" hflip="1" vflip="1" label="Ground-82" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Node" CircId="Node-28" mainComp="false" Pos="152,-816" />
+
+<item itemtype="Node" CircId="Node-36" mainComp="false" Pos="640,-880" />
+
+<item itemtype="Node" CircId="Node-38" mainComp="false" Pos="532,-952" />
+
+<item itemtype="Node" CircId="Node-39" mainComp="false" Pos="532,-1028" />
+
+<item itemtype="Node" CircId="Node-41" mainComp="false" Pos="532,-816" />
+
+<item itemtype="Node" CircId="Node-43" mainComp="false" Pos="388,-668" />
+
+<item itemtype="Node" CircId="Node-49" mainComp="false" Pos="496,-732" />
+
+<item itemtype="Node" CircId="Node-55" mainComp="false" Pos="388,-804" />
+
+<item itemtype="Node" CircId="Node-56" mainComp="false" Pos="388,-1028" />
+
+<item itemtype="Node" CircId="Node-67" mainComp="false" Pos="448,-868" />
+
+<item itemtype="Node" CircId="Node-68" mainComp="false" Pos="448,-880" />
+
+<item itemtype="Node" CircId="Node-69" mainComp="false" Pos="640,-868" />
+
+<item itemtype="Node" CircId="Node-70" mainComp="false" Pos="304,-724" />
+
+<item itemtype="Node" CircId="Node-71" mainComp="false" Pos="496,-720" />
+
+<item itemtype="Node" CircId="Node-60" mainComp="false" Pos="248,-784" />
+
+<item itemtype="Node" CircId="Node-75" mainComp="false" Pos="304,-728" />
+
+<item itemtype="Node" CircId="Node-77" mainComp="false" Pos="164,-800" />
+
+<item itemtype="Node" CircId="Node-81" mainComp="false" Pos="32,-880" />
+
+<item itemtype="Connector" uid="Connector-25" startpinid="Amperimeter-13-rPin" endpinid="DcMotor-10-lPin" pointList="508,-896,508,-880,536,-880" />
+
+<item itemtype="Connector" uid="Connector-43" startpinid="L298P-8-IN2" endpinid="Node-28-1" pointList="180,-832,152,-832,152,-816" />
+
+<item itemtype="Connector" uid="Connector-44" startpinid="Ground-27-Gnd" endpinid="Node-28-0" pointList="152,-756,152,-816" />
+
+<item itemtype="Connector" uid="Connector-45" startpinid="Node-28-2" endpinid="L298P-8-IN4" pointList="152,-816,180,-816" />
+
+<item itemtype="Connector" uid="Connector-61" startpinid="Diode-32-lPin" endpinid="Node-36-0" pointList="640,-888,640,-880" />
+
+<item itemtype="Connector" uid="Connector-62" startpinid="Node-36-2" endpinid="DcMotor-10-rPin" pointList="640,-880,616,-880" />
+
+<item itemtype="Connector" uid="Connector-70" startpinid="Node-38-1" endpinid="Node-39-1" pointList="532,-952,532,-1028" />
+
+<item itemtype="Connector" uid="Connector-71" startpinid="Diode-31-rPin" endpinid="Node-38-0" pointList="448,-920,448,-952,532,-952" />
+
+<item itemtype="Connector" uid="Connector-72" startpinid="Node-38-2" endpinid="Diode-32-rPin" pointList="532,-952,640,-952,640,-920" />
+
+<item itemtype="Connector" uid="Connector-73" startpinid="Fixed Voltage-19-outnod" endpinid="Node-39-0" pointList="592,-1028,532,-1028" />
+
+<item itemtype="Connector" uid="Connector-75" startpinid="Ground-40-Gnd" endpinid="Node-41-1" pointList="532,-800,532,-816" />
+
+<item itemtype="Connector" uid="Connector-76" startpinid="Diode-34-lPin" endpinid="Node-41-0" pointList="448,-828,448,-816,532,-816" />
+
+<item itemtype="Connector" uid="Connector-77" startpinid="Node-41-2" endpinid="Diode-33-lPin" pointList="532,-816,640,-816,640,-828" />
+
+<item itemtype="Connector" uid="Connector-79" startpinid="Diode-45-lPin" endpinid="Node-43-0" pointList="304,-680,304,-668,388,-668" />
+
+<item itemtype="Connector" uid="Connector-80" startpinid="Node-43-2" endpinid="Diode-44-lPin" pointList="388,-668,496,-668,496,-680" />
+
+<item itemtype="Connector" uid="Connector-83" startpinid="Ground-52-Gnd" endpinid="Node-43-1" pointList="388,-652,388,-668" />
+
+<item itemtype="Connector" uid="Connector-84" startpinid="Node-49-2" endpinid="DcMotor-46-rPin" pointList="496,-732,472,-732" />
+
+<item itemtype="Connector" uid="Connector-89" startpinid="Diode-48-lPin" endpinid="Node-49-0" pointList="496,-740,496,-732" />
+
+<item itemtype="Connector" uid="Connector-97" startpinid="Node-55-1" endpinid="Node-56-1" pointList="388,-804,388,-1028" />
+
+<item itemtype="Connector" uid="Connector-98" startpinid="Diode-51-rPin" endpinid="Node-55-0" pointList="304,-772,304,-804,388,-804" />
+
+<item itemtype="Connector" uid="Connector-99" startpinid="Node-55-2" endpinid="Diode-48-rPin" pointList="388,-804,496,-804,496,-772" />
+
+<item itemtype="Connector" uid="Connector-100" startpinid="Node-39-2" endpinid="Node-56-0" pointList="532,-1028,388,-1028" />
+
+<item itemtype="Connector" uid="Connector-101" startpinid="Node-56-2" endpinid="L298P-8-Vs" pointList="388,-1028,280,-1028,280,-800,228,-800" />
+
+<item itemtype="Connector" uid="Connector-85" startpinid="Amperimeter-47-rPin" endpinid="DcMotor-46-lPin" pointList="364,-748,364,-732,392,-732" />
+
+<item itemtype="Connector" uid="Connector-141" startpinid="L298P-8-OUT1" endpinid="Node-67-1" pointList="228,-840,432,-840,432,-868,448,-868" />
+
+<item itemtype="Connector" uid="Connector-143" startpinid="Node-67-2" endpinid="Diode-34-rPin" pointList="448,-868,448,-860" />
+
+<item itemtype="Connector" uid="Connector-144" startpinid="Amperimeter-13-lPin" endpinid="Node-68-1" pointList="492,-896,492,-880,448,-880" />
+
+<item itemtype="Connector" uid="Connector-145" startpinid="Diode-31-lPin" endpinid="Node-68-0" pointList="448,-888,448,-880" />
+
+<item itemtype="Connector" uid="Connector-146" startpinid="Node-68-2" endpinid="Node-67-0" pointList="448,-880,448,-868" />
+
+<item itemtype="Connector" uid="Connector-147" startpinid="L298P-8-OUT2" endpinid="Node-69-1" pointList="228,-832,432,-832,432,-808,656,-808,656,-868,640,-868" />
+
+<item itemtype="Connector" uid="Connector-148" startpinid="Diode-33-rPin" endpinid="Node-69-0" pointList="640,-860,640,-868" />
+
+<item itemtype="Connector" uid="Connector-149" startpinid="Node-69-2" endpinid="Node-36-1" pointList="640,-868,640,-880" />
+
+<item itemtype="Connector" uid="Connector-150" startpinid="L298P-8-OUT3" endpinid="Node-70-1" pointList="228,-824,288,-824,288,-724,304,-724" />
+
+<item itemtype="Connector" uid="Connector-151" startpinid="Diode-45-rPin" endpinid="Node-70-0" pointList="304,-712,304,-724" />
+
+<item itemtype="Connector" uid="Connector-153" startpinid="L298P-8-OUT4" endpinid="Node-71-1" pointList="228,-816,276,-816,276,-660,516,-660,516,-720,496,-720" />
+
+<item itemtype="Connector" uid="Connector-154" startpinid="Diode-44-rPin" endpinid="Node-71-0" pointList="496,-712,496,-720" />
+
+<item itemtype="Connector" uid="Connector-155" startpinid="Node-71-2" endpinid="Node-49-1" pointList="496,-720,496,-732" />
+
+<item itemtype="Connector" uid="Connector-110" startpinid="Node-60-2" endpinid="Ground-58-Gnd" pointList="248,-784,248,-756" />
+
+<item itemtype="Connector" uid="Connector-109" startpinid="L298P-8-SenA" endpinid="Node-60-0" pointList="228,-792,248,-792,248,-784" />
+
+<item itemtype="Connector" uid="Connector-108" startpinid="L298P-8-SenB" endpinid="Node-60-1" pointList="228,-784,248,-784" />
+
+<item itemtype="Connector" uid="Connector-168" startpinid="Amperimeter-47-lPin" endpinid="Node-75-1" pointList="348,-748,348,-728,304,-728" />
+
+<item itemtype="Connector" uid="Connector-169" startpinid="Node-70-2" endpinid="Node-75-0" pointList="304,-724,304,-728" />
+
+<item itemtype="Connector" uid="Connector-170" startpinid="Node-75-2" endpinid="Diode-51-lPin" pointList="304,-728,304,-740" />
+
+<item itemtype="Connector" uid="Connector-173" startpinid="L298P-8-EnA" endpinid="Node-77-1" pointList="180,-800,164,-800" />
+
+<item itemtype="Connector" uid="Connector-174" startpinid="L298P-8-EnB" endpinid="Node-77-0" pointList="180,-792,164,-792,164,-800" />
+
+<item itemtype="Connector" uid="Connector-175" startpinid="Node-77-2" endpinid="Rail-25-outnod" pointList="164,-800,164,-892" />
+
+<item itemtype="Connector" uid="Connector-176" startpinid="Lm555-76-ePin2" endpinid="L298P-8-IN1" pointList="92,-840,180,-840" />
+
+<item itemtype="Connector" uid="Connector-179" startpinid="Lm555-76-ePin3" endpinid="Node-81-1" pointList="92,-832,108,-832,108,-880,32,-880" />
+
+<item itemtype="Connector" uid="Connector-180" startpinid="Rail-78-outnod" endpinid="Node-81-0" pointList="32,-892,32,-880" />
+
+<item itemtype="Connector" uid="Connector-181" startpinid="Node-81-2" endpinid="Lm555-76-ePin7" pointList="32,-880,32,-856,44,-856" />
+
+<item itemtype="Connector" uid="Connector-182" startpinid="Ground-82-Gnd" endpinid="Lm555-76-ePin0" pointList="100,-756,100,-856,92,-856" />
+
+</circuit>
