@@ -20,7 +20,7 @@ struct {
   uint32_t freq;
   const char* fwPath;
 } dut = {
-  .name = "attiny85",
+  .name = "atmega328p",
   .freq = 8e+6L, // 8MHz
   .fwPath = FIRMWARE_PATH,
 };
