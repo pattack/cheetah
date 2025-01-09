@@ -13,7 +13,7 @@
 #include <simavr/sim_interrupts.h>
 #include <simavr/avr_ioport.h>
 
-#include "test_main.h"
+#include "hil.h"
 
 struct {
   const char* name;
@@ -21,7 +21,7 @@ struct {
   const char* fwPath;
 } dut = {
   .name = "atmega328p",
-  .freq = 8e+6L, // 8MHz
+  .freq = 8000000U, // 8MHz
   .fwPath = FIRMWARE_PATH,
 };
 
@@ -61,9 +61,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
-void test_foo(void) {
-  UNITY_TEST_ASSERT_EQUAL_UINT(1, 2, 1, "Intentionally failing test to sanity check the test setup");
-}
+void test_foo(void) {}
 
 int runUnityTests(void) {
   UNITY_BEGIN();

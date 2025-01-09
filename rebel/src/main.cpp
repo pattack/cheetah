@@ -2,6 +2,8 @@
 #include <Wire.h>
 #include <stdint.h>
 
+#include <car.h>
+
 #define SPEED_CTRL_ADDR 0x40
 #define MOTOR_L_ADDR 0x06
 #define MOTOR_R_ADDR 0x0A

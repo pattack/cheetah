@@ -1,0 +1,11 @@
+{
+  "name": "car",
+  "version": "0.0.1",
+  "platforms": ["atmelavr"],
+  "frameworks": ["arduino"],
+  "test": {
+    "require": [
+      "unity"
+    ]
+  }
+}
