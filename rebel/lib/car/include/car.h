@@ -10,6 +10,8 @@ class Car {
     int engineRPM;
 
   public:
+    Car();
+
     /**
      * @brief Returns actual car engine's speed in rpm.
      */

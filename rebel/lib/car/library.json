@@ -1,6 +1,8 @@
 {
+  "$schema": "https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/schema/library.json",
   "name": "car",
   "version": "0.0.1",
+  "license": "GPL-3.0-only",
   "platforms": ["atmelavr"],
   "frameworks": ["arduino"],
   "test": {

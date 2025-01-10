@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <unity.h>
 
-#include "car.h"
+#include <car.h>
 
 void setUp(void) {
   printf("Setting up car tests\n");
@@ -31,8 +31,6 @@ int runUnityTests(void) {
   return UNITY_END();
 }
 
-void setup(void) {
-  runUnityTests();
+int main(void) {
+  return runUnityTests();
 }
-
-void loop(void) {}
