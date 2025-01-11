@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <unity.h>
 
+#include <engine.h>
 #include <car.h>
 
 void setUp(void) {
@@ -15,12 +16,13 @@ void tearDown(void) {
 }
 
 void test_car_accelerate(void) {
-  Car car;
+  Rebel::Engine* engine = new Rebel::Engine(1000);
+  Rebel::Car car(engine);
 
-  UNITY_TEST_ASSERT_EQUAL_UINT(0, car.EngineRPM(), __LINE__, "expected car to be stopped");
-  car.Accelerate(0.1);
+  UNITY_TEST_ASSERT_EQUAL_UINT(0, car.Speed(), __LINE__, "expected car to be stopped");
+  car.PushThrottle(0.1);
 
-  UNITY_TEST_ASSERT_GREATER_THAN_UINT(0, car.EngineRPM(), __LINE__, "expected car to be running");
+  UNITY_TEST_ASSERT_EQUAL_UINT(37, car.Speed(), __LINE__, "expected car to be running at 37 km/h");
 }
 
 int runUnityTests(void) {

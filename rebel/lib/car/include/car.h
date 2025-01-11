@@ -5,24 +5,32 @@
 #ifndef REBEL_CAR_H
 #define REBEL_CAR_H
 
-class Car {
-  private:
-    int engineRPM;
+namespace Rebel {
+  class Engine;
 
-  public:
-    Car();
+  class Car {
+    public:
+      Car(Engine* engine);
 
-    /**
-     * @brief Returns actual car engine's speed in rpm.
-     */
-    int EngineRPM() const;
+      /**
+       * @brief Returns car speed in km/h.
+       */
+      int Speed() const;
 
-    /**
-     * @brief Speeds up the car.
-     * @param throttle A value between 0 and 1.
-     * @throw std::invalid_argument if throttle is negative
-     */
-    void Accelerate(float throttle);
-};
+      /**
+       * @brief Speeds up/down the car.
+       * @param pressure A value between 0 and 1.
+       */
+      int PushThrottle(float pressure) const;
+
+      /**
+       * @brief Stops controlling the speed.
+       */
+      int ReleaseThrottle() const;
+
+    private:
+      Engine* engine;
+  };
+}
 
 #endif //REBEL_CAR_H
