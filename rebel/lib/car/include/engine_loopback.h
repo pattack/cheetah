@@ -16,7 +16,7 @@ namespace Rebel {
       int ReadRPM() const override;
 
     private:
-      int rpm;
+      int rpm = 0;
   };
 }
 

@@ -8,14 +8,14 @@
 
 namespace Rebel {
   Engine::Engine(int maxRPM): maxRPM(maxRPM) {
-    EngineLoopback* lb = new EngineLoopback();
+    auto* lb = new EngineLoopback();
 
     this->Install(lb);
     this->Calibrate(lb);
   }
 
   Engine::Engine(int maxRPM, EngineDriver* driver): maxRPM(maxRPM) {
-    EngineLoopless* ll = new EngineLoopless(driver);
+    auto* ll = new EngineLoopless(driver);
 
     this->Install(ll);
     this->Calibrate(ll);
@@ -39,7 +39,7 @@ namespace Rebel {
       return 1;
     }
 
-    int rpm = int(ratio * float(this->maxRPM));
+    const int rpm = int(ratio * float(this->maxRPM));
     this->driver->WriteRPM(rpm);
 
     return 0;

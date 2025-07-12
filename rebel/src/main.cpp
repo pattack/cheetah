@@ -1,68 +1,40 @@
-#include <Arduino.h>
-#include <Wire.h>
 #include <stdint.h>
 
 #include <car.h>
 
-#define SPEED_CTRL_ADDR 0x40
-#define MOTOR_L_ADDR 0x06
-#define MOTOR_R_ADDR 0x0A
+#define USART1_BASE   0x40013800
 
-void wakeUpPwmDriver();
-void lockOnSpeed(uint8_t motor, float ratio);
+#define USART1_SR     (*(volatile uint32_t*)(USART1_BASE + 0x00)) // Status register
+#define USART1_DR     (*(volatile uint32_t*)(USART1_BASE + 0x04)) // Data register
+#define USART1_BRR    (*(volatile uint32_t*)(USART1_BASE + 0x08)) // Baud rate
+#define USART1_CR1    (*(volatile uint32_t*)(USART1_BASE + 0x0C)) // Control register 1
 
-struct pwm {
-	uint16_t on;
-	uint16_t off;
+#define USART_SR_TXE  (1 << 7)
+#define USART_CR1_UE  (1 << 13)
+#define USART_CR1_TE  (1 << 3)
 
-  void writeOnWire() {
-    Wire.write(on & 0xFF); // Low Byte of ON
-    Wire.write((on >> 8) & 0xFF); // High Byte of ON
-    Wire.write(off & 0xFF); // Low Byte of OFF
-    Wire.write((off >> 8) & 0xFF); // High Byte of OFF
-  }
-};
+static void usart1_init(void) {
+    // Set baud rate to 9600 (assume 72 MHz clock)
+    USART1_BRR = 0x1D4C;  // = 72000000 / 9600
 
-pwm speed(float ratio);
-
-void setup() {
-  Wire.begin();
-
-  Serial.begin(9600);
-  while (!Serial);
-
-  wakeUpPwmDriver();
+    // Enable USART, Transmit enable
+    USART1_CR1 = USART_CR1_UE | USART_CR1_TE;
 }
 
-void loop() {
-  lockOnSpeed(MOTOR_L_ADDR, 0.75);
-  lockOnSpeed(MOTOR_R_ADDR, 0.25);
-  delay(20000);
-
-  lockOnSpeed(MOTOR_L_ADDR, 0.1);
-  delay(5000);
-
-  lockOnSpeed(MOTOR_L_ADDR, 0);
-  lockOnSpeed(MOTOR_R_ADDR, 0);
-  delay(10000);
+static void usart1_send_char(char c) {
+    while (!(USART1_SR & USART_SR_TXE));
+    USART1_DR = c;
 }
 
-void wakeUpPwmDriver() {
-  Wire.beginTransmission(SPEED_CTRL_ADDR);
-  Wire.write(0x00); // Mode1
-  Wire.write(0x20); // Mode2
-  Wire.endTransmission(true);
+static void usart1_puts(const char* s) {
+    while (*s) {
+        usart1_send_char(*s++);
+    }
 }
 
-void lockOnSpeed(uint8_t motor, float ratio) {
-  Wire.beginTransmission(SPEED_CTRL_ADDR);
-  Wire.write(motor); // Which motor
-  speed(ratio).writeOnWire(); // Wire PWM details
-  Wire.endTransmission(true);
-}
+int main() {
+    usart1_init();
+    usart1_puts("Hello from STM32F103!\r\n");
 
-pwm speed(float ratio) {
-	pwm res = {0, (uint16_t)(ratio * 4096)};
-
-	return res;
+    while (1);
 }

@@ -1,0 +1,5 @@
+machine LoadPlatformDescription @platforms/cpus/stm32f103.repl
+
+sysbus LoadELF @build/stm32f103/firmware.elf
+
+showAnalyzer usart1

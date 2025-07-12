@@ -8,21 +8,19 @@
 #include <engine.h>
 #include <car.h>
 
-void setUp(void) {
-  printf("Setting up car tests\n");
-}
+void setUp(void) {}
 
-void tearDown(void) {
-}
+void tearDown(void) {}
 
 void test_car_accelerate(void) {
   Rebel::Engine* engine = new Rebel::Engine(1000);
   Rebel::Car car(engine);
 
   UNITY_TEST_ASSERT_EQUAL_UINT(0, car.Speed(), __LINE__, "expected car to be stopped");
-  car.PushThrottle(0.1);
-
+  UNITY_TEST_ASSERT_EQUAL_UINT(0, car.PushThrottle(0.1), __LINE__, "expected no error while pushing throttle");
   UNITY_TEST_ASSERT_EQUAL_UINT(37, car.Speed(), __LINE__, "expected car to be running at 37 km/h");
+  UNITY_TEST_ASSERT_EQUAL_UINT(0, car.ReleaseThrottle(), __LINE__, "expected no error while releasing throttle");
+  UNITY_TEST_ASSERT_EQUAL_UINT(0, car.Speed(), __LINE__, "expected car to be stopped");
 }
 
 int runUnityTests(void) {

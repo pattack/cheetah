@@ -57,8 +57,8 @@ namespace Rebel {
     private:
       const int maxRPM;
 
-      EngineDriver* driver;
-      EngineSensor* sensor;
+      EngineDriver* driver{};
+      EngineSensor* sensor{};
   };
 }
 
