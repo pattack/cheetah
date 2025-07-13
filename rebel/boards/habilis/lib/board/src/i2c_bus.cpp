@@ -3,9 +3,8 @@
 //
 
 #include <stm32f1xx_hal.h>
-#include <stm32f1xx_hal_i2c.h>
 
-#include <rebel/hal/habilis/i2c_bus.hpp>
+#include <rebel/board/habilis/i2c_bus.hpp>
 
 namespace Rebel::HAL
 {

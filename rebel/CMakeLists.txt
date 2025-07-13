@@ -44,13 +44,13 @@ add_compile_options(-Wall -Wextra -Os)
 add_executable(firmware.elf ${SRC})
 
 # Libraries
-add_subdirectory(lib/hal)
-add_subdirectory(${BOARD_DIR}/lib/hal)
+add_subdirectory(lib/board)
+add_subdirectory(${BOARD_DIR}/lib/board)
 add_subdirectory(lib/car)
 
 # Linker script
 set_target_properties(firmware.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
-target_link_libraries(firmware.elf PRIVATE car hal_${BOARD})
+target_link_libraries(firmware.elf PRIVATE car board_${BOARD})
 target_link_options(firmware.elf PRIVATE "-T${LINKER_SCRIPT}")
 
 # ========== Generate HEX ==========

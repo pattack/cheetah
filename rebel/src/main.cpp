@@ -1,4 +1,4 @@
-#include <rebel/hal/bus.hpp>
+#include <rebel/board/bus.hpp>
 
 int main()
 {
