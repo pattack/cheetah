@@ -13,11 +13,13 @@ namespace Rebel::HAL
     class Bus
     {
     public:
+        // todo: use etl::ivector or vector
         using ReceiveCallback = std::function<void(const uint8_t* data, size_t length)>;
 
         virtual ~Bus() = default;
 
         // Send data to the peripheral
+        // todo: use etl::ivector or vector
         virtual bool publish(const uint8_t* data, size_t length) = 0;
 
         // Register a callback for received data (subscriber)
