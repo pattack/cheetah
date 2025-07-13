@@ -5,7 +5,6 @@
 #pragma once
 
 #include <cstdint>
-#include <cstddef>
 #include <functional>
 #include <vector>
 
@@ -14,7 +13,7 @@ namespace Rebel::HAL
     class Bus
     {
     public:
-        using ReceiveCallback = std::function<void(const uint8_t * data, size_t length)>;
+        using ReceiveCallback = std::function<void(const uint8_t* data, size_t length)>;
 
         virtual ~Bus() = default;
 

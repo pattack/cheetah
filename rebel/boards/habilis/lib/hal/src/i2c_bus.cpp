@@ -2,11 +2,14 @@
 // Created by pouyan on 7/13/25.
 //
 
+#include <stm32f1xx_hal.h>
+#include <stm32f1xx_hal_i2c.h>
+
 #include <rebel/hal/habilis/i2c_bus.hpp>
 
 namespace Rebel::HAL
 {
-    I2CBus::I2CBus(uint8_t address)
+    I2CBus::I2CBus(const uint8_t address)
         : address_(address)
     {
     }
@@ -17,12 +20,12 @@ namespace Rebel::HAL
         return true;
     }
 
-    void I2CBus::subscribe(ReceiveCallback cb)
+    void I2CBus::subscribe(const ReceiveCallback cb)
     {
         subscribers_.push_back(cb);
     }
 
-    void I2CBus::on_data_received(const uint8_t* data, size_t length)
+    void I2CBus::on_data_received(const uint8_t* data, const size_t length) const
     {
         for (auto& cb : subscribers_)
         {

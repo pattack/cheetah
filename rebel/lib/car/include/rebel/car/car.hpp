@@ -11,7 +11,7 @@ namespace Rebel::Car
     class Car
     {
     public:
-        Car(Engine* engine);
+        explicit Car(Engine* engine);
 
         /**
          * @brief Returns car speed in km/h.
