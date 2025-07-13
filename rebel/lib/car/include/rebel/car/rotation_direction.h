@@ -2,8 +2,7 @@
 // Created by pouyan on 1/11/25.
 //
 
-#ifndef ROTATION_DIRECTION_H
-#define ROTATION_DIRECTION_H
+#pragma once
 
 namespace Rebel {
   enum class RotationDirection {
@@ -11,5 +10,3 @@ namespace Rebel {
     CCW
   };
 }
-
-#endif //ROTATION_DIRECTION_H

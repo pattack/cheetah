@@ -2,12 +2,7 @@
 This is the car
 
 # Build
-Install [PlatformIO](https://platformio.org) and run
+Build system requires [Make](http://www.gnu.org/software/make) and [CMake](https://cmake.org). Install them and run:
 ```shell
-pio run
-```
-
-# Run tests
-```shell
-pio test
+make
 ```

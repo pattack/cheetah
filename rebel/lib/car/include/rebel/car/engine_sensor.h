@@ -2,8 +2,7 @@
 // Created by pouyan on 1/11/25.
 //
 
-#ifndef ENGINE_SENSOR_H
-#define ENGINE_SENSOR_H
+#pragma once
 
 namespace Rebel {
   class EngineSensor {
@@ -16,5 +15,3 @@ namespace Rebel {
       virtual int ReadRPM() const = 0;
   };
 }
-
-#endif //ENGINE_SENSOR_H

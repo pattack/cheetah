@@ -2,8 +2,7 @@
 // Created by pouyan on 1/11/25.
 //
 
-#ifndef ENGINE_H
-#define ENGINE_H
+#pragma once
 
 #include "engine_driver.h"
 #include "engine_sensor.h"
@@ -61,5 +60,3 @@ namespace Rebel {
       EngineSensor* sensor{};
   };
 }
-
-#endif //ENGINE_H

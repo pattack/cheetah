@@ -2,8 +2,7 @@
 // Created by pouyan on 1/11/25.
 //
 
-#ifndef ENGINE_DRIVER_H
-#define ENGINE_DRIVER_H
+#pragma once
 
 namespace Rebel {
   class EngineDriver {
@@ -16,5 +15,3 @@ namespace Rebel {
       virtual void WriteRPM(int rpm) = 0;
   };
 }
-
-#endif //ENGINE_DRIVER_H

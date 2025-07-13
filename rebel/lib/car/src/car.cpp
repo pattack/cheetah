@@ -4,8 +4,8 @@
 
 #include <math.h>
 
-#include <engine.h>
-#include <car.h>
+#include <rebel/car/engine.h>
+#include <rebel/car/car.h>
 
 namespace Rebel {
   Car::Car(Engine* engine): engine(engine) {}
