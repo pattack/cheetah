@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-#include <../lib/car/include/rebel/car/car.h>
+#include <../lib/car/include/rebel/car/car.hpp>
 #include <pwm_on_bus.h>
 
 #define SPEED_CTRL_ADDR 0x40

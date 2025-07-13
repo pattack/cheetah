@@ -2,14 +2,17 @@
 // Created by pouyan on 1/11/25.
 //
 
-#include <rebel/car/engine_loopback.h>
+#include <rebel/car/engine_loopback.hpp>
 
-namespace Rebel {
-  void EngineLoopback::WriteRPM(int rpm) {
-    this->rpm = rpm;
-  }
+namespace Rebel::Car
+{
+    void EngineLoopback::WriteRPM(int rpm)
+    {
+        this->rpm = rpm;
+    }
 
-  int EngineLoopback::ReadRPM() const {
-    return this->rpm;
-  }
+    int EngineLoopback::ReadRPM() const
+    {
+        return this->rpm;
+    }
 }

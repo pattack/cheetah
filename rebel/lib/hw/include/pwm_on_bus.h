@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 
-#include <../../car/include/rebel/car/engine_driver.h>
+#include <../../car/include/rebel/car/engine_driver.hpp>
 #include <bus.h>
 
 namespace Rebel {

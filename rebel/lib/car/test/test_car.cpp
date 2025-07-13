@@ -5,16 +5,16 @@
 #include <stdio.h>
 #include <unity.h>
 
-#include <engine.h>
-#include <car.h>
+#include <rebel/car/engine.hpp>
+#include <rebel/car/car.hpp>
 
 void setUp(void) {}
 
 void tearDown(void) {}
 
 void test_car_accelerate(void) {
-  Rebel::Engine* engine = new Rebel::Engine(1000);
-  Rebel::Car car(engine);
+  Rebel::Car::Engine* engine = new Rebel::Car::Engine(1000);
+  const Rebel::Car::Car car(engine);
 
   UNITY_TEST_ASSERT_EQUAL_UINT(0, car.Speed(), __LINE__, "expected car to be stopped");
   UNITY_TEST_ASSERT_EQUAL_UINT(0, car.PushThrottle(0.1), __LINE__, "expected no error while pushing throttle");
