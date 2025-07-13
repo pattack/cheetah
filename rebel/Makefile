@@ -1,4 +1,4 @@
-BOARD ?= stm32f103
+BOARD ?= habilis
 BUILD_DIR = build/$(BOARD)
 
 .PHONY: all configure build clean

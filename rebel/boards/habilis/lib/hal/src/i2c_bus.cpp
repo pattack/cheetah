@@ -2,7 +2,7 @@
 // Created by pouyan on 7/13/25.
 //
 
-#include <rebel/hal/stm32f103/i2c_bus.hpp>
+#include <rebel/hal/habilis/i2c_bus.hpp>
 
 namespace Rebel::HAL
 {

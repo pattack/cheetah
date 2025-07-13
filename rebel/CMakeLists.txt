@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 # ========== Board and toolchain setup ==========
 # You may include a separate toolchain file or set here:
-set(BOARD stm32f103 CACHE STRING "Target board")
+set(BOARD habilis CACHE STRING "Target board")
 if(NOT DEFINED BOARD)
     message(FATAL_ERROR "BOARD not defined. Please specify with -DBOARD=boardname")
 endif()
