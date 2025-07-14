@@ -6,9 +6,9 @@
 
 #include <rebel/board/bus.hpp>
 
-namespace Rebel::HAL
+namespace Rebel::Board::Habilis
 {
-    class I2CBus final : public Bus
+    class I2CBus final : public Rebel::Board::Bus
     {
     public:
         explicit I2CBus(uint8_t address);

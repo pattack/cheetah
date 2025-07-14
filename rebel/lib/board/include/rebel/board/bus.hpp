@@ -8,7 +8,7 @@
 #include <functional>
 #include <vector>
 
-namespace Rebel::HAL
+namespace Rebel::Board
 {
     class Bus
     {

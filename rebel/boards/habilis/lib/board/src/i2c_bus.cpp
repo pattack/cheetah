@@ -6,7 +6,7 @@
 
 #include <rebel/board/habilis/i2c_bus.hpp>
 
-namespace Rebel::HAL
+namespace Rebel::Board::Habilis
 {
     I2CBus::I2CBus(const uint8_t address)
         : address_(address)
