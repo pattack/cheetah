@@ -1,4 +1,5 @@
 add_library(board
+        src/board.cpp
         src/component_registry.cpp
 )
 
