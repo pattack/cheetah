@@ -26,7 +26,7 @@ void configureUart1()
 
 void uartPrint(const char* msg)
 {
-    HAL_UART_Transmit(&huart1, (uint8_t*)msg, 17, HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart1, reinterpret_cast<uint8_t*>(const_cast<char*>(msg)), 18, HAL_MAX_DELAY);
 }
 
 namespace Rebel::Board
