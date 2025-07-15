@@ -6,7 +6,7 @@
 
 namespace Rebel::Board
 {
-    __attribute__((weak)) void Board::Configure()
+    __attribute__((weak)) void Board::Run()
     {
     }
 }

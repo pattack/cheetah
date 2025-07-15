@@ -31,7 +31,7 @@ void uartPrint(const char* msg)
 
 namespace Rebel::Board
 {
-    void Board::Configure()
+    void Board::Run()
     {
         configureUart1();
         uartPrint("Hello from Habilis\r\n");

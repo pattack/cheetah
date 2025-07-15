@@ -3,7 +3,7 @@
 
 int main()
 {
-    Rebel::Board::Board::Configure();
+    Rebel::Board::Board::Run();
     // todo: setup wire
     // todo: connect engine
     // todo: build car

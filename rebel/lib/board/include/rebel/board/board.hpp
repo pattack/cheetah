@@ -10,6 +10,6 @@ namespace Rebel::Board
     {
     public:
         // Initialize board and peripherals
-        static void Configure();
+        static void Run();
     };
 }
