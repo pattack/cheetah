@@ -9,6 +9,11 @@ namespace Rebel::App
     class Main
     {
     public:
-        static void Run();
+        void Run();
+
+    private:
+        void OnThrottle(float pressure);
+        void OnSteer(float angle);
+        void OnBrake(float pressure);
     };
 }

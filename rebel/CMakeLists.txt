@@ -44,7 +44,7 @@ set(LINKER_SCRIPT ${CAR_DIR}/linker.ld)
 # Source files
 set(SRC
         ${STARTUP_SRC}
-        ${CMAKE_SOURCE_DIR}/src/main.cpp
+        ${SRC_DIR}/main.cpp
 )
 
 # ========== Compiler and linker flags ==========
@@ -62,7 +62,7 @@ add_subdirectory(${APP_DIR}/lib/app)
 
 # Linker script
 set_target_properties(firmware.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
-target_link_libraries(firmware.elf PRIVATE car car_${CAR} app app_${APP})
+target_link_libraries(firmware.elf PRIVATE car_${CAR} app app_${APP})
 target_link_options(firmware.elf PRIVATE "-T${LINKER_SCRIPT}")
 
 # ========== Generate HEX ==========

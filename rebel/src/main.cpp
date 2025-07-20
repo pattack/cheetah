@@ -2,5 +2,5 @@
 
 int main()
 {
-    Rebel::App::Main::Run();
+    Rebel::App::Main().Run();
 }

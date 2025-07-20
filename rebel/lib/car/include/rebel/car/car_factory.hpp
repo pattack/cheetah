@@ -4,14 +4,16 @@
 
 #pragma once
 
+#include <memory>
+
+#include <rebel/car/car.hpp>
+
 namespace Rebel::Car
 {
-    class Car;
-
     class CarFactory
     {
     public:
         // Create the car
-        static Car* Build();
+        static std::unique_ptr<Car> Build();
     };
 }

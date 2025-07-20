@@ -22,7 +22,8 @@ target_compile_definitions(car_habilis PUBLIC STM32F103x6)
 
 file(GLOB HAL_DRIVER_SOURCES "${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/*.c")
 target_sources(car_habilis PRIVATE
-        src/car.cpp
+        src/habilis.cpp
+        src/car_factory.cpp
         src/i2c_bus.cpp
 
         ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c

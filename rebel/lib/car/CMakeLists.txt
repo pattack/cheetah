@@ -1,9 +1,5 @@
 add_library(car
-        src/car.cpp
         src/car_factory.cpp
-        src/engine.cpp
-        src/engine_loopback.cpp
-        src/engine_loopless.cpp
 )
 
 target_include_directories(car PUBLIC
