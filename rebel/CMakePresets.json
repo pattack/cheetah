@@ -7,19 +7,20 @@
   },
   "configurePresets": [
     {
-      "name": "habilis",
+      "name": "habilis-starter",
       "hidden": false,
       "generator": "Unix Makefiles",
-      "description": "Build for Habilis",
+      "description": "Build for Habilis using Starter app",
       "cacheVariables": {
-        "BOARD": "habilis"
+        "CAR": "habilis",
+        "APP": "starter"
       }
     }
   ],
   "buildPresets": [
     {
-      "name": "habilis",
-      "configurePreset": "habilis"
+      "name": "habilis-starter",
+      "configurePreset": "habilis-starter"
     }
   ]
 }

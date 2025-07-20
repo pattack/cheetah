@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include <rebel/board/bus.hpp>
+#include <rebel/car/habilis/bus.hpp>
 
-namespace Rebel::Board::Habilis
+namespace Rebel::Car::Habilis
 {
-    class I2CBus final : public Rebel::Board::Bus
+    class I2CBus final : public Bus
     {
     public:
         explicit I2CBus(uint8_t address);

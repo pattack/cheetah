@@ -4,9 +4,9 @@
 
 #include <stm32f1xx_hal.h>
 
-#include <rebel/board/habilis/i2c_bus.hpp>
+#include <rebel/car/habilis/i2c_bus.hpp>
 
-namespace Rebel::Board::Habilis
+namespace Rebel::Car::Habilis
 {
     I2CBus::I2CBus(const uint8_t address)
         : address_(address)

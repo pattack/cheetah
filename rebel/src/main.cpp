@@ -1,10 +1,6 @@
-#include <rebel/board/bus.hpp>
-#include <rebel/board/board.hpp>
+#include <rebel/app/main.hpp>
 
 int main()
 {
-    Rebel::Board::Board::Run();
-    // todo: setup wire
-    // todo: connect engine
-    // todo: build car
+    Rebel::App::Main::Run();
 }

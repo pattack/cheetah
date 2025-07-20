@@ -6,7 +6,8 @@
 
 #include <stm32f1xx_hal.h>
 
-#include <rebel/board/board.hpp>
+#include <rebel/car/car.hpp>
+#include <rebel/car/car_factory.hpp>
 
 UART_HandleTypeDef huart1;
 
@@ -29,11 +30,13 @@ void uartPrint(const char* msg)
     HAL_UART_Transmit(&huart1, reinterpret_cast<uint8_t*>(const_cast<char*>(msg)), 18, HAL_MAX_DELAY);
 }
 
-namespace Rebel::Board
+namespace Rebel::Car
 {
-    void Board::Run()
+    Car* CarFactory::Build()
     {
         configureUart1();
         uartPrint("Hello from Habilis\r\n");
+
+        return nullptr;
     }
 }

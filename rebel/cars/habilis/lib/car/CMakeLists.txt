@@ -1,4 +1,4 @@
-add_library(board_habilis)
+add_library(car_habilis)
 
 set(STM32CUBE_DIR "${CMAKE_SOURCE_DIR}/vendor/stm32cubef1")
 
@@ -18,11 +18,11 @@ endif ()
 
 set(stm32cubef1_SOURCE_DIR "${STM32CUBE_DIR}")
 
-target_compile_definitions(board_habilis PUBLIC STM32F103x6)
+target_compile_definitions(car_habilis PUBLIC STM32F103x6)
 
 file(GLOB HAL_DRIVER_SOURCES "${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/*.c")
-target_sources(board_habilis PRIVATE
-        src/board.cpp
+target_sources(car_habilis PRIVATE
+        src/car.cpp
         src/i2c_bus.cpp
 
         ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
@@ -37,7 +37,7 @@ target_sources(board_habilis PRIVATE
         ${stm32cubef1_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c
 )
 
-target_include_directories(board_habilis PUBLIC
+target_include_directories(car_habilis PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 
         ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Inc
@@ -46,4 +46,4 @@ target_include_directories(board_habilis PUBLIC
         ${stm32cubef1_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F1xx/Include
 )
 
-target_link_libraries(board_habilis PUBLIC board)
+target_link_libraries(car_habilis PUBLIC car)

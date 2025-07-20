@@ -13,6 +13,11 @@ namespace Rebel::Car
     {
     }
 
+    void Car::PowerOn()
+    {
+    }
+
+
     int Car::Speed() const
     {
         constexpr float tireRadius = 1;

@@ -1,9 +1,8 @@
-add_library(board
-        src/board.cpp
-        src/component_registry.cpp
+add_library(app
+        src/main.cpp
 )
 
-target_include_directories(board PUBLIC
+target_include_directories(app PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 

@@ -1,18 +1,30 @@
 cmake_minimum_required(VERSION 3.16)
 
-# ========== Board and toolchain setup ==========
-# You may include a separate toolchain file or set here:
-set(BOARD habilis CACHE STRING "Target board")
-if(NOT DEFINED BOARD)
-    message(FATAL_ERROR "BOARD not defined. Please specify with -DBOARD=boardname")
+set(APPS_ROOT "${CMAKE_SOURCE_DIR}/apps")
+set(CARS_ROOT "${CMAKE_SOURCE_DIR}/cars")
+
+# ========== App setup ==========
+set(APP starter CACHE STRING "Application logic target")
+if(NOT DEFINED APP)
+    message(FATAL_ERROR "APP not defined. Please specify with -DAPP=appname")
 endif()
 
-# Include board toolchain
-set(BOARD_DIR ${CMAKE_SOURCE_DIR}/boards/${BOARD})
-set(CMAKE_TOOLCHAIN_FILE ${BOARD_DIR}/toolchain.cmake)
+# Include app
+set(APP_DIR ${APPS_ROOT}/${APP})
 
-# Print selected board for clarity
-message(STATUS "Building for board: ${BOARD}")
+# ========== Car and toolchain setup ==========
+# You may include a separate toolchain file or set here:
+set(CAR habilis CACHE STRING "Target car which determines a combination of hardware and mechanical features")
+if(NOT DEFINED CAR)
+    message(FATAL_ERROR "CAR not defined. Please specify with -DCAR=carname")
+endif()
+
+# Include car toolchain
+set(CAR_DIR ${CARS_ROOT}/${CAR})
+set(CMAKE_TOOLCHAIN_FILE ${CAR_DIR}/toolchain.cmake)
+
+# Print selected car and app for clarity
+message(STATUS "Building app: ${APP} for car: ${CAR}")
 message(STATUS "Toolchain file: ${CMAKE_TOOLCHAIN_FILE}")
 
 set(CMAKE_CXX_STANDARD 20)
@@ -23,12 +35,11 @@ project(rebel C CXX ASM)
 
 # ========== Directories ==========
 set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
-set(BOARDS_ROOT "${CMAKE_SOURCE_DIR}/boards")
 
 # ========== Sources ==========
 # Startup and linker script
-set(STARTUP_SRC ${BOARD_DIR}/startup.s)
-set(LINKER_SCRIPT ${BOARD_DIR}/linker.ld)
+set(STARTUP_SRC ${CAR_DIR}/startup.s)
+set(LINKER_SCRIPT ${CAR_DIR}/linker.ld)
 
 # Source files
 set(SRC
@@ -44,13 +55,14 @@ add_compile_options(-Wall -Wextra -Os)
 add_executable(firmware.elf ${SRC})
 
 # Libraries
-add_subdirectory(lib/board)
-add_subdirectory(${BOARD_DIR}/lib/board)
 add_subdirectory(lib/car)
+add_subdirectory(${CAR_DIR}/lib/car)
+add_subdirectory(lib/app)
+add_subdirectory(${APP_DIR}/lib/app)
 
 # Linker script
 set_target_properties(firmware.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
-target_link_libraries(firmware.elf PRIVATE car board_${BOARD})
+target_link_libraries(firmware.elf PRIVATE car car_${CAR} app app_${APP})
 target_link_options(firmware.elf PRIVATE "-T${LINKER_SCRIPT}")
 
 # ========== Generate HEX ==========
@@ -61,7 +73,7 @@ add_custom_command(TARGET firmware.elf POST_BUILD
 
 # ========== Generate emulation.resc ==========
 configure_file(
-        ${BOARDS_ROOT}/emulation.resc.tpl
+        ${CARS_ROOT}/emulation.resc.tpl
         ${CMAKE_BINARY_DIR}/emulation.resc
 )
 
@@ -79,5 +91,5 @@ add_custom_target(run_emulation
         COMMAND renode ${CMAKE_BINARY_DIR}/emulation.resc
         DEPENDS firmware.elf
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        COMMENT "Running Renode simulation for ${BOARD}"
+        COMMENT "Running Renode simulation for ${CAR}"
 )

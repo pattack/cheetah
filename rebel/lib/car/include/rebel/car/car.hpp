@@ -18,6 +18,8 @@ namespace Rebel::Car
          */
         int Speed() const;
 
+        void PowerOn();
+
         /**
          * @brief Speeds up/down the car.
          * @param pressure A value between 0 and 1.
