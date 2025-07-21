@@ -1,5 +1,5 @@
 machine LoadPlatformDescription @platforms/cpus/stm32f103.repl
 
-sysbus LoadELF @build/$CAR_NAME-$APP_NAME/firmware.elf
+sysbus LoadELF @build/habilis-starter/firmware.elf
 
 showAnalyzer usart1
