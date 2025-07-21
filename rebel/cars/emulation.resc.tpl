@@ -1,6 +1,6 @@
 using sysbus
 
 mach create
-include @boards/${BOARD}/board.resc
+include @cars/${CAR}/board.resc
 
 start
