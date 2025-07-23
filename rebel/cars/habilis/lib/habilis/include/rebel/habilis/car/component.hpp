@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace Rebel::Car::Habilis
+namespace Rebel::Habilis::Car
 {
     class Component
     {

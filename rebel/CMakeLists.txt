@@ -55,14 +55,15 @@ add_compile_options(-Wall -Wextra -Os)
 add_executable(firmware.elf ${SRC})
 
 # Libraries
+add_subdirectory(lib/toolkit)
 add_subdirectory(lib/car)
-add_subdirectory(${CAR_DIR}/lib/car)
+add_subdirectory(${CAR_DIR}/lib/${CAR})
 add_subdirectory(lib/app)
 add_subdirectory(${APP_DIR}/lib/app)
 
 # Linker script
 set_target_properties(firmware.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
-target_link_libraries(firmware.elf PRIVATE car_${CAR} app app_${APP})
+target_link_libraries(firmware.elf PRIVATE toolkit car_${CAR} app app_${APP})
 target_link_options(firmware.elf PRIVATE "-T${LINKER_SCRIPT}")
 
 # ========== Generate HEX ==========

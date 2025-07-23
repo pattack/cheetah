@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include <rebel/car/habilis/bus.hpp>
+#include <rebel/habilis/car/bus.hpp>
 
-namespace Rebel::Car::Habilis
+namespace Rebel::Habilis::Car
 {
     class I2CBus final : public Bus
     {

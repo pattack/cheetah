@@ -8,7 +8,7 @@
 #include <functional>
 #include <vector>
 
-namespace Rebel::Car::Habilis
+namespace Rebel::Habilis::Car
 {
     class Bus
     {

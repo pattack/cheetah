@@ -6,9 +6,9 @@
 
 #include <stm32f1xx_hal.h>
 
-#include <rebel/car/habilis/habilis.hpp>
+#include <rebel/habilis/car/habilis.hpp>
 
-namespace Rebel::Car::Habilis
+namespace Rebel::Habilis::Car
 {
     void Habilis::Run()
     {

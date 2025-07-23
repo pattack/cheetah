@@ -11,6 +11,8 @@ namespace Rebel::Car
     class Car
     {
     public:
+        virtual ~Car() = default;
+
         /**
          * @brief main loop, blocks forever
          */

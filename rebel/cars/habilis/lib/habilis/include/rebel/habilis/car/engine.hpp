@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include <rebel/car/habilis/engine_driver.hpp>
-#include <rebel/car/habilis/engine_sensor.hpp>
-#include <rebel/car/habilis/rotation_direction.hpp>
+#include <rebel/habilis/car/engine_driver.hpp>
+#include <rebel/habilis/car/engine_sensor.hpp>
+#include <rebel/habilis/car/rotation_direction.hpp>
 
-namespace Rebel::Car
+namespace Rebel::Habilis::Car
 {
     enum class RPM
     {

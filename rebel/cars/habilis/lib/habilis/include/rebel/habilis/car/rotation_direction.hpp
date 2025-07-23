@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace Rebel::Car
+namespace Rebel::Habilis::Car
 {
     enum class RotationDirection
     {

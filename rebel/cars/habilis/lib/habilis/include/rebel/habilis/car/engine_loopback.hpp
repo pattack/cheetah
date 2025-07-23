@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include <rebel/car/habilis/engine_driver.hpp>
-#include <rebel/car/habilis/engine_sensor.hpp>
+#include <rebel/habilis/car/engine_driver.hpp>
+#include <rebel/habilis/car/engine_sensor.hpp>
 
-namespace Rebel::Car
+namespace Rebel::Habilis::Car
 {
     class EngineLoopback : public EngineDriver, public EngineSensor
     {

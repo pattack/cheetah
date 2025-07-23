@@ -5,12 +5,12 @@
 #include <memory>
 
 #include <rebel/car/car_factory.hpp>
-#include "rebel/car/habilis/habilis.hpp"
+#include <rebel/habilis/car/habilis.hpp>
 
 namespace Rebel::Car
 {
     std::unique_ptr<Car> CarFactory::Build()
     {
-        return std::make_unique<Habilis::Habilis>();
+        return std::make_unique<Rebel::Habilis::Car::Habilis>();
     }
 }

@@ -6,9 +6,9 @@
 
 #include <rebel/car/car.hpp>
 
-namespace Rebel::Car::Habilis
+namespace Rebel::Habilis::Car
 {
-    class Habilis : public Car
+    class Habilis : public Rebel::Car::Car
     {
     public:
         void Run() override;

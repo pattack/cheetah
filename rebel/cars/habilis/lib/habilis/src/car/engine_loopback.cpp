@@ -2,9 +2,9 @@
 // Created by pouyan on 1/11/25.
 //
 
-#include <../include/rebel/car/habilis/engine_loopback.hpp>
+#include <rebel/habilis/car/engine_loopback.hpp>
 
-namespace Rebel::Car
+namespace Rebel::Habilis::Car
 {
     void EngineLoopback::WriteRPM(int rpm)
     {
