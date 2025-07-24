@@ -26,7 +26,8 @@ target_sources(car_habilis PRIVATE
         src/car/car_factory.cpp
         src/car/i2c_bus.cpp
 
-        src/toolkit/logger.cpp
+        src/toolkit/store.cpp
+        src/toolkit/usart_logger.cpp
 
         ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
         ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c

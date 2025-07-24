@@ -1,6 +1,7 @@
 using sysbus
 
-mach create
+mach create "${CAR}"
 include @cars/${CAR}/board.resc
 
+# machine StartGdbServer 3333
 start

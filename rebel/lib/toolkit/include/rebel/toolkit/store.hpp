@@ -4,11 +4,13 @@
 
 #pragma once
 
+#include <rebel/toolkit/logger.hpp>
+
 namespace Rebel::Toolkit
 {
-    class Logger
+    class Store
     {
     public:
-        virtual void Log(const char* message) = 0;
+        virtual Logger* GetLogger() = 0;
     };
 }

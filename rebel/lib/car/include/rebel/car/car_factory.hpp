@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include <memory>
-
 #include <rebel/car/car.hpp>
 
 namespace Rebel::Car
@@ -14,6 +12,6 @@ namespace Rebel::Car
     {
     public:
         // Create the car
-        static std::unique_ptr<Car> Build();
+        static Car* Build();
     };
 }

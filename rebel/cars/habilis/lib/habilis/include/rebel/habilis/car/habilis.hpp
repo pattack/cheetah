@@ -5,13 +5,20 @@
 #pragma once
 
 #include <rebel/car/car.hpp>
+#include <rebel/toolkit/store.hpp>
+
+#include <rebel/habilis/toolkit/store.hpp>
 
 namespace Rebel::Habilis::Car
 {
     class Habilis : public Rebel::Car::Car
     {
     public:
+        Habilis();
+
         void Run() override;
+
+        Rebel::Toolkit::Store* GetStore() override;
 
         void SubscribeThrottle(std::function<void(float pressure)> handler) override;
         void SubscribeSteer(std::function<void(float angle)> handler) override;
@@ -29,5 +36,8 @@ namespace Rebel::Habilis::Car
         float GetGear() const override;
         float GetThrottlePosition() const override;
         float GetBrakePosition() const override;
+
+    private:
+        Rebel::Habilis::Toolkit::Store store;
     };
 }

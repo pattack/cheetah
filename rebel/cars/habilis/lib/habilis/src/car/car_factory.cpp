@@ -9,8 +9,10 @@
 
 namespace Rebel::Car
 {
-    std::unique_ptr<Car> CarFactory::Build()
+    Car* CarFactory::Build()
     {
-        return std::make_unique<Rebel::Habilis::Car::Habilis>();
+        static Rebel::Habilis::Car::Habilis car{};
+
+        return &car;
     }
 }

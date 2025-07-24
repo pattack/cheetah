@@ -2,6 +2,8 @@
 // Created by pouyan on 7/21/25.
 //
 
+#include <cstddef>
+
 #include <rebel/app/main.hpp>
 #include <rebel/car/car.hpp>
 #include <rebel/car/car_factory.hpp>
@@ -13,6 +15,7 @@ namespace Rebel::App
         auto car = Rebel::Car::CarFactory::Build();
 
         // Register event listeners
+        car->GetStore()->GetLogger()->Log("Registering listeners\r\n");
         car->SubscribeThrottle([this](const float pressure)
             {
                 this->OnThrottle(pressure);
@@ -29,6 +32,7 @@ namespace Rebel::App
             }
         );
 
+        car->GetStore()->GetLogger()->Log("Running the car\r\n");
         car->Run();
     }
 

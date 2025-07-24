@@ -6,8 +6,8 @@
 
 namespace Rebel::Car
 {
-    __attribute__((weak)) std::unique_ptr<Car> CarFactory::Build()
-    {
-        return std::unique_ptr<Car>{};
-    }
+    // __attribute__((weak)) Car* CarFactory::Build()
+    // {
+    //     return nullptr;
+    // }
 }

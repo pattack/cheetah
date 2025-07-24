@@ -4,14 +4,17 @@
 
 #pragma once
 
+#include <memory>
 #include <functional>
+
+#include <rebel/toolkit/store.hpp>
 
 namespace Rebel::Car
 {
     class Car
     {
     public:
-        virtual ~Car() = default;
+        virtual Rebel::Toolkit::Store* GetStore() = 0;
 
         /**
          * @brief main loop, blocks forever
