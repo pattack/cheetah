@@ -2,7 +2,7 @@
 // Created by pouyan on 7/15/25.
 //
 
-#include <memory>
+#include <cstdio>
 
 #include <stm32f1xx_hal.h>
 #include <rebel/habilis/car/habilis.hpp>
@@ -13,11 +13,24 @@ namespace Rebel::Habilis::Car
 {
     Habilis::Habilis()
     {
+        this->configure();
+
+        this->store = {};
     }
 
     void Habilis::Run()
     {
+        this->store.GetLogger()->Log("Car is running...\r\n");
         this->PushThrottle(0.0);
+
+        char log[64];
+        for (;;)
+        {
+            sprintf(log, "Still running %lu...\r\n", HAL_GetTick());
+            this->store.GetLogger()->Log(log);
+
+            HAL_Delay(250);
+        }
     }
 
     Rebel::Toolkit::Store* Habilis::GetStore()
@@ -95,5 +108,30 @@ namespace Rebel::Habilis::Car
     float Habilis::GetBrakePosition() const
     {
         return 0;
+    }
+
+    void Habilis::configure()
+    {
+        HAL_Init();
+
+        RCC_OscInitTypeDef iosc = {};
+        iosc.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+        iosc.HSEState = RCC_HSE_ON;
+        iosc.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
+        iosc.PLL.PLLState = RCC_PLL_ON;
+        iosc.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+        iosc.PLL.PLLMUL = RCC_PLL_MUL9;
+        HAL_RCC_OscConfig(&iosc);
+
+        RCC_ClkInitTypeDef iclk = {};
+        iclk.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+            | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+        iclk.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+        iclk.AHBCLKDivider = RCC_SYSCLK_DIV1;
+        iclk.APB1CLKDivider = RCC_HCLK_DIV2;
+        iclk.APB2CLKDivider = RCC_HCLK_DIV1;
+        HAL_RCC_ClockConfig(&iclk, FLASH_LATENCY_2);
+
+        SystemCoreClockUpdate();
     }
 }

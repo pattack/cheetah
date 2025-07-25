@@ -7,7 +7,7 @@
 
 namespace Rebel::Habilis::Toolkit
 {
-    Store::Store() : logger(USART1)
+    Store::Store() : logger(USART1, 115200)
     {
     }
 

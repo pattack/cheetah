@@ -2,8 +2,6 @@
 // Created by pouyan on 7/21/25.
 //
 
-#include <cstddef>
-
 #include <rebel/app/main.hpp>
 #include <rebel/car/car.hpp>
 #include <rebel/car/car_factory.hpp>

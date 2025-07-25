@@ -39,5 +39,7 @@ namespace Rebel::Habilis::Car
 
     private:
         Rebel::Habilis::Toolkit::Store store;
+
+        void configure();
     };
 }

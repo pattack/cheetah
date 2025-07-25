@@ -58,7 +58,7 @@ SECTIONS
   } > RAM
 
   /* End of RAM marker */
-  _end = .;
+  end = .;
 }
 
 /* Define symbols for startup assembly */
