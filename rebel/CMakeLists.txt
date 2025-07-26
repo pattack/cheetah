@@ -38,12 +38,10 @@ set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
 # ========== Sources ==========
 # Startup and linker script
-set(STARTUP_SRC ${CAR_DIR}/startup.s)
 set(LINKER_SCRIPT ${CAR_DIR}/linker.ld)
 
 # Source files
 set(SRC
-        ${STARTUP_SRC}
         ${SRC_DIR}/main.cpp
 )
 

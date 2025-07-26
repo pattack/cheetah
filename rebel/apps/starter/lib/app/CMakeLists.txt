@@ -1,6 +1,6 @@
 add_library(app_starter)
 
-target_sources(app_starter PRIVATE
+target_sources(app_starter PUBLIC
         src/main.cpp
 )
 

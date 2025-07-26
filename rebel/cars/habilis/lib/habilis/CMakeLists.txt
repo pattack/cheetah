@@ -21,7 +21,7 @@ set(stm32cubef1_SOURCE_DIR "${STM32CUBE_DIR}")
 target_compile_definitions(car_habilis PUBLIC STM32F103x6)
 
 file(GLOB HAL_DRIVER_SOURCES "${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/*.c")
-target_sources(car_habilis PRIVATE
+target_sources(car_habilis PUBLIC
         ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
         ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c
         ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c
@@ -33,13 +33,15 @@ target_sources(car_habilis PRIVATE
 
         ${stm32cubef1_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c
 
-        src/car/isr.cpp
         src/car/car_factory.cpp
         src/car/habilis.cpp
         src/car/i2c.cpp
 
         src/toolkit/store.cpp
         src/toolkit/usart_logger.cpp
+
+        src/isr.cpp
+        src/startup.s
 )
 
 target_include_directories(car_habilis PUBLIC
