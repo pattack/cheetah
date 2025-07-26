@@ -55,9 +55,9 @@ add_executable(firmware.elf ${SRC})
 # Libraries
 add_subdirectory(lib/toolkit)
 add_subdirectory(lib/car)
-add_subdirectory(${CAR_DIR}/lib/${CAR})
+add_subdirectory(${CAR_DIR})
 add_subdirectory(lib/app)
-add_subdirectory(${APP_DIR}/lib/app)
+add_subdirectory(${APP_DIR})
 
 # Linker script
 set_target_properties(firmware.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
