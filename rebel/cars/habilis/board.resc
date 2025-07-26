@@ -1,5 +1,7 @@
 machine LoadPlatformDescription @platforms/cpus/stm32f103.repl
 
+machine LoadPlatformDescriptionFromString "motors: Mocks.DummyI2CSlave @ i2c1 0x40"
+
 sysbus LoadELF @build/habilis-starter/firmware.elf
 
 showAnalyzer usart1
