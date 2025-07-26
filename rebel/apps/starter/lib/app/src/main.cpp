@@ -30,7 +30,6 @@ namespace Rebel::App
             }
         );
 
-        car->GetStore()->GetLogger()->Log("Running the car\r\n");
         car->Run();
     }
 

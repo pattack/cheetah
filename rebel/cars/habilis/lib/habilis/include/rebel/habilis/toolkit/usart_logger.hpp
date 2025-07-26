@@ -13,13 +13,13 @@ namespace Rebel::Habilis::Toolkit
     class UsartLogger final : public Rebel::Toolkit::Logger
     {
     public:
-        explicit UsartLogger(USART_TypeDef* Instance, uint32_t baudrate);
+        explicit UsartLogger(USART_TypeDef* instance, uint32_t baudrate);
 
         void Log(const char* message) override;
 
     private:
         UART_HandleTypeDef huart{};
 
-        void configure(USART_TypeDef* Instance, uint32_t baudrate);
+        void configure(USART_TypeDef* instance, uint32_t baudrate);
     };
 }

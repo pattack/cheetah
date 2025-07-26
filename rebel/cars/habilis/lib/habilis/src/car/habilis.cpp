@@ -5,31 +5,42 @@
 #include <cstdio>
 
 #include <stm32f1xx_hal.h>
-#include <rebel/habilis/car/habilis.hpp>
 
+#include <rebel/habilis/car/habilis.hpp>
 #include <rebel/habilis/toolkit/store.hpp>
 
 namespace Rebel::Habilis::Car
 {
-    Habilis::Habilis()
+    Habilis::Habilis(): engine(0x40)
     {
         this->configure();
 
         this->store = {};
+        this->engine = I2CBus(I2C1, 0x40);
     }
 
     void Habilis::Run()
     {
-        this->store.GetLogger()->Log("Car is running...\r\n");
-        this->PushThrottle(0.0);
+        this->store.GetLogger()->Log("Car is running\r\n");
 
-        char log[64];
+        constexpr uint8_t cmd[] = {0x00, 0x00};
+        const uint8_t err = this->engine.publish(cmd, sizeof(cmd));
+
+        char log[32];
+        sprintf(log, "i2c send status: %d\r\n", err);
+        this->store.GetLogger()->Log(log);
+
         for (;;)
         {
-            sprintf(log, "Still running %lu...\r\n", HAL_GetTick());
-            this->store.GetLogger()->Log(log);
-
+            this->PushThrottle(0.2);
             HAL_Delay(250);
+            this->PushThrottle(0.7);
+            HAL_Delay(250);
+            this->PushThrottle(0.3);
+            HAL_Delay(250);
+            this->PushThrottle(0.0);
+            HAL_Delay(250);
+            this->PushThrottle(1.0);
         }
     }
 
@@ -52,8 +63,26 @@ namespace Rebel::Habilis::Car
 
     void Habilis::PushThrottle(float pressure)
     {
-        this->store.GetLogger()->Log("Pushing throttle...\r\n");
-        // return this->engine->AdjustRPM(pressure);
+        char log[64];
+        sprintf(log, "Pushing throttle: %d%%\r\n", static_cast<int>(pressure * 100));
+        this->store.GetLogger()->Log(log);
+
+        // todo: return this->engine->AdjustRPM(pressure);
+        constexpr uint8_t channel = 0;
+        constexpr uint16_t on = 0;
+        const uint16_t off = static_cast<uint16_t>(pressure * 4096);
+
+        uint8_t cmd[5];
+        cmd[0] = 0x06 + 4 * channel;
+        cmd[1] = on & 0xFF;
+        cmd[2] = on >> 8;
+        cmd[3] = off & 0xFF;
+        cmd[4] = off >> 8;
+
+        const uint8_t err = this->engine.publish(cmd, sizeof(cmd));
+
+        sprintf(log, "i2c send status: %d\r\n", err);
+        this->store.GetLogger()->Log(log);
     }
 
     void Habilis::ReleaseThrottle()

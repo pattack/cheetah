@@ -14,13 +14,11 @@ namespace Rebel::Habilis::Car
     {
     public:
         // todo: use etl::ivector or vector
-        using ReceiveCallback = std::function<void(const uint8_t* data, size_t length)>;
-
-        virtual ~Bus() = default;
+        using ReceiveCallback = std::function<void(const uint8_t* data)>;
 
         // Send data to the peripheral
         // todo: use etl::ivector or vector
-        virtual bool publish(const uint8_t* data, size_t length) = 0;
+        virtual bool publish(const uint8_t* data) = 0;
 
         // Register a callback for received data (subscriber)
         virtual void subscribe(ReceiveCallback cb) = 0;

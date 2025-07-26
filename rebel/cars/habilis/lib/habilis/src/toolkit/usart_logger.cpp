@@ -8,9 +8,9 @@
 
 namespace Rebel::Habilis::Toolkit
 {
-    UsartLogger::UsartLogger(USART_TypeDef* Instance, uint32_t baudrate)
+    UsartLogger::UsartLogger(USART_TypeDef* instance, uint32_t baudrate)
     {
-        this->configure(Instance, baudrate);
+        this->configure(instance, baudrate);
     }
 
     void UsartLogger::Log(const char* message)
@@ -19,7 +19,7 @@ namespace Rebel::Habilis::Toolkit
                           std::strlen(message), HAL_MAX_DELAY);
     }
 
-    void UsartLogger::configure(USART_TypeDef* Instance, uint32_t baudrate)
+    void UsartLogger::configure(USART_TypeDef* instance, uint32_t baudrate)
     {
         __HAL_RCC_GPIOA_CLK_ENABLE();
         __HAL_RCC_USART1_CLK_ENABLE();
@@ -30,7 +30,7 @@ namespace Rebel::Habilis::Toolkit
         igpio.Speed = GPIO_SPEED_FREQ_HIGH;
         HAL_GPIO_Init(GPIOA, &igpio);
 
-        this->huart.Instance = Instance;
+        this->huart.Instance = instance;
         this->huart.Init.BaudRate = baudrate;
         this->huart.Init.WordLength = UART_WORDLENGTH_8B;
         this->huart.Init.StopBits = UART_STOPBITS_1;

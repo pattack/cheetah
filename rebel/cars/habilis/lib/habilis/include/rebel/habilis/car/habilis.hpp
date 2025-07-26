@@ -7,6 +7,7 @@
 #include <rebel/car/car.hpp>
 #include <rebel/toolkit/store.hpp>
 
+#include <rebel/habilis/car/i2c.hpp>
 #include <rebel/habilis/toolkit/store.hpp>
 
 namespace Rebel::Habilis::Car
@@ -39,6 +40,8 @@ namespace Rebel::Habilis::Car
 
     private:
         Rebel::Habilis::Toolkit::Store store;
+
+        I2CBus engine;
 
         void configure();
     };

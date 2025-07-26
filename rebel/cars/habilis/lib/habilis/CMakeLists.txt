@@ -34,9 +34,9 @@ target_sources(car_habilis PRIVATE
         ${stm32cubef1_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c
 
         src/car/isr.cpp
-        src/car/habilis.cpp
         src/car/car_factory.cpp
-        src/car/i2c_bus.cpp
+        src/car/habilis.cpp
+        src/car/i2c.cpp
 
         src/toolkit/store.cpp
         src/toolkit/usart_logger.cpp
