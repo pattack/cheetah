@@ -41,7 +41,7 @@ namespace Rebel::Habilis::Car
     private:
         Rebel::Habilis::Toolkit::Store store;
 
-        I2CBus engine;
+        I2CBus engine{0x01};
 
         void configure();
     };

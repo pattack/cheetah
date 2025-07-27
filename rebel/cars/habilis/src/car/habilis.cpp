@@ -11,7 +11,7 @@
 
 namespace Rebel::Habilis::Car
 {
-    Habilis::Habilis(): engine(0x40)
+    Habilis::Habilis()
     {
         this->configure();
 
@@ -21,12 +21,12 @@ namespace Rebel::Habilis::Car
 
     void Habilis::Run()
     {
+        char log[32];
         this->store.GetLogger()->Log("Car is running\r\n");
 
-        constexpr uint8_t cmd[] = {0x00, 0x00};
+        constexpr uint8_t cmd[] = {0x00, 0x20};
         const uint8_t err = this->engine.publish(cmd, sizeof(cmd));
 
-        char log[32];
         sprintf(log, "i2c send status: %d\r\n", err);
         this->store.GetLogger()->Log(log);
 
@@ -149,7 +149,7 @@ namespace Rebel::Habilis::Car
         iosc.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
         iosc.PLL.PLLState = RCC_PLL_ON;
         iosc.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-        iosc.PLL.PLLMUL = RCC_PLL_MUL9;
+        iosc.PLL.PLLMUL = RCC_PLL_MUL4;
         HAL_RCC_OscConfig(&iosc);
 
         RCC_ClkInitTypeDef iclk = {};

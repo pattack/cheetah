@@ -38,15 +38,15 @@ namespace Rebel::Habilis::Car
 
     void I2CBus::configure(I2C_TypeDef* instance)
     {
-        // __HAL_AFIO_REMAP_I2C1_DISABLE();
         __HAL_RCC_GPIOB_CLK_ENABLE();
         __HAL_RCC_I2C1_CLK_ENABLE();
+        __HAL_AFIO_REMAP_I2C1_DISABLE();
 
         GPIO_InitTypeDef igpio = {};
         igpio.Pin = GPIO_PIN_6 | GPIO_PIN_7; // PB6=SCL, PB7=SDA
         igpio.Mode = GPIO_MODE_AF_OD;
         igpio.Speed = GPIO_SPEED_FREQ_HIGH;
-        igpio.Pull = GPIO_PULLUP;
+        igpio.Pull = GPIO_NOPULL;
         HAL_GPIO_Init(GPIOB, &igpio);
 
         this->hi2c.Instance = instance;
@@ -56,14 +56,8 @@ namespace Rebel::Habilis::Car
         this->hi2c.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
         this->hi2c.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
         this->hi2c.Init.OwnAddress2 = 0;
-        this->hi2c.Init.GeneralCallMode = I2C_GENERALCALL_ENABLE;
+        this->hi2c.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
         this->hi2c.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-
-        // __HAL_RCC_I2C1_FORCE_RESET();
-        // __HAL_RCC_I2C1_RELEASE_RESET();
-        //
-        // HAL_I2C_DeInit(&this->hi2c);
         HAL_I2C_Init(&this->hi2c);
     }
 }
-
