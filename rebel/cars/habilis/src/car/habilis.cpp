@@ -142,7 +142,10 @@ namespace Rebel::Habilis::Car
     {
         HAL_Init();
 
-        // 8MHz
+        __HAL_RCC_PWR_CLK_ENABLE();
+        __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
+
+        // 16MHz
         RCC_OscInitTypeDef iosc = {};
         iosc.OscillatorType = RCC_OSCILLATORTYPE_HSI;
         iosc.HSIState = RCC_HSI_ON;

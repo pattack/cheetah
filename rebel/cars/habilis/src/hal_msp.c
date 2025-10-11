@@ -24,14 +24,10 @@
   */
 void HAL_MspInit(void)
 {
-    __HAL_RCC_AFIO_CLK_ENABLE();
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
     __HAL_RCC_PWR_CLK_ENABLE();
 
     /* System interrupt init*/
-
-    /** DISABLE: JTAG-DP Disabled and SW-DP Disabled
-    */
-    __HAL_AFIO_REMAP_SWJ_DISABLE();
 }
 
 /**
@@ -53,11 +49,36 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
         igpio.Pin = GPIO_PIN_6 | GPIO_PIN_7;
         igpio.Mode = GPIO_MODE_AF_OD;
         igpio.Pull = GPIO_NOPULL;
-        igpio.Speed = GPIO_SPEED_FREQ_HIGH;
+        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+        igpio.Alternate = GPIO_AF4_I2C1;
         HAL_GPIO_Init(GPIOB, &igpio);
 
         /* Peripheral clock enable */
         __HAL_RCC_I2C1_CLK_ENABLE();
+    }
+    else if (hi2c->Instance == I2C2)
+    {
+        __HAL_RCC_GPIOB_CLK_ENABLE();
+        /**I2C2 GPIO Configuration
+        PB10     ------> I2C2_SCL
+        PB3     ------> I2C2_SDA
+        */
+        igpio.Pin = GPIO_PIN_10;
+        igpio.Mode = GPIO_MODE_AF_OD;
+        igpio.Pull = GPIO_NOPULL;
+        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+        igpio.Alternate = GPIO_AF4_I2C2;
+        HAL_GPIO_Init(GPIOB, &igpio);
+
+        igpio.Pin = GPIO_PIN_3;
+        igpio.Mode = GPIO_MODE_AF_OD;
+        igpio.Pull = GPIO_NOPULL;
+        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+        igpio.Alternate = GPIO_AF9_I2C2;
+        HAL_GPIO_Init(GPIOB, &igpio);
+
+        /* Peripheral clock enable */
+        __HAL_RCC_I2C2_CLK_ENABLE();
     }
 }
 
@@ -82,6 +103,19 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
 
         HAL_GPIO_DeInit(GPIOB, GPIO_PIN_7);
     }
+    else if (hi2c->Instance == I2C2)
+    {
+        /* Peripheral clock disable */
+        __HAL_RCC_I2C2_CLK_DISABLE();
+
+        /**I2C2 GPIO Configuration
+        PB10     ------> I2C2_SCL
+        PB3     ------> I2C2_SDA
+        */
+        HAL_GPIO_DeInit(GPIOB, GPIO_PIN_10);
+
+        HAL_GPIO_DeInit(GPIOB, GPIO_PIN_3);
+    }
 }
 
 /**
@@ -103,14 +137,11 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
         PA9     ------> USART1_TX
         PA10     ------> USART1_RX
         */
-        igpio.Pin = GPIO_PIN_9;
+        igpio.Pin = GPIO_PIN_9 | GPIO_PIN_10;
         igpio.Mode = GPIO_MODE_AF_PP;
-        igpio.Speed = GPIO_SPEED_FREQ_HIGH;
-        HAL_GPIO_Init(GPIOA, &igpio);
-
-        igpio.Pin = GPIO_PIN_10;
-        igpio.Mode = GPIO_MODE_INPUT;
         igpio.Pull = GPIO_NOPULL;
+        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+        igpio.Alternate = GPIO_AF7_USART1;
         HAL_GPIO_Init(GPIOA, &igpio);
     }
 }

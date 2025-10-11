@@ -1,4 +1,4 @@
-# Generic ARM Cortex-M3 toolchain for STM32F103C6 (Blue Pill)
+# Generic ARM Cortex-M4 toolchain for STM32F401 (Black Pill)
 
 # Target system
 set(CMAKE_SYSTEM_NAME Generic)
@@ -15,7 +15,7 @@ set(CMAKE_OBJCOPY ${CROSS_COMPILE}objcopy)
 set(CMAKE_SIZE ${CROSS_COMPILE}size)
 
 # Target CPU options
-set(TARGET_CPU_FLAGS "-mcpu=cortex-m3 -mthumb")
+set(TARGET_CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
 
 # No standard libraries
 set(CMAKE_C_FLAGS_INIT "${TARGET_CPU_FLAGS} -ffreestanding -fdata-sections -ffunction-sections")

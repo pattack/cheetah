@@ -1,4 +1,4 @@
-machine LoadPlatformDescription @platforms/cpus/stm32f103.repl
+machine LoadPlatformDescription @platforms/cpus/stm32f4.repl
 
 machine LoadPlatformDescriptionFromString "motors: Mocks.DummyI2CSlave @ i2c1 0x40"
 
