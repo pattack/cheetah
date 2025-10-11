@@ -4,8 +4,7 @@
 
 #pragma once
 
-#include <stm32f1xx_hal.h>
-
+#include <rebel/habilis/hal.h>
 #include <rebel/habilis/car/bus.hpp>
 
 namespace Rebel::Habilis::Car

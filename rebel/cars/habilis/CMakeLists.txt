@@ -1,37 +1,45 @@
 add_library(car_habilis)
 
-set(STM32CUBE_DIR "${CMAKE_SOURCE_DIR}/vendor/stm32cubef1")
+set(STM32CUBE_DIR "${CMAKE_SOURCE_DIR}/vendor/stm32cubef4")
 
 # Only download if directory doesn't exist
 if (NOT EXISTS "${STM32CUBE_DIR}")
-    message(STATUS "Downloading STM32CubeF1...")
+    message(STATUS "Downloading STM32CubeF4...")
     execute_process(
-            COMMAND git clone --depth 1 --branch v1.8.6 --recurse-submodules
-            https://github.com/STMicroelectronics/STM32CubeF1.git
+            COMMAND git clone --depth 1 --branch v1.28.3 --recurse-submodules
+            https://github.com/STMicroelectronics/STM32CubeF4.git
             "${STM32CUBE_DIR}"
             RESULT_VARIABLE GIT_RESULT
     )
     if (NOT GIT_RESULT EQUAL "0")
-        message(FATAL_ERROR "Failed to clone STM32CubeF1")
+        message(FATAL_ERROR "Failed to clone STM32CubeF4")
     endif ()
 endif ()
 
-set(stm32cubef1_SOURCE_DIR "${STM32CUBE_DIR}")
+target_compile_definitions(car_habilis PUBLIC STM32F401xE)
 
-target_compile_definitions(car_habilis PUBLIC STM32F103x6)
-
-file(GLOB HAL_DRIVER_SOURCES "${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/*.c")
+set(STM32_HAL_DIR "${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Src")
+file(GLOB HAL_DRIVER_SOURCES "${STM32_HAL_DIR}/*.c")
 target_sources(car_habilis PUBLIC
-        ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
-        ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c
-        ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c
-        ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c
-        ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c
-        ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
-        ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_usart.c
-        ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_cortex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_dma.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_dma_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_exti.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_flash.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_flash_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_flash_ramfunc.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_gpio.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_i2c.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_i2c_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_pwr.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_pwr_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_rcc.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_rcc_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_uart.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_usart.c
 
-        ${stm32cubef1_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c
+        ${STM32CUBE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 
         src/car/car_factory.cpp
         src/car/habilis.cpp
@@ -40,6 +48,9 @@ target_sources(car_habilis PUBLIC
         src/toolkit/store.cpp
         src/toolkit/usart_logger.cpp
 
+        src/syscalls.c
+        src/sysmem.c
+        src/hal_msp.c
         src/isr.cpp
         src/startup.s
 )
@@ -47,10 +58,10 @@ target_sources(car_habilis PUBLIC
 target_include_directories(car_habilis PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 
-        ${stm32cubef1_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Inc
+        ${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Inc
 
-        ${stm32cubef1_SOURCE_DIR}/Drivers/CMSIS/Include
-        ${stm32cubef1_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F1xx/Include
+        ${STM32CUBE_DIR}/Drivers/CMSIS/Include
+        ${STM32CUBE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 )
 
-target_link_libraries(car_habilis PUBLIC car)
+target_link_libraries(car_habilis PUBLIC m car)

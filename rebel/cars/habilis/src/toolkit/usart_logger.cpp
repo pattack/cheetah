@@ -21,15 +21,6 @@ namespace Rebel::Habilis::Toolkit
 
     void UsartLogger::configure(USART_TypeDef* instance, uint32_t baudrate)
     {
-        __HAL_RCC_GPIOA_CLK_ENABLE();
-        __HAL_RCC_USART1_CLK_ENABLE();
-
-        GPIO_InitTypeDef igpio = {};
-        igpio.Pin = GPIO_PIN_9;
-        igpio.Mode = GPIO_MODE_AF_PP;
-        igpio.Speed = GPIO_SPEED_FREQ_HIGH;
-        HAL_GPIO_Init(GPIOA, &igpio);
-
         this->huart.Instance = instance;
         this->huart.Init.BaudRate = baudrate;
         this->huart.Init.WordLength = UART_WORDLENGTH_8B;
@@ -38,6 +29,9 @@ namespace Rebel::Habilis::Toolkit
         this->huart.Init.Mode = UART_MODE_TX_RX;
         this->huart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
         this->huart.Init.OverSampling = UART_OVERSAMPLING_16;
-        HAL_UART_Init(&this->huart);
+        if (HAL_UART_Init(&this->huart) != HAL_OK)
+        {
+            // todo: log error
+        }
     }
 }

@@ -4,8 +4,7 @@
 
 #include <cstdio>
 
-#include <stm32f1xx_hal.h>
-
+#include <rebel/habilis/hal.h>
 #include <rebel/habilis/car/habilis.hpp>
 #include <rebel/habilis/toolkit/store.hpp>
 
@@ -142,24 +141,30 @@ namespace Rebel::Habilis::Car
     void Habilis::configure()
     {
         HAL_Init();
+        __HAL_RCC_PWR_CLK_ENABLE();
+        __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
 
         RCC_OscInitTypeDef iosc = {};
-        iosc.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-        iosc.HSEState = RCC_HSE_ON;
-        iosc.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
-        iosc.PLL.PLLState = RCC_PLL_ON;
-        iosc.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-        iosc.PLL.PLLMUL = RCC_PLL_MUL4;
-        HAL_RCC_OscConfig(&iosc);
+        iosc.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+        iosc.HSIState = RCC_HSI_ON;
+        iosc.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+        iosc.PLL.PLLState = RCC_PLL_NONE;
+        if (HAL_RCC_OscConfig(&iosc) != HAL_OK)
+        {
+            // todo: handle error
+        }
 
         RCC_ClkInitTypeDef iclk = {};
         iclk.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
             | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
-        iclk.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+        iclk.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
         iclk.AHBCLKDivider = RCC_SYSCLK_DIV1;
-        iclk.APB1CLKDivider = RCC_HCLK_DIV2;
+        iclk.APB1CLKDivider = RCC_HCLK_DIV1;
         iclk.APB2CLKDivider = RCC_HCLK_DIV1;
-        HAL_RCC_ClockConfig(&iclk, FLASH_LATENCY_2);
+        if (HAL_RCC_ClockConfig(&iclk, FLASH_LATENCY_2) != HAL_OK)
+        {
+            // todo: handle error
+        }
 
         SystemCoreClockUpdate();
     }

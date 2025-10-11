@@ -61,6 +61,7 @@ add_subdirectory(${APP_DIR})
 
 # Linker script
 set_target_properties(firmware.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
+set_target_properties(firmware.elf PROPERTIES ADDITIONAL_CLEAN_FILES ${CMAKE_PROJECT_NAME}.map)
 target_link_libraries(firmware.elf PRIVATE toolkit app_${APP} car_${CAR})
 target_link_options(firmware.elf PRIVATE "-T${LINKER_SCRIPT}")
 
