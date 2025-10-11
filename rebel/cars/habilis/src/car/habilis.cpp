@@ -142,6 +142,7 @@ namespace Rebel::Habilis::Car
     {
         HAL_Init();
 
+        // 8MHz
         RCC_OscInitTypeDef iosc = {};
         iosc.OscillatorType = RCC_OSCILLATORTYPE_HSI;
         iosc.HSIState = RCC_HSI_ON;
