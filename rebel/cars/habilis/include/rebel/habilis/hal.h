@@ -5,6 +5,6 @@
 #ifndef HAL_H
 #define HAL_H
 
-#include <stm32f4xx_hal.h>
+#include <stm32f1xx_hal.h>
 
 #endif //HAL_H

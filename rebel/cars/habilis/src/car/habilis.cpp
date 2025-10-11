@@ -141,8 +141,6 @@ namespace Rebel::Habilis::Car
     void Habilis::configure()
     {
         HAL_Init();
-        __HAL_RCC_PWR_CLK_ENABLE();
-        __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
 
         RCC_OscInitTypeDef iosc = {};
         iosc.OscillatorType = RCC_OSCILLATORTYPE_HSI;
@@ -161,7 +159,7 @@ namespace Rebel::Habilis::Car
         iclk.AHBCLKDivider = RCC_SYSCLK_DIV1;
         iclk.APB1CLKDivider = RCC_HCLK_DIV1;
         iclk.APB2CLKDivider = RCC_HCLK_DIV1;
-        if (HAL_RCC_ClockConfig(&iclk, FLASH_LATENCY_2) != HAL_OK)
+        if (HAL_RCC_ClockConfig(&iclk, FLASH_LATENCY_0) != HAL_OK)
         {
             // todo: handle error
         }
