@@ -32,14 +32,7 @@ namespace Rebel::Habilis::Car
         for (;;)
         {
             this->PushThrottle(0.2);
-            HAL_Delay(250);
-            this->PushThrottle(0.7);
-            HAL_Delay(250);
-            this->PushThrottle(0.3);
-            HAL_Delay(250);
-            this->PushThrottle(0.0);
-            HAL_Delay(250);
-            this->PushThrottle(1.0);
+            HAL_Delay(500);
         }
     }
 
@@ -69,7 +62,7 @@ namespace Rebel::Habilis::Car
         // todo: return this->engine->AdjustRPM(pressure);
         constexpr uint8_t channel = 0;
         constexpr uint16_t on = 0;
-        const uint16_t off = static_cast<uint16_t>(pressure * 4096);
+        const auto off = static_cast<uint16_t>(pressure * 4096);
 
         uint8_t cmd[5];
         cmd[0] = 0x06 + 4 * channel;
@@ -77,7 +70,6 @@ namespace Rebel::Habilis::Car
         cmd[2] = on >> 8;
         cmd[3] = off & 0xFF;
         cmd[4] = off >> 8;
-
         const uint8_t err = this->engine.publish(cmd, sizeof(cmd));
 
         sprintf(log, "i2c send status: %d\r\n", err);
@@ -168,6 +160,7 @@ namespace Rebel::Habilis::Car
             // todo: handle error
         }
 
+        HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSI, RCC_MCODIV_1);
         SystemCoreClockUpdate();
     }
 }

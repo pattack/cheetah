@@ -3,6 +3,11 @@ cmake_minimum_required(VERSION 3.16)
 set(APPS_ROOT "${CMAKE_SOURCE_DIR}/apps")
 set(CARS_ROOT "${CMAKE_SOURCE_DIR}/cars")
 
+# Define the build type
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Debug")
+endif()
+
 # ========== App setup ==========
 set(APP starter CACHE STRING "Application logic target")
 if(NOT DEFINED APP)
@@ -62,7 +67,7 @@ add_subdirectory(${APP_DIR})
 # Linker script
 set_target_properties(firmware.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
 set_target_properties(firmware.elf PROPERTIES ADDITIONAL_CLEAN_FILES ${CMAKE_PROJECT_NAME}.map)
-target_link_libraries(firmware.elf PRIVATE toolkit app_${APP} car_${CAR})
+target_link_libraries(firmware.elf PRIVATE car_${CAR} toolkit app_${APP})
 target_link_options(firmware.elf PRIVATE "-T${LINKER_SCRIPT}")
 
 # ========== Generate HEX ==========

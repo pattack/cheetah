@@ -16,7 +16,7 @@ namespace Rebel::Habilis::Toolkit
     void UsartLogger::Log(const char* message)
     {
         HAL_UART_Transmit(&this->huart, reinterpret_cast<uint8_t*>(const_cast<char*>(message)),
-                          std::strlen(message), HAL_MAX_DELAY);
+                          std::strlen(message), 100);
     }
 
     void UsartLogger::configure(USART_TypeDef* instance, uint32_t baudrate)

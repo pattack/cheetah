@@ -12,9 +12,7 @@
   */
 void NMI_Handler(void)
 {
-    while (1)
-    {
-    }
+    while (1);
 }
 
 /**
@@ -22,9 +20,7 @@ void NMI_Handler(void)
   */
 void HardFault_Handler(void)
 {
-    while (1)
-    {
-    }
+    while (1);
 }
 
 /**
@@ -32,9 +28,7 @@ void HardFault_Handler(void)
   */
 void MemManage_Handler(void)
 {
-    while (1)
-    {
-    }
+    while (1);
 }
 
 /**
@@ -42,9 +36,7 @@ void MemManage_Handler(void)
   */
 void BusFault_Handler(void)
 {
-    while (1)
-    {
-    }
+    while (1);
 }
 
 /**
@@ -52,9 +44,7 @@ void BusFault_Handler(void)
   */
 void UsageFault_Handler(void)
 {
-    while (1)
-    {
-    }
+    while (1);
 }
 
 /**
@@ -92,23 +82,3 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
-
-/**
-  * Brief   This function handles I2C1 (Slave) event interrupt request.
-  * Param   None
-  * Retval  None
-  */
-void I2C1_EV_IRQHandler(void)
-{
-    // todo: HAL_I2C_EV_IRQHandler(&hi2c);
-}
-
-/**
-  * Brief   This function handles I2C1 (Master) error interrupt request.
-  * Param   None
-  * Retval  None
-  */
-void I2C1_ER_IRQHandler(void)
-{
-    // todo: HAL_I2C_ER_IRQHandler(&hi2c);
-}
