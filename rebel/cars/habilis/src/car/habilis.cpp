@@ -10,13 +10,7 @@
 
 namespace Rebel::Habilis::Car
 {
-    Habilis::Habilis()
-    {
-        this->configure();
-
-        this->store = {};
-        this->engine = I2CBus(I2C1, 0x40);
-    }
+    Habilis::Habilis(Rebel::Habilis::Toolkit::Store& store, I2CBus& engine) : store(store), engine(engine) {}
 
     void Habilis::Run()
     {
@@ -130,37 +124,4 @@ namespace Rebel::Habilis::Car
         return 0;
     }
 
-    void Habilis::configure()
-    {
-        HAL_Init();
-
-        __HAL_RCC_PWR_CLK_ENABLE();
-        __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
-
-        // 16MHz
-        RCC_OscInitTypeDef iosc = {};
-        iosc.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-        iosc.HSIState = RCC_HSI_ON;
-        iosc.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-        iosc.PLL.PLLState = RCC_PLL_NONE;
-        if (HAL_RCC_OscConfig(&iosc) != HAL_OK)
-        {
-            // todo: handle error
-        }
-
-        RCC_ClkInitTypeDef iclk = {};
-        iclk.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
-            | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
-        iclk.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
-        iclk.AHBCLKDivider = RCC_SYSCLK_DIV1;
-        iclk.APB1CLKDivider = RCC_HCLK_DIV1;
-        iclk.APB2CLKDivider = RCC_HCLK_DIV1;
-        if (HAL_RCC_ClockConfig(&iclk, FLASH_LATENCY_0) != HAL_OK)
-        {
-            // todo: handle error
-        }
-
-        HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSI, RCC_MCODIV_1);
-        SystemCoreClockUpdate();
-    }
 }

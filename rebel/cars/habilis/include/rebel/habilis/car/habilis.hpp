@@ -15,7 +15,7 @@ namespace Rebel::Habilis::Car
     class Habilis : public Rebel::Car::Car
     {
     public:
-        Habilis();
+        Habilis(Rebel::Habilis::Toolkit::Store& store, I2CBus& engine);
 
         void Run() override;
 
@@ -39,10 +39,7 @@ namespace Rebel::Habilis::Car
         float GetBrakePosition() const override;
 
     private:
-        Rebel::Habilis::Toolkit::Store store;
-
-        I2CBus engine{0x01};
-
-        void configure();
+        Rebel::Habilis::Toolkit::Store& store;
+        I2CBus& engine;
     };
 }

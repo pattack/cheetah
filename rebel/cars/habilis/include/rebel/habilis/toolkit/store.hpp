@@ -6,18 +6,16 @@
 
 #include <rebel/toolkit/store.hpp>
 
-#include <rebel/habilis/toolkit/usart_logger.hpp>
-
 namespace Rebel::Habilis::Toolkit
 {
     class Store final : public Rebel::Toolkit::Store
     {
     public:
-        Store();
+        explicit Store(Rebel::Toolkit::Logger& logger);
 
         Rebel::Toolkit::Logger* GetLogger() override;
 
     private:
-        UsartLogger logger;
+        Rebel::Toolkit::Logger& logger;
     };
 }
