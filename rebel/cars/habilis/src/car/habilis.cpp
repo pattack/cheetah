@@ -18,21 +18,18 @@ namespace Rebel::Habilis::Car
         this->store.GetLogger()->Log("Car is running\r\n");
 
         constexpr uint8_t cmd[] = {0x00, 0x20};
-        const uint8_t err = this->engine.publish(cmd, sizeof(cmd));
+        this->engine.publish(cmd, sizeof(cmd));
 
-        sprintf(log, "i2c send status: %d\r\n", err);
-        this->store.GetLogger()->Log(log);
-
+        float throttle = 0.1;
         for (;;)
         {
-            this->PushThrottle(0.2);
+            this->PushThrottle(throttle);
             HAL_Delay(5000);
-            this->PushThrottle(0.7);
-            HAL_Delay(5000);
-            this->PushThrottle(1);
-            HAL_Delay(5000);
-            this->PushThrottle(0);
-            HAL_Delay(5000);
+
+            throttle += 0.1;
+            if (throttle > 1.0) {
+                throttle = 0;
+            }
         }
     }
 
@@ -70,10 +67,7 @@ namespace Rebel::Habilis::Car
         cmd[2] = on >> 8;
         cmd[3] = off & 0xFF;
         cmd[4] = off >> 8;
-        const uint8_t err = this->engine.publish(cmd, sizeof(cmd));
-
-        sprintf(log, "i2c send status: %d\r\n", err);
-        this->store.GetLogger()->Log(log);
+        this->engine.publish(cmd, sizeof(cmd));
     }
 
     void Habilis::ReleaseThrottle()
