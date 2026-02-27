@@ -126,7 +126,7 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
   */
 void HAL_UART_MspInit(UART_HandleTypeDef* huart)
 {
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitTypeDef igpio = {0};
     if (huart->Instance == USART1)
     {
         /* Peripheral clock enable */
@@ -137,12 +137,12 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
         PA9     ------> USART1_TX
         PA10     ------> USART1_RX
         */
-        GPIO_InitStruct.Pin = GPIO_PIN_9 | GPIO_PIN_10;
-        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-        GPIO_InitStruct.Pull = GPIO_NOPULL;
-        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-        GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
-        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+        igpio.Pin = GPIO_PIN_9 | GPIO_PIN_10;
+        igpio.Mode = GPIO_MODE_AF_PP;
+        igpio.Pull = GPIO_NOPULL;
+        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+        igpio.Alternate = GPIO_AF7_USART1;
+        HAL_GPIO_Init(GPIOA, &igpio);
 
         /* USART1 interrupt Init */
         HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
@@ -158,12 +158,12 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
         PA2     ------> USART2_TX
         PA3     ------> USART2_RX
         */
-        GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_3;
-        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-        GPIO_InitStruct.Pull = GPIO_NOPULL;
-        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-        GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
-        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+        igpio.Pin = GPIO_PIN_2 | GPIO_PIN_3;
+        igpio.Mode = GPIO_MODE_AF_PP;
+        igpio.Pull = GPIO_NOPULL;
+        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+        igpio.Alternate = GPIO_AF7_USART2;
+        HAL_GPIO_Init(GPIOA, &igpio);
     }
 }
 
@@ -204,7 +204,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 
 void HAL_USART_MspInit(USART_HandleTypeDef* husart)
 {
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitTypeDef igpio = {0};
     if (husart->Instance == USART1)
     {
         /* Peripheral clock enable */
@@ -215,12 +215,12 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
         PA9     ------> USART1_TX
         PA10     ------> USART1_RX
         */
-        GPIO_InitStruct.Pin = GPIO_PIN_9 | GPIO_PIN_10;
-        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-        GPIO_InitStruct.Pull = GPIO_NOPULL;
-        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-        GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
-        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+        igpio.Pin = GPIO_PIN_9 | GPIO_PIN_10;
+        igpio.Mode = GPIO_MODE_AF_PP;
+        igpio.Pull = GPIO_NOPULL;
+        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+        igpio.Alternate = GPIO_AF7_USART1;
+        HAL_GPIO_Init(GPIOA, &igpio);
 
         /* USART1 interrupt Init */
         HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
@@ -236,12 +236,12 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
         PA2     ------> USART2_TX
         PA3     ------> USART2_RX
         */
-        GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_3;
-        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-        GPIO_InitStruct.Pull = GPIO_NOPULL;
-        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-        GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
-        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+        igpio.Pin = GPIO_PIN_2 | GPIO_PIN_3;
+        igpio.Mode = GPIO_MODE_AF_PP;
+        igpio.Pull = GPIO_NOPULL;
+        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+        igpio.Alternate = GPIO_AF7_USART2;
+        HAL_GPIO_Init(GPIOA, &igpio);
     }
 }
 

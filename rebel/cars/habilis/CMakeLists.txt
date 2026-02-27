@@ -1,4 +1,5 @@
-add_library(car_habilis)
+add_library(car_habilis INTERFACE)
+add_library(car_habilis_hal OBJECT)
 
 set(STM32CUBE_DIR "${CMAKE_SOURCE_DIR}/vendor/stm32cubef4")
 # Only download if directory doesn't exist
@@ -15,11 +16,11 @@ if (NOT EXISTS "${STM32CUBE_DIR}")
     endif ()
 endif ()
 
-target_compile_definitions(car_habilis PUBLIC USE_HAL_DRIVER STM32F401xE)
+target_compile_definitions(car_habilis INTERFACE USE_HAL_DRIVER STM32F401xE)
+target_compile_definitions(car_habilis_hal PRIVATE USE_HAL_DRIVER STM32F401xE)
 
 set(STM32_HAL_DIR "${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Src")
-file(GLOB HAL_DRIVER_SOURCES "${STM32_HAL_DIR}/*.c")
-target_sources(car_habilis PUBLIC
+target_sources(car_habilis_hal PRIVATE
         ${STM32_HAL_DIR}/stm32f4xx_hal.c
         ${STM32_HAL_DIR}/stm32f4xx_hal_cortex.c
         ${STM32_HAL_DIR}/stm32f4xx_hal_dma.c
@@ -45,16 +46,16 @@ target_sources(car_habilis PUBLIC
         src/sysmem.c
         src/syscalls.c
         src/startup.s
-
-        src/car/car_factory.cpp
-        src/car/habilis.cpp
-        src/car/i2c.cpp
-
-        src/toolkit/store.cpp
-        src/toolkit/usart_logger.cpp
 )
 
-target_include_directories(car_habilis PUBLIC
+set(HAL_GPIO_SOURCE "${STM32_HAL_DIR}/stm32f4xx_hal_gpio.c")
+set_source_files_properties(
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/hal_msp.c
+        ${HAL_GPIO_SOURCE}
+        PROPERTIES COMPILE_OPTIONS "-O0;-mno-unaligned-access;-fno-inline;-fno-tree-sra;-fno-ipa-sra"
+)
+
+target_include_directories(car_habilis_hal PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 
         ${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Inc
@@ -63,4 +64,23 @@ target_include_directories(car_habilis PUBLIC
         ${STM32CUBE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 )
 
-target_link_libraries(car_habilis PUBLIC m car)
+target_sources(car_habilis INTERFACE
+        $<TARGET_OBJECTS:car_habilis_hal>
+        src/car/car_factory.cpp
+        src/car/habilis.cpp
+        src/car/i2c.cpp
+
+        src/toolkit/store.cpp
+        src/toolkit/usart_logger.cpp
+)
+
+target_include_directories(car_habilis INTERFACE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+
+        ${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Inc
+
+        ${STM32CUBE_DIR}/Drivers/CMSIS/Include
+        ${STM32CUBE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+)
+
+target_link_libraries(car_habilis INTERFACE m car)
