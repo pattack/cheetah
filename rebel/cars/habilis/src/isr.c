@@ -82,3 +82,18 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
+
+void USART1_IRQHandler(void)
+{
+  HAL_UART_IRQHandler(GetPeripherals()->huart);
+}
+
+void I2C1_EV_IRQHandler(void)
+{
+  HAL_I2C_EV_IRQHandler(GetPeripherals()->hi2c);
+}
+
+void I2C1_ER_IRQHandler(void)
+{
+  HAL_I2C_ER_IRQHandler(GetPeripherals()->hi2c);
+}

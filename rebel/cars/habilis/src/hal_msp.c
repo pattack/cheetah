@@ -28,6 +28,14 @@ void HAL_MspInit(void)
     __HAL_RCC_PWR_CLK_ENABLE();
 
     /* System interrupt init*/
+    HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USART1_IRQn);
+
+    HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
+
+    HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
 }
 
 /**
@@ -48,7 +56,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
         */
         igpio.Pin = GPIO_PIN_6 | GPIO_PIN_7;
         igpio.Mode = GPIO_MODE_AF_OD;
-        igpio.Pull = GPIO_NOPULL;
+        igpio.Pull = GPIO_PULLUP;
         igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
         igpio.Alternate = GPIO_AF4_I2C1;
         HAL_GPIO_Init(GPIOB, &igpio);
@@ -65,7 +73,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
         */
         igpio.Pin = GPIO_PIN_10;
         igpio.Mode = GPIO_MODE_AF_OD;
-        igpio.Pull = GPIO_NOPULL;
+        igpio.Pull = GPIO_PULLUP;
         igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
         igpio.Alternate = GPIO_AF4_I2C2;
         HAL_GPIO_Init(GPIOB, &igpio);
@@ -116,6 +124,11 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
 
         HAL_GPIO_DeInit(GPIOB, GPIO_PIN_3);
     }
+}
+
+void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef* hi2c)
+{
+
 }
 
 /**
@@ -202,6 +215,11 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
     }
 }
 
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+
+}
+
 void HAL_USART_MspInit(USART_HandleTypeDef* husart)
 {
     GPIO_InitTypeDef igpio = {0};
@@ -272,4 +290,21 @@ void HAL_USART_MspDeInit(USART_HandleTypeDef* husart)
         */
         HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2 | GPIO_PIN_3);
     }
+}
+
+void HAL_USART_TxCpltCallback(USART_HandleTypeDef *husart)
+{
+
+}
+
+Peripherals *connectedDevices;
+
+void SetPeripherals(Peripherals *peripherals)
+{
+    connectedDevices = peripherals;
+}
+
+Peripherals* GetPeripherals()
+{
+    return connectedDevices;
 }

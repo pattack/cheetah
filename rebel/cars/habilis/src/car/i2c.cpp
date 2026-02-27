@@ -17,10 +17,12 @@ namespace Rebel::Habilis::Car
 
     uint32_t I2CBus::publish(const uint8_t* data, const size_t length)
     {
-        HAL_I2C_Master_Transmit(&this->hi2c, this->address_ << 1, const_cast<uint8_t*>(data), length,
-                                100);
+        if (HAL_I2C_GetState(&this->hi2c) == HAL_I2C_STATE_READY)
+        {
+            HAL_I2C_Master_Transmit(&this->hi2c, this->address_ << 1, const_cast<uint8_t*>(data), length, 100);
+        }
 
-        return this->hi2c.ErrorCode;
+        return HAL_I2C_GetError(&this->hi2c);
     }
 
     // void I2CBus::subscribe(const ReceiveCallback cb)
@@ -51,5 +53,9 @@ namespace Rebel::Habilis::Car
         {
             // todo: log error
         }
+
+        auto peripherals = GetPeripherals();
+        peripherals->hi2c = &this->hi2c;
+        SetPeripherals(peripherals);
     }
 }
