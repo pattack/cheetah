@@ -26,7 +26,7 @@ namespace Rebel::Habilis::Car
         for (;;)
         {
             this->PushThrottle(0.2);
-            HAL_Delay(500);
+            HAL_Delay(1000);
         }
     }
 

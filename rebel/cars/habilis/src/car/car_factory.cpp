@@ -53,7 +53,7 @@ namespace Rebel::Car
 
         static Rebel::Habilis::Toolkit::UsartLogger logger{USART1, 115200};
         static Rebel::Habilis::Toolkit::Store store{logger};
-        static Rebel::Habilis::Car::I2CBus engine{I2C1, 0x40};
+        static Rebel::Habilis::Car::I2CBus engine{I2C1, 0x41};
         static Rebel::Habilis::Car::Habilis car{store, engine};
 
         return &car;
