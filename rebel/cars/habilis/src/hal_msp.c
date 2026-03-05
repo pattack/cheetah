@@ -28,14 +28,14 @@ void HAL_MspInit(void)
     __HAL_RCC_PWR_CLK_ENABLE();
 
     /* System interrupt init*/
-    HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(USART1_IRQn);
-
-    HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
-
-    HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
+    // HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+    // HAL_NVIC_EnableIRQ(USART1_IRQn);
+    //
+    // HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
+    // HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
+    //
+    // HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
+    // HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
 }
 
 /**
@@ -47,6 +47,10 @@ void HAL_MspInit(void)
 void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
 {
     GPIO_InitTypeDef igpio = {0};
+    igpio.Mode = GPIO_MODE_AF_OD;
+    igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    igpio.Pull = GPIO_PULLUP;
+
     if (hi2c->Instance == I2C1)
     {
         __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -55,9 +59,6 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
         PB7     ------> I2C1_SDA
         */
         igpio.Pin = GPIO_PIN_6 | GPIO_PIN_7;
-        igpio.Mode = GPIO_MODE_AF_OD;
-        igpio.Pull = GPIO_PULLUP;
-        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
         igpio.Alternate = GPIO_AF4_I2C1;
         HAL_GPIO_Init(GPIOB, &igpio);
 
@@ -72,16 +73,10 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
         PB3     ------> I2C2_SDA
         */
         igpio.Pin = GPIO_PIN_10;
-        igpio.Mode = GPIO_MODE_AF_OD;
-        igpio.Pull = GPIO_PULLUP;
-        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
         igpio.Alternate = GPIO_AF4_I2C2;
         HAL_GPIO_Init(GPIOB, &igpio);
 
         igpio.Pin = GPIO_PIN_3;
-        igpio.Mode = GPIO_MODE_AF_OD;
-        igpio.Pull = GPIO_NOPULL;
-        igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
         igpio.Alternate = GPIO_AF9_I2C2;
         HAL_GPIO_Init(GPIOB, &igpio);
 

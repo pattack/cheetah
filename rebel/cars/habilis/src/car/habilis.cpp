@@ -10,21 +10,59 @@
 
 namespace Rebel::Habilis::Car
 {
-    Habilis::Habilis(Rebel::Habilis::Toolkit::Store& store, I2CBus& engine) : store(store), engine(engine) {}
+    Habilis::Habilis(Rebel::Habilis::Toolkit::Store& store, I2CBus& i2c) : store(store), i2c(i2c) {}
 
     void Habilis::Run()
     {
-        char log[32];
-        this->store.GetLogger()->Log("Car is running\r\n");
+        char log[64];
+        uint8_t cmd[10];
 
-        constexpr uint8_t cmd[] = {0x00, 0x20};
-        this->engine.publish(cmd, sizeof(cmd));
+        sprintf(log, "Warming up the engine\r\n");
+        this->store.GetLogger()->Log(log);
+        HAL_Delay(100);
 
+        for (uint8_t addr = 0x08; addr < 0x78; addr++)
+        {
+            volatile auto ok = this->i2c.device(addr).isReady();
+            sprintf(log, "addr %02X status=%u\r\n", addr, ok);
+            this->store.GetLogger()->Log(log);
+
+            if (ok)
+            {
+                sprintf(log, "Found device at 0x%02X\r\n", addr);
+                this->store.GetLogger()->Log(log);
+            }
+            HAL_Delay(10);
+        }
+
+        auto engine = this->i2c.device(0x41);
+        cmd[0] = 0x00;
+        cmd[1] = 0x20;
+        engine.send(cmd, 2);
+        HAL_Delay(100);
+
+        this->store.GetLogger()->Log("Touching the throttle pedal\r\n");
+        HAL_Delay(100);
+
+        auto iPressure = this->i2c.device(0x48);
+        // cmd[0] = 0x01;
+        // cmd[1] = 0xC5;
+        // cmd[2] = 0x83;
+        // iPressure->send(cmd, 3);
+        // HAL_Delay(100);
+
+        uint8_t pressure[2];
         float throttle = 0.1;
         for (;;)
         {
-            this->PushThrottle(throttle);
-            HAL_Delay(5000);
+            // cmd[0] = 0x00;
+            // iPressure->send(cmd, 1);
+            // HAL_Delay(100);
+            const auto err = iPressure.receive(pressure, 2);
+            // const auto err = HAL_I2C_Master_Receive(&iPressure.hi2c, 0x48 << 1, pressure, 2, 100);
+            sprintf(log, "Read pressure (%d): %d\r\n", err, (pressure[0] << 8) | pressure[1]);
+            this->store.GetLogger()->Log(log);
+            HAL_Delay(1000);
 
             throttle += 0.1;
             if (throttle > 1.0) {
@@ -61,13 +99,14 @@ namespace Rebel::Habilis::Car
         constexpr uint16_t on = 0;
         const auto off = static_cast<uint16_t>(pressure * 4096);
 
+        auto engine = this->i2c.device(0x41);
         uint8_t cmd[5];
         cmd[0] = 0x06 + 4 * channel;
         cmd[1] = on & 0xFF;
         cmd[2] = on >> 8;
         cmd[3] = off & 0xFF;
         cmd[4] = off >> 8;
-        this->engine.publish(cmd, sizeof(cmd));
+        engine.send(cmd, sizeof(cmd));
     }
 
     void Habilis::ReleaseThrottle()

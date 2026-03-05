@@ -17,7 +17,7 @@ namespace Rebel::Habilis::Toolkit
         void Log(const char* message) override;
 
     private:
-        UART_HandleTypeDef huart{};
+        UART_HandleTypeDef huart;
 
         void configure(USART_TypeDef* instance, uint32_t baudrate);
     };

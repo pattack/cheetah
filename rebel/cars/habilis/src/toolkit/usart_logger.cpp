@@ -8,7 +8,7 @@
 
 namespace Rebel::Habilis::Toolkit
 {
-    UsartLogger::UsartLogger(USART_TypeDef* instance, uint32_t baudrate)
+    UsartLogger::UsartLogger(USART_TypeDef* instance, uint32_t baudrate) : huart{}
     {
         this->configure(instance, baudrate);
     }
@@ -36,9 +36,5 @@ namespace Rebel::Habilis::Toolkit
         {
             // todo: log error
         }
-
-        auto peripherals = GetPeripherals();
-        peripherals->huart = &this->huart;
-        SetPeripherals(peripherals);
     }
 }

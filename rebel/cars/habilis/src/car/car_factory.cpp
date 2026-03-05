@@ -6,7 +6,7 @@
 
 #include <rebel/car/car_factory.hpp>
 #include <rebel/habilis/hal.h>
-#include <rebel/habilis/car/i2c.hpp>
+#include <rebel/habilis/car/i2c_bus.hpp>
 #include <rebel/habilis/car/habilis.hpp>
 #include <rebel/habilis/toolkit/store.hpp>
 #include <rebel/habilis/toolkit/usart_logger.hpp>
@@ -53,8 +53,9 @@ namespace Rebel::Car
 
         static Rebel::Habilis::Toolkit::UsartLogger logger{USART1, 115200};
         static Rebel::Habilis::Toolkit::Store store{logger};
-        static Rebel::Habilis::Car::I2CBus engine{I2C1, 0x41};
-        static Rebel::Habilis::Car::Habilis car{store, engine};
+
+        static Rebel::Habilis::Car::I2CBus i2c1{I2C1};
+        static Rebel::Habilis::Car::Habilis car{store, i2c1};
 
         return &car;
     }

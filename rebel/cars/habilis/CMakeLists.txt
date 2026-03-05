@@ -55,7 +55,8 @@ target_sources(car_habilis INTERFACE
         $<TARGET_OBJECTS:car_hal>
         src/car/car_factory.cpp
         src/car/habilis.cpp
-        src/car/i2c.cpp
+        src/car/i2c_bus.cpp
+        src/car/i2c_device.cpp
         src/toolkit/store.cpp
         src/toolkit/usart_logger.cpp
 )

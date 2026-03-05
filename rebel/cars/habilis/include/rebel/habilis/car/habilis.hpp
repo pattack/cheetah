@@ -7,7 +7,7 @@
 #include <rebel/car/car.hpp>
 #include <rebel/toolkit/store.hpp>
 
-#include <rebel/habilis/car/i2c.hpp>
+#include <rebel/habilis/car/i2c_device.hpp>
 #include <rebel/habilis/toolkit/store.hpp>
 
 namespace Rebel::Habilis::Car
@@ -15,7 +15,7 @@ namespace Rebel::Habilis::Car
     class Habilis : public Rebel::Car::Car
     {
     public:
-        Habilis(Rebel::Habilis::Toolkit::Store& store, I2CBus& engine);
+        Habilis(Rebel::Habilis::Toolkit::Store& store, I2CBus& i2c);
 
         void Run() override;
 
@@ -40,6 +40,6 @@ namespace Rebel::Habilis::Car
 
     private:
         Rebel::Habilis::Toolkit::Store& store;
-        I2CBus& engine;
+        I2CBus& i2c;
     };
 }
