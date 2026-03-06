@@ -41,5 +41,9 @@ namespace Rebel::Habilis::Car
     private:
         Rebel::Habilis::Toolkit::Store& store;
         I2CBus& i2c;
+
+    protected:
+        void boot() const;
+        void scanDevices() const;
     };
 }

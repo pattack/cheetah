@@ -35,6 +35,8 @@ namespace Rebel::Habilis::Car
 
     protected:
         void configure(I2C_TypeDef *instance);
+
         void waitForReadiness();
+        static uint8_t addressOnWire(uint8_t address);
     };
 };

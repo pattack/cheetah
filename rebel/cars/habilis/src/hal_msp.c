@@ -30,10 +30,10 @@ void HAL_MspInit(void)
     /* System interrupt init*/
     // HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
     // HAL_NVIC_EnableIRQ(USART1_IRQn);
-    //
+
     // HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
     // HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
-    //
+
     // HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
     // HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
 }

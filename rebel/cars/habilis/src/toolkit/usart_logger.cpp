@@ -15,11 +15,10 @@ namespace Rebel::Habilis::Toolkit
 
     void UsartLogger::Log(const char* message)
     {
-        if (HAL_UART_GetState(&this->huart) == HAL_UART_STATE_READY)
-        {
-            HAL_UART_Transmit(&this->huart, reinterpret_cast<uint8_t*>(const_cast<char*>(message)),
+        while (HAL_UART_GetState(&this->huart) != HAL_UART_STATE_READY) {}
+
+        HAL_UART_Transmit(&this->huart, reinterpret_cast<uint8_t*>(const_cast<char*>(message)),
                               std::strlen(message), 100);
-        }
     }
 
     void UsartLogger::configure(USART_TypeDef* instance, uint32_t baudrate)

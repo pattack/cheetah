@@ -9,18 +9,18 @@ namespace Rebel::Habilis::Car {
     {
     }
 
-    bool I2CDevice::isReady()
+    HAL_StatusTypeDef I2CDevice::isReady() const
     {
-        return this->bus->isDeviceReady(this->address) == HAL_OK;
+        return this->bus->isDeviceReady(this->address);
     }
 
-    bool I2CDevice::send(const uint8_t* data, const size_t length)
+    HAL_StatusTypeDef I2CDevice::send(const uint8_t* data, const size_t length) const
     {
-        return this->bus->write(this->address, data, length) == HAL_OK;
+        return this->bus->write(this->address, data, length);
     }
 
-    bool I2CDevice::receive(uint8_t* data, const size_t length)
+    HAL_StatusTypeDef I2CDevice::receive(uint8_t* data, const size_t length) const
     {
-        return this->bus->read(this->address, data, length) == HAL_OK;
+        return this->bus->read(this->address, data, length);
     }
 }

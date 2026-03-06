@@ -1,6 +1,7 @@
 machine LoadPlatformDescription @platforms/cpus/stm32f4.repl
 
-machine LoadPlatformDescriptionFromString "motors: Mocks.DummyI2CSlave @ i2c1 0x40"
+machine LoadPlatformDescriptionFromString "motors: Mocks.DummyI2CSlave @ i2c1 0x41"
+machine LoadPlatformDescriptionFromString "throttle: Mocks.DummyI2CSlave @ i2c1 0x48"
 
 sysbus LoadELF @build/habilis-starter/firmware.elf
 

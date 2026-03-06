@@ -15,9 +15,9 @@ namespace Rebel::Habilis::Car
     public:
         explicit I2CDevice(I2CBus* bus, uint8_t address);
 
-        [[nodiscard]] bool isReady();
-        bool send(const uint8_t* data, size_t length);
-        bool receive(uint8_t* data, size_t length);
+        [[nodiscard]] HAL_StatusTypeDef isReady() const;
+        HAL_StatusTypeDef send(const uint8_t* data, size_t length) const;
+        HAL_StatusTypeDef receive(uint8_t* data, size_t length) const;
 
     private:
         I2CBus* bus;

@@ -19,6 +19,7 @@ namespace Rebel::Habilis::Toolkit
     private:
         UART_HandleTypeDef huart;
 
+    protected:
         void configure(USART_TypeDef* instance, uint32_t baudrate);
     };
 }

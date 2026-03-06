@@ -22,21 +22,22 @@ namespace Rebel::Habilis::Car
     {
         this->waitForReadiness();
 
-        return HAL_I2C_IsDeviceReady(&this->hi2c, address << 1, 1, 100);
+        return HAL_I2C_IsDeviceReady(&this->hi2c, I2CBus::addressOnWire(address), 1, 100);
     }
 
     HAL_StatusTypeDef I2CBus::write(const uint8_t address, const uint8_t* data, const size_t length)
     {
         this->waitForReadiness();
 
-        return HAL_I2C_Master_Transmit(&this->hi2c, address << 1, const_cast<uint8_t*>(data), length, 100);
+        return HAL_I2C_Master_Transmit(&this->hi2c, I2CBus::addressOnWire(address), const_cast<uint8_t*>(data),
+            length, 100);
     }
 
     HAL_StatusTypeDef I2CBus::read(const uint8_t address, uint8_t* data, const size_t length)
     {
         this->waitForReadiness();
 
-        return HAL_I2C_Master_Receive(&this->hi2c, address << 1, data, length, 100);
+        return HAL_I2C_Master_Receive(&this->hi2c, I2CBus::addressOnWire(address), data, length, 100);
     }
 
     uint32_t I2CBus::error()
@@ -64,5 +65,10 @@ namespace Rebel::Habilis::Car
     void I2CBus::waitForReadiness()
     {
         while (HAL_I2C_GetState(&this->hi2c) != HAL_I2C_STATE_READY) {}
+    }
+
+    uint8_t I2CBus::addressOnWire(const uint8_t address)
+    {
+        return address << 1;
     }
 }
