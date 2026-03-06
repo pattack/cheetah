@@ -11,6 +11,8 @@ namespace Rebel::Toolkit
     class Store
     {
     public:
+        virtual ~Store() = default;
+
         virtual Logger* GetLogger() = 0;
     };
-}
+};

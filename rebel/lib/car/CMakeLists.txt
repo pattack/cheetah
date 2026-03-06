@@ -1,5 +1,5 @@
 add_library(car
-        src/car_factory.cpp
+        src/virtual.cpp
 )
 
 target_include_directories(car PUBLIC

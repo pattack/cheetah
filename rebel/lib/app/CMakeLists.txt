@@ -1,5 +1,5 @@
 add_library(app
-        src/main.cpp
+        src/virtual.cpp
 )
 
 target_include_directories(app PUBLIC

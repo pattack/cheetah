@@ -1,5 +1,5 @@
 add_library(toolkit
-        src/toolkit.cpp
+        src/virtual.cpp
 )
 
 target_include_directories(toolkit PUBLIC

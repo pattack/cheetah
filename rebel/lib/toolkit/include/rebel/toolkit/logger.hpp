@@ -4,13 +4,13 @@
 
 #pragma once
 
-#include <cstdint>
-
 namespace Rebel::Toolkit
 {
     class Logger
     {
     public:
+        virtual ~Logger() = default;
+
         virtual void Log(const char* message) = 0;
     };
-}
+};
