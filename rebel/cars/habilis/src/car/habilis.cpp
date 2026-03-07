@@ -20,7 +20,7 @@ namespace Rebel::Habilis::Car
         this->boot();
 
         auto iPressure = this->i2c.device(0x48);
-        cmd[0] = 0x80;
+        cmd[0] = 0x00;
         iPressure.send(cmd, 1);
 
         uint8_t pressure[3] = {};

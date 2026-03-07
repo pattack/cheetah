@@ -1,8 +1,13 @@
 machine LoadPlatformDescription @platforms/cpus/stm32f4.repl
 
-machine LoadPlatformDescriptionFromString "motors: Mocks.DummyI2CSlave @ i2c1 0x41"
-machine LoadPlatformDescriptionFromString "throttle: Mocks.DummyI2CSlave @ i2c1 0x48"
+machine LoadPlatformDescriptionFromString "pca9685: Mocks.DummyI2CSlave @ i2c1 0x41"
+machine LoadPlatformDescriptionFromString "ads1110: Mocks.DummyI2CSlave @ i2c1 0x48"
+machine LoadPlatformDescriptionFromString "eeprom24c04a: Mocks.DummyI2CSlave @ i2c1 0x50"
 
+include @cars/habilis/renode/peripherals.py
+
+mach set "habilis"
 sysbus LoadELF @build/habilis-starter/firmware.elf
+python "setup_peripherals(monitor, 'pca9685', 'ads1110', 'eeprom24c04a')"
 
 showAnalyzer usart1
