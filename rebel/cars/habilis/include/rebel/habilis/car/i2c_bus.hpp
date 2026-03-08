@@ -23,20 +23,21 @@ namespace Rebel::Habilis::Car
         I2CBus(I2CBus&&) = delete;
         I2CBus& operator=(I2CBus&&) = delete;
 
-        I2CDevice device(uint8_t address);
+        I2CDevice device(uint16_t address);
         uint32_t error();
 
     private:
         I2C_HandleTypeDef hi2c;
 
-        HAL_StatusTypeDef isDeviceReady(uint8_t address);
-        HAL_StatusTypeDef write(uint8_t address, const uint8_t* data, size_t length);
-        HAL_StatusTypeDef read(uint8_t address, uint8_t* data, size_t length);
+        HAL_StatusTypeDef isDeviceReady(uint16_t address);
+        HAL_StatusTypeDef write(uint16_t address, const uint8_t* data, size_t length);
+        HAL_StatusTypeDef read(uint16_t address, uint8_t* data, size_t length);
 
     protected:
         void configure(I2C_TypeDef *instance);
 
         void waitForReadiness();
-        static uint8_t addressOnWire(uint8_t address);
+        void recover();
+        static uint16_t addressOnWire(uint16_t address);
     };
 };

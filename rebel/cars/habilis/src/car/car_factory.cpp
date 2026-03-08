@@ -11,20 +11,15 @@
 #include <rebel/habilis/toolkit/store.hpp>
 #include <rebel/habilis/toolkit/usart_logger.hpp>
 
-namespace Rebel::Car
-{
-    void BoardInitOnce()
-    {
+namespace Rebel::Car {
+    void BoardInitOnce() {
         static bool done = false;
-        if (done)
-        {
+        if (done) {
             return;
         }
 
         HAL_Init();
-
-        __HAL_RCC_PWR_CLK_ENABLE();
-        __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
+        HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE2);
 
         RCC_OscInitTypeDef iosc = {};
         iosc.OscillatorType = RCC_OSCILLATORTYPE_HSI;
@@ -35,7 +30,7 @@ namespace Rebel::Car
 
         RCC_ClkInitTypeDef iclk = {};
         iclk.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
-            | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+                         | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
         iclk.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
         iclk.AHBCLKDivider = RCC_SYSCLK_DIV1;
         iclk.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -44,11 +39,11 @@ namespace Rebel::Car
 
         HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSI, RCC_MCODIV_1);
         SystemCoreClockUpdate();
+
         done = true;
     }
 
-    Car* CarFactory::Build()
-    {
+    Car *CarFactory::Build() {
         BoardInitOnce();
 
         static Rebel::Habilis::Toolkit::UsartLogger logger{USART1, 115200};

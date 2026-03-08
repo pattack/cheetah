@@ -13,7 +13,7 @@ namespace Rebel::Habilis::Car
     class I2CDevice
     {
     public:
-        explicit I2CDevice(I2CBus* bus, uint8_t address);
+        explicit I2CDevice(I2CBus* bus, uint16_t address);
 
         [[nodiscard]] HAL_StatusTypeDef isReady() const;
         HAL_StatusTypeDef send(const uint8_t* data, size_t length) const;
@@ -21,6 +21,6 @@ namespace Rebel::Habilis::Car
 
     private:
         I2CBus* bus;
-        uint8_t address;
+        uint16_t address;
     };
 };

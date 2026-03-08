@@ -5,7 +5,7 @@
 #include <rebel/habilis/car/i2c_device.hpp>
 
 namespace Rebel::Habilis::Car {
-    I2CDevice::I2CDevice(I2CBus* bus, const uint8_t address) : bus(bus), address(address)
+    I2CDevice::I2CDevice(I2CBus* bus, const uint16_t address) : bus(bus), address(address)
     {
     }
 
