@@ -15,14 +15,6 @@ endif ()
 
 include(src/hal/CMakeLists.txt)
 
-add_library(car_hal OBJECT)
-target_compile_definitions(car_hal PRIVATE ${CAR_HAL_DEFINES})
-target_include_directories(car_hal PRIVATE ${CAR_HAL_INCLUDES})
-target_sources(car_hal PRIVATE
-        ${CAR_HAL_STM32_HAL_SOURCES}
-        ${CAR_HAL_LOWLEVEL_SOURCES}
-)
-
 add_library(car_habilis INTERFACE)
 target_compile_definitions(car_habilis INTERFACE ${CAR_HAL_DEFINES})
 target_include_directories(car_habilis INTERFACE ${CAR_HAL_INCLUDES})
