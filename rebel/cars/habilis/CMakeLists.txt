@@ -22,13 +22,6 @@ target_sources(car_hal PRIVATE
         ${CAR_HAL_STM32_HAL_SOURCES}
         ${CAR_HAL_LOWLEVEL_SOURCES}
 )
-target_compile_options(car_hal PRIVATE
-        -O0
-        -mno-unaligned-access
-        # -fno-inline
-        -fno-tree-sra
-        -fno-ipa-sra
-)
 
 add_library(car_habilis INTERFACE)
 target_compile_definitions(car_habilis INTERFACE ${CAR_HAL_DEFINES})

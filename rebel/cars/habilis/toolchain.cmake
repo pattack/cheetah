@@ -21,11 +21,11 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 set(TARGET_CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16")
 
 # No standard libraries
-set(CMAKE_C_FLAGS_INIT "${TARGET_CPU_FLAGS} -ffreestanding -fdata-sections -ffunction-sections")
+set(CMAKE_C_FLAGS_INIT "${TARGET_CPU_FLAGS} -ffreestanding")
 set(CMAKE_CXX_FLAGS_INIT "${TARGET_CPU_FLAGS} -fno-rtti -fno-exceptions -fno-threadsafe-statics")
 set(CMAKE_ASM_FLAGS_INIT "${TARGET_CPU_FLAGS} -x assembler-with-cpp -MMD -MP")
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "${TARGET_CPU_FLAGS}")
 set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} --specs=nano.specs")
-set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -Wl,-Map=${CMAKE_PROJECT_NAME}.map -Wl,--gc-sections")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -Wl,-Map=${CMAKE_PROJECT_NAME}.map")
 set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -Wl,--print-memory-usage")

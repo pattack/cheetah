@@ -51,8 +51,19 @@ set(SRC
 )
 
 # ========== Compiler and linker flags ==========
-# Shared C flags (warnings, optimization)
-add_compile_options(-Wall -Wextra -Os)
+add_compile_options(-Wall -Wextra)
+
+# Centralized optimization/debug policy.
+add_compile_options(
+        $<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:Debug>>:-O0>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Debug>>:-O0>
+        $<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:Debug>>:-g3>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Debug>>:-g3>
+        $<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:Release>>:-Os>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Release>>:-Os>
+        $<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:Release>>:-g0>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Release>>:-g0>
+)
 
 # ========== Build main executable ==========
 add_executable(firmware.elf ${SRC})
