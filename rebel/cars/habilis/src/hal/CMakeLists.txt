@@ -1,3 +1,18 @@
+set(STM32CUBE_DIR "${CMAKE_SOURCE_DIR}/vendor/stm32cubef4")
+# Only download if directory doesn't exist.
+if (NOT EXISTS "${STM32CUBE_DIR}")
+    message(STATUS "Downloading STM32CubeF4...")
+    execute_process(
+            COMMAND git clone --depth 1 --branch v1.28.3 --recurse-submodules
+            https://github.com/STMicroelectronics/STM32CubeF4.git
+            "${STM32CUBE_DIR}"
+            RESULT_VARIABLE GIT_RESULT
+    )
+    if (NOT GIT_RESULT EQUAL "0")
+        message(FATAL_ERROR "Failed to clone STM32CubeF4")
+    endif ()
+endif ()
+
 set(STM32_HAL_DIR "${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Src")
 file(GLOB CAR_HAL_STM32_HAL_SOURCES "${STM32_HAL_DIR}/stm32f4xx_hal*.c")
 list(FILTER CAR_HAL_STM32_HAL_SOURCES EXCLUDE REGEX "_template\\.c$")
