@@ -14,8 +14,25 @@ if (NOT EXISTS "${STM32CUBE_DIR}")
 endif ()
 
 set(STM32_HAL_DIR "${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Src")
-file(GLOB CAR_HAL_STM32_HAL_SOURCES "${STM32_HAL_DIR}/stm32f4xx_hal*.c")
-list(FILTER CAR_HAL_STM32_HAL_SOURCES EXCLUDE REGEX "_template\\.c$")
+set(CAR_HAL_STM32_HAL_SOURCES
+        ${STM32_HAL_DIR}/stm32f4xx_hal.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_cortex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_dma.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_dma_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_exti.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_flash.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_flash_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_flash_ramfunc.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_gpio.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_i2c.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_i2c_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_pwr.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_pwr_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_rcc.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_rcc_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_uart.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_usart.c
+)
 
 set(CAR_HAL_DEFINES
         USE_HAL_DRIVER

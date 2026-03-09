@@ -26,7 +26,11 @@
 
   .syntax unified
   .cpu cortex-m4
+#if defined(REBEL_FPU_HARD) || defined(REBEL_FPU_SOFTFP)
   .fpu fpv4-sp-d16
+#else
+  .fpu softvfp
+#endif
   .thumb
 
 .global  g_pfnVectors
