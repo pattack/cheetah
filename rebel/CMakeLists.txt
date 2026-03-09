@@ -3,6 +3,13 @@ cmake_minimum_required(VERSION 3.16)
 set(APPS_ROOT "${CMAKE_SOURCE_DIR}/apps")
 set(CARS_ROOT "${CMAKE_SOURCE_DIR}/cars")
 
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS ON)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS ON)
+
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug")
@@ -31,10 +38,6 @@ set(CMAKE_TOOLCHAIN_FILE ${CAR_DIR}/toolchain.cmake)
 # Print selected car and app for clarity
 message(STATUS "Building app: ${APP} for car: ${CAR}")
 message(STATUS "Toolchain file: ${CMAKE_TOOLCHAIN_FILE}")
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
 project(rebel C CXX ASM)
 
