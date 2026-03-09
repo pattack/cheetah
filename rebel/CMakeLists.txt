@@ -109,7 +109,7 @@ configure_file(
 
 # Add custom target to run Renode test
 add_custom_target(run_emulation
-        COMMAND renode ${CMAKE_BINARY_DIR}/emulation.resc
+        COMMAND renode --console ${CMAKE_BINARY_DIR}/emulation.resc
         DEPENDS firmware
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         COMMENT "Running Renode simulation for ${CAR}"
