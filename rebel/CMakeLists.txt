@@ -14,6 +14,7 @@ set(CMAKE_CXX_EXTENSIONS ON)
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug")
 endif()
+message("Build type: " ${CMAKE_BUILD_TYPE})
 
 # ========== App setup ==========
 set(APP starter CACHE STRING "Application logic target")
@@ -62,6 +63,7 @@ add_compile_options(
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Debug>>:-O0>
         $<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:Debug>>:-g3>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Debug>>:-g3>
+
         $<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:Release>>:-Os>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Release>>:-Os>
         $<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:Release>>:-g0>
@@ -69,7 +71,7 @@ add_compile_options(
 )
 
 # ========== Build main executable ==========
-add_executable(firmware.elf ${SRC})
+add_executable(firmware ${SRC})
 
 # Libraries
 add_subdirectory(lib/toolkit)
@@ -79,16 +81,25 @@ add_subdirectory(lib/app)
 add_subdirectory(${APP_DIR})
 
 # Linker script
-set_target_properties(firmware.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
-set_target_properties(firmware.elf PROPERTIES ADDITIONAL_CLEAN_FILES ${CMAKE_PROJECT_NAME}.map)
-target_link_libraries(firmware.elf PRIVATE car_${CAR} toolkit app_${APP})
-target_link_options(firmware.elf PRIVATE "-T${LINKER_SCRIPT}")
+set_target_properties(firmware PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
+set_target_properties(firmware PROPERTIES ADDITIONAL_CLEAN_FILES ${CMAKE_PROJECT_NAME}.map)
+target_link_libraries(firmware PRIVATE car_${CAR} toolkit app_${APP})
+target_link_options(firmware PRIVATE "-T${LINKER_SCRIPT}")
+
+# ========== Print size ==========
+add_custom_command(TARGET firmware POST_BUILD
+        COMMAND ${CMAKE_SIZE} firmware.elf
+        COMMENT "Firmware size"
+)
 
 # ========== Generate HEX ==========
-add_custom_command(TARGET firmware.elf POST_BUILD
+add_custom_command(TARGET firmware POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -O ihex firmware.elf firmware.hex
         COMMENT "Generating firmware.hex from firmware.elf"
 )
+
+# ========== Clean target ==========
+# Not needed: use `cmake --build . --target clean`
 
 # ========== Generate emulation.resc ==========
 configure_file(
@@ -96,19 +107,10 @@ configure_file(
         ${CMAKE_BINARY_DIR}/emulation.resc
 )
 
-# ========== Clean target ==========
-# Not needed: use `cmake --build . --target clean`
-
-# ========== Print size ==========
-add_custom_command(TARGET firmware.elf POST_BUILD
-        COMMAND ${CMAKE_SIZE} firmware.elf
-        COMMENT "Firmware size"
-)
-
 # Add custom target to run Renode test
 add_custom_target(run_emulation
         COMMAND renode ${CMAKE_BINARY_DIR}/emulation.resc
-        DEPENDS firmware.elf
+        DEPENDS firmware
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         COMMENT "Running Renode simulation for ${CAR}"
 )

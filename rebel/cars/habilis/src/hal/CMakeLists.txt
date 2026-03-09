@@ -13,8 +13,21 @@ if (NOT EXISTS "${STM32CUBE_DIR}")
     endif ()
 endif ()
 
+set(CAR_HAL_DEFINES
+        USE_HAL_DRIVER
+        STM32F401xE
+)
+
+set(CAR_HAL_INCLUDES
+        ${CMAKE_CURRENT_LIST_DIR}/../../include
+        ${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Inc
+        ${STM32CUBE_DIR}/Drivers/CMSIS/Include
+        ${STM32CUBE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+)
+
 set(STM32_HAL_DIR "${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Src")
 set(CAR_HAL_STM32_HAL_SOURCES
+        ${STM32CUBE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
         ${STM32_HAL_DIR}/stm32f4xx_hal.c
         ${STM32_HAL_DIR}/stm32f4xx_hal_cortex.c
         ${STM32_HAL_DIR}/stm32f4xx_hal_dma.c
@@ -34,20 +47,7 @@ set(CAR_HAL_STM32_HAL_SOURCES
         ${STM32_HAL_DIR}/stm32f4xx_hal_usart.c
 )
 
-set(CAR_HAL_DEFINES
-        USE_HAL_DRIVER
-        STM32F401xE
-)
-
-set(CAR_HAL_INCLUDES
-        ${CMAKE_CURRENT_LIST_DIR}/../../include
-        ${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Inc
-        ${STM32CUBE_DIR}/Drivers/CMSIS/Include
-        ${STM32CUBE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
-)
-
 set(CAR_HAL_LOWLEVEL_SOURCES
-        ${STM32CUBE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
         ${CMAKE_CURRENT_LIST_DIR}/isr.c
         ${CMAKE_CURRENT_LIST_DIR}/hal_msp.c
         ${CMAKE_CURRENT_LIST_DIR}/sysmem.c
@@ -62,6 +62,7 @@ target_sources(car_hal PRIVATE
         ${CAR_HAL_STM32_HAL_SOURCES}
         ${CAR_HAL_LOWLEVEL_SOURCES}
 )
+target_link_libraries(car_hal PRIVATE m)
 
 set(CAR_HAL_DEFINES ${CAR_HAL_DEFINES} PARENT_SCOPE)
 set(CAR_HAL_INCLUDES ${CAR_HAL_INCLUDES} PARENT_SCOPE)
