@@ -19,7 +19,8 @@ namespace Rebel::Habilis::Car
 
         this->boot();
 
-        auto iPressure = this->i2c.device(0x48);
+        uint8_t pressure[3] = {};
+        const auto iPressure = this->i2c.device(0x48);
 
         auto status = iPressure.isReady();
         sprintf(log, "Probe sensor: status=%d, err=%lu\r\n", status, this->i2c.error());
@@ -35,7 +36,6 @@ namespace Rebel::Habilis::Car
         float throttle = 0.1;
         this->PushThrottle(throttle);
 
-        uint8_t pressure[3] = {};
         for (;;)
         {
             status = iPressure.receive(pressure, 3);
