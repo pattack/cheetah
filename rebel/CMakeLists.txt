@@ -74,16 +74,14 @@ add_compile_options(
 add_executable(firmware ${SRC})
 
 # Libraries
-add_subdirectory(lib/toolkit)
-add_subdirectory(lib/car)
+add_subdirectory(lib)
 add_subdirectory(${CAR_DIR})
-add_subdirectory(lib/app)
 add_subdirectory(${APP_DIR})
 
 # Linker script
 set_target_properties(firmware PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
 set_target_properties(firmware PROPERTIES ADDITIONAL_CLEAN_FILES ${CMAKE_PROJECT_NAME}.map)
-target_link_libraries(firmware PRIVATE car_${CAR} toolkit app_${APP})
+target_link_libraries(firmware PRIVATE car_${CAR} app_${APP})
 target_link_options(firmware PRIVATE "-T${LINKER_SCRIPT}")
 
 # ========== Print size ==========

@@ -1,6 +1,5 @@
-#include <rebel/app/main.hpp>
+#include <rebellion/application.hpp>
 
-int main()
-{
-    Rebel::App::Main().Run();
+int main() {
+    Rebellion::Application().Run();
 }

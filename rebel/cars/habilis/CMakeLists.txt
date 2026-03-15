@@ -8,11 +8,22 @@ target_include_directories(car_habilis INTERFACE
 )
 target_sources(car_habilis INTERFACE
         $<TARGET_OBJECTS:car_hal>
-        src/car/car_factory.cpp
-        src/car/habilis.cpp
-        src/car/i2c_bus.cpp
-        src/car/i2c_device.cpp
-        src/toolkit/store.cpp
-        src/toolkit/usart_logger.cpp
+        src/device/gpio.cpp
+        src/device/usart.cpp
+        src/device/i2c_bus.cpp
+        src/device/i2c_device.cpp
+        src/device/spi.cpp
+        src/device/timer.cpp
+        src/device/adc.cpp
+
+        src/component/stdio.cpp
+        src/component/pca9685.cpp
+
+        src/module/engine.cpp
+        src/module/logger.cpp
+
+        src/store.cpp
+        src/factory.cpp
+        src/car.cpp
 )
-target_link_libraries(car_habilis INTERFACE m car)
+target_link_libraries(car_habilis INTERFACE m rebellion)
