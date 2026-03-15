@@ -6,21 +6,17 @@
 
 #include <rebellion/logger.hpp>
 
-#include <rebel/habilis/hal/hal.h>
+#include <rebel/habilis/component/stdio.hpp>
 
-namespace Rebel::Habilis::Module
-{
-    class UsartLogger final : public Rebellion::Logger
-    {
+namespace Rebel::Habilis::Module {
+    class Logger final : public Rebellion::Logger {
     public:
-        explicit UsartLogger(USART_TypeDef* instance, uint32_t baudrate);
+        explicit Logger(Rebel::Habilis::Component::STDIO &stdio);
 
-        void Log(const char* message) override;
+        void Log(const char *message) override;
 
     private:
-        UART_HandleTypeDef huart;
-
-    protected:
-        void configure(USART_TypeDef* instance, uint32_t baudrate);
+        // note: can depend on Stream interface which STDIO is one implementation
+        Rebel::Habilis::Component::STDIO &stdio;
     };
 }

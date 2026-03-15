@@ -3,3 +3,8 @@
 //
 
 #pragma once
+
+namespace Rebel::Habilis::Component {
+    class PCA9685 {
+    };
+};

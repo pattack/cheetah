@@ -55,10 +55,14 @@ namespace Rebellion {
     Car *Factory::BuildCar() {
         initBoardOnce(true);
 
-        static Rebel::Habilis::Module::UsartLogger logger{USART1, 115200};
-        static Rebel::Habilis::Store store{logger};
-
+        static Rebel::Habilis::Device::USART usart1{USART1, 115200};
         static Rebel::Habilis::Device::I2CBus i2c1{I2C1};
+
+        static Rebel::Habilis::Component::STDIO stdio{usart1};
+
+        static Rebel::Habilis::Module::Logger logger{stdio};
+
+        static Rebel::Habilis::Store store{logger};
         static Rebel::Habilis::Car car{store, i2c1};
 
         return &car;
