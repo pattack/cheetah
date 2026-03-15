@@ -2,7 +2,7 @@
 // Created by pouyan on 7/25/25.
 //
 
-#include <rebel/habilis/hal.h>
+#include <rebel/habilis/hal/hal.h>
 
 /******************************************************************************/
 /*           Cortex-M4 Processor Interruption and Exception Handlers          */

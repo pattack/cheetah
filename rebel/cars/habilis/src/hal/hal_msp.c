@@ -17,7 +17,7 @@
   ******************************************************************************
   */
 
-#include <rebel/habilis/hal.h>
+#include <rebel/habilis/hal/hal.h>
 
 /**
   * Initializes the Global MSP.

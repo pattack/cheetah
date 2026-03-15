@@ -5,7 +5,7 @@
 #include <memory>
 
 #include <rebel/car/car_factory.hpp>
-#include <rebel/habilis/hal.h>
+#include <rebel/habilis/hal/hal.h>
 #include <rebel/habilis/car/i2c_bus.hpp>
 #include <rebel/habilis/car/habilis.hpp>
 #include <rebel/habilis/toolkit/store.hpp>

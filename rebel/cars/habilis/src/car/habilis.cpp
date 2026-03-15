@@ -4,7 +4,7 @@
 
 #include <cstdio>
 
-#include <rebel/habilis/hal.h>
+#include <rebel/habilis/hal/hal.h>
 #include <rebel/habilis/car/habilis.hpp>
 #include <rebel/habilis/toolkit/store.hpp>
 

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <rebel/habilis/hal.h>
+#include <rebel/habilis/hal/hal.h>
 #include <rebel/toolkit/logger.hpp>
 
 namespace Rebel::Habilis::Toolkit

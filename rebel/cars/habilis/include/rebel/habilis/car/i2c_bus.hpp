@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <rebel/habilis/hal.h>
+#include <rebel/habilis/hal/hal.h>
 #include <rebel/habilis/car/i2c_device.hpp>
 
 namespace Rebel::Habilis::Car

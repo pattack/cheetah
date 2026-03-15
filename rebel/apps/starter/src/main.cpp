@@ -10,7 +10,7 @@ namespace Rebel::App
 {
     void Main::Run()
     {
-        auto car = Rebel::Car::CarFactory::Build();
+        const auto car = Rebel::Car::CarFactory::Build();
 
         // Register event listeners
         car->GetStore()->GetLogger()->Log("Registering listeners\r\n");
