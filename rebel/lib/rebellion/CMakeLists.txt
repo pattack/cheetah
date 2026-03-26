@@ -6,4 +6,5 @@ target_include_directories(rebellion INTERFACE
 
 target_sources(rebellion INTERFACE
         src/rebellion/bus.cpp
+        src/rebellion/system.cpp
 )

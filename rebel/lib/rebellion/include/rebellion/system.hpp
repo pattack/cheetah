@@ -15,5 +15,6 @@ namespace Rebellion {
 
     private:
         static std::vector<Agent*> applications();
+        static std::vector<Agent*> services();
     };
 };
