@@ -1,22 +1,39 @@
 //
-// Created by pouyan on 7/21/25.
+// Created by pouyan on 7/23/25.
 //
 
-#include <memory>
-
-#include <rebellion/factory.hpp>
-
 #include <rebel/habilis/hal/hal.h>
-#include <rebel/habilis/device/i2c_bus.hpp>
-#include <rebel/habilis/car.hpp>
-#include <rebel/habilis/store.hpp>
-#include <rebel/habilis/module/logger.hpp>
 
-namespace Rebellion {
-    void initBoardOnce(const bool internalOsc) {
-        static bool done = false;
+#include <rebel/habilis/kit.hpp>
+
+namespace Rebel::Habilis {
+    Kit &Kit::Default() {
+        static Kit instance{};
+
+        return instance;
+    }
+
+    Kit::Kit() {
+        this->setup(true);
+
+        this->Devices = {
+            .usart1 = new Device::USART(USART1, 115200),
+            .usart2 = new Device::USART(USART2, 115200),
+        };
+
+        this->Components = {
+            .stdio = new Component::STDIO(this->Devices.usart1),
+        };
+
+        this->Modules = {
+            .logger = new Module::Logger(this->Components.stdio),
+        };
+    }
+
+    bool Kit::setup(const bool internalOsc) {
+        static auto done = false;
         if (done) {
-            return;
+            return done;
         }
 
         RCC_OscInitTypeDef iosc = {};
@@ -50,21 +67,7 @@ namespace Rebellion {
         SystemCoreClockUpdate();
 
         done = true;
+
+        return done;
     }
-
-    Car *Factory::BuildCar() {
-        initBoardOnce(true);
-
-        static Rebel::Habilis::Device::USART usart1{USART1, 115200};
-        static Rebel::Habilis::Device::I2CBus i2c1{I2C1};
-
-        static Rebel::Habilis::Component::STDIO stdio{usart1};
-
-        static Rebel::Habilis::Module::Logger logger{stdio};
-
-        static Rebel::Habilis::Store store{logger};
-        static Rebel::Habilis::Car car{store, i2c1};
-
-        return &car;
-    }
-}
+};

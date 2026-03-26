@@ -1,5 +1,5 @@
-#include <rebellion/application.hpp>
+#include <rebellion/system.hpp>
 
 int main() {
-    Rebellion::Application().Run();
+    Rebellion::System::Boot();
 }

@@ -4,6 +4,8 @@
 
 #include <cmath>
 
+#include <rebellion/module/logger.hpp>
+
 #include <rebel/habilis/device/i2c_bus.hpp>
 
 namespace Rebel::Habilis::Device {
@@ -60,7 +62,7 @@ namespace Rebel::Habilis::Device {
         this->hi2c.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
         this->hi2c.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
         if (HAL_I2C_Init(&this->hi2c) != HAL_OK) {
-            // todo: log error
+            Rebellion::Module::Logger::Log(Rebellion::Module::Logger::LogLevel::Error, "i2c bus configure error\r\n");
         }
 
         auto peripherals = GetPeripherals();

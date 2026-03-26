@@ -9,11 +9,11 @@
 namespace Rebel::Habilis::Component {
     class STDIO {
     public:
-        STDIO(Rebel::Habilis::Device::USART &usart);
+        explicit STDIO(Rebel::Habilis::Device::USART *usart);
 
-        void print(const char *message);
+        void print(const char *message) const;
 
     private:
-        Rebel::Habilis::Device::USART &usart;
+        Rebel::Habilis::Device::USART *usart;
     };
 };

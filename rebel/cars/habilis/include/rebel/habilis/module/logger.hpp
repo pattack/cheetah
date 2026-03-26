@@ -4,19 +4,19 @@
 
 #pragma once
 
-#include <rebellion/logger.hpp>
+#include <rebellion/module/logger.hpp>
 
 #include <rebel/habilis/component/stdio.hpp>
 
 namespace Rebel::Habilis::Module {
-    class Logger final : public Rebellion::Logger {
+    class Logger {
     public:
-        explicit Logger(Rebel::Habilis::Component::STDIO &stdio);
+        explicit Logger(Rebel::Habilis::Component::STDIO *stdio);
 
-        void Log(const char *message) override;
+        void log(Rebellion::Module::Logger::LogLevel level, const char *message) const;
 
     private:
         // note: can depend on Stream interface which STDIO is one implementation
-        Rebel::Habilis::Component::STDIO &stdio;
+        Rebel::Habilis::Component::STDIO *stdio;
     };
 }

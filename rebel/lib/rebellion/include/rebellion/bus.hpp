@@ -1,21 +1,35 @@
 //
-// Created by pouyan on 3/6/26.
+// Created by pouyan on 3/25/26.
 //
 
 #pragma once
 
-#include <cstddef>
+#include <functional>
+#include <map>
+#include <string>
 
 namespace Rebellion {
-    template<typename Addr, typename Word, typename Status>
-    class Bus {
+    class ReceiveBus {
     public:
-        virtual ~Bus() = default;
+        virtual ~ReceiveBus() = default;
 
-        virtual Status probe(Addr address) = 0;
+        virtual void On(std::string topic, std::function<void(const void *payload)> handler) = 0;
+    };
 
-        virtual Status write(Addr address, const Word *data, size_t length) = 0;
+    class SendBus {
+    public:
+        virtual ~SendBus() = default;
 
-        virtual Status read(Addr address, Word *data, size_t length) = 0;
+        virtual void Raise(std::string topic, void *payload) = 0;
+    };
+
+    class Bus : public ReceiveBus, public SendBus {
+    public:
+        void On(std::string topic, std::function<void(const void *payload)> handler) override;
+
+        void Raise(std::string topic, void *payload) override;
+
+    private:
+        std::map<std::string, std::vector<std::function<void(const void *payload)>>> handlers;
     };
 };

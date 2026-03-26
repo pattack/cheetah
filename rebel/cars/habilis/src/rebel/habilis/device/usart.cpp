@@ -11,7 +11,7 @@ namespace Rebel::Habilis::Device {
         this->configure(instance, baudrate);
     }
 
-    bool USART::Write(const char *message) {
+    bool USART::write(const char *message) {
         while (HAL_UART_GetState(&this->huart) != HAL_UART_STATE_READY) {
         }
 

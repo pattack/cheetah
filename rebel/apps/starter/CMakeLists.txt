@@ -1,11 +1,13 @@
 add_library(app_starter)
 
 target_sources(app_starter PUBLIC
-        src/application.cpp
+        src/rebellion/system.cpp
+
+        src/starter/application/movement.cpp
 )
 
 target_include_directories(app_starter PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        include
 )
 
 target_link_libraries(app_starter PUBLIC rebellion)

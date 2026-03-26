@@ -11,7 +11,7 @@ namespace Rebel::Habilis::Device {
     public:
         USART(USART_TypeDef *instance, uint32_t baudrate);
 
-        bool Write(const char *message);
+        bool write(const char *message);
 
     private:
         UART_HandleTypeDef huart;
