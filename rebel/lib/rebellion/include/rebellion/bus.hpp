@@ -4,32 +4,38 @@
 
 #pragma once
 
+#include <any>
 #include <functional>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace Rebellion {
+    typedef std::string EventTopic;
+    typedef std::any EventPayload;
+    typedef std::function<void(EventPayload payload)> EventHandler;
+
     class ReceiveBus {
     public:
         virtual ~ReceiveBus() = default;
 
-        virtual void On(std::string topic, std::function<void(const void *payload)> handler) = 0;
+        virtual void On(EventTopic topic, EventHandler handler) = 0;
     };
 
     class SendBus {
     public:
         virtual ~SendBus() = default;
 
-        virtual void Raise(std::string topic, void *payload) = 0;
+        virtual void Raise(EventTopic topic, EventPayload payload) = 0;
     };
 
     class Bus : public ReceiveBus, public SendBus {
     public:
-        void On(std::string topic, std::function<void(const void *payload)> handler) override;
+        void On(EventTopic topic, EventHandler handler) override;
 
-        void Raise(std::string topic, void *payload) override;
+        void Raise(EventTopic topic, EventPayload payload) override;
 
     private:
-        std::map<std::string, std::vector<std::function<void(const void *payload)>>> handlers;
+        std::unordered_map<EventTopic, std::vector<EventHandler>> handlers;
     };
 };

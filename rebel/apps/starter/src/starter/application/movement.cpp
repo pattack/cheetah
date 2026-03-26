@@ -11,7 +11,7 @@ namespace Starter {
         // Register event listeners
         Rebellion::Module::Logger::Log(Rebellion::Module::Logger::LogLevel::Info, "Registering listeners\r\n");
 
-        ibus->On("event/throttle", [this](const void *payload) {
+        ibus->On("event/throttle", [this](Rebellion::EventPayload payload) {
                 // this->OnThrottle(pressure);
             }
         );

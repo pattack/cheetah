@@ -9,6 +9,7 @@ namespace Rebel::Habilis::Module {
     }
 
     void Logger::log(Rebellion::Module::Logger::LogLevel level, const char *message) const {
+        // todo: filter with minimum level and add it to the message
         this->stdio->print(message);
     }
 };
