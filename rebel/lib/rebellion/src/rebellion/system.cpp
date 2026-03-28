@@ -11,16 +11,23 @@ namespace Rebellion {
         const auto commandBus = new Bus();
 
         // attach controllers to the event bus, command bus
-        for (const auto app : System::applications()) {
-            app->Connect(eventBus, commandBus);
+        for (const auto proc : System::applications()) {
+            proc->Attach(eventBus, commandBus);
         }
 
         // attach services to the command bus, event bus
-        for (const auto svc : System::services()) {
-            svc->Connect(eventBus, commandBus);
+        for (const auto proc : System::services()) {
+            proc->Attach(commandBus, eventBus);
         }
 
         for (;;) {
+            for (const auto proc : System::services()) {
+                proc->Proceed();
+            }
+
+            for (const auto proc : System::applications()) {
+                proc->Proceed();
+            }
         }
     }
 };

@@ -20,6 +20,7 @@ set(CAR_HAL_DEFINES
 
 set(CAR_HAL_INCLUDES
         ${CMAKE_SOURCE_DIR}/cars/habilis/include
+        ${CMAKE_SOURCE_DIR}/lib/rebellion/include
         ${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Inc
         ${STM32CUBE_DIR}/Drivers/CMSIS/Include
         ${STM32CUBE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
@@ -48,7 +49,7 @@ set(CAR_HAL_STM32_HAL_SOURCES
 )
 
 set(CAR_HAL_LOWLEVEL_SOURCES
-        ${CMAKE_CURRENT_LIST_DIR}/isr.c
+        ${CMAKE_CURRENT_LIST_DIR}/isr.cpp
         ${CMAKE_CURRENT_LIST_DIR}/hal_msp.c
         ${CMAKE_CURRENT_LIST_DIR}/sysmem.c
         ${CMAKE_CURRENT_LIST_DIR}/syscalls.c

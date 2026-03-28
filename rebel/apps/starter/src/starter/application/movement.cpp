@@ -7,28 +7,22 @@
 #include <starter/application/movement.hpp>
 
 namespace Starter {
-    void Movement::Connect(Rebellion::ReceiveBus *ibus, Rebellion::SendBus *obus) {
-        // Register event listeners
-        Rebellion::Module::Logger::Log(Rebellion::Module::Logger::LogLevel::Info, "Registering listeners\r\n");
+    void Movement::Attach(Rebellion::ReceiveBus *ibus, Rebellion::SendBus *obus) {
+        Rebellion::Module::Logger::Log(Rebellion::Module::Logger::LogLevel::Info, "[Starter/App/Movement] Attach\r\n");
 
-        ibus->On("event/throttle", [this](Rebellion::EventPayload payload) {
-                // this->OnThrottle(pressure);
-            }
-        );
+        this->commands = obus;
+        ibus->On("event/accelerator_pressed", [this](const Rebellion::EventPayload &payload) {
+            this->onAcceleratorPressed(std::any_cast<float>(payload));
+        });
     }
 
-    void Movement::OnThrottle(float pressure) {
-        // Decide what to do with throttle input
-        // e.g., car->PushThrottle(pressure);
+    void Movement::Proceed() {
+        Rebellion::Module::Logger::Log(Rebellion::Module::Logger::LogLevel::Debug, "[Starter/App/Movement] Proceed\r\n");
     }
 
-    void Movement::OnSteer(float angle) {
-        // Decide what to do with steer input
-        // e.g., car->SetSteeringAngle(angle);
-    }
+    void Movement::onAcceleratorPressed(float pressure) const {
+        Rebellion::Module::Logger::Log(Rebellion::Module::Logger::LogLevel::Debug, "[Starter/App/Movement] OnAcceleratorPressed\r\n");
 
-    void Movement::OnBrake(float pressure) {
-        // Decide what to do with brake input
-        // e.g., car->PressBrakes(pressure);
+        this->commands->Raise("action/move", pressure);
     }
 }

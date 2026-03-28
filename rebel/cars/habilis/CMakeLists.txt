@@ -15,15 +15,16 @@ target_sources(car_habilis INTERFACE
         src/rebel/habilis/kit.cpp
         src/rebel/habilis/device/gpio.cpp
         src/rebel/habilis/device/usart.cpp
-        src/rebel/habilis/device/i2c_bus.cpp
-        src/rebel/habilis/device/i2c_device.cpp
+        src/rebel/habilis/device/i2c.cpp
         src/rebel/habilis/device/spi.cpp
         src/rebel/habilis/device/timer.cpp
         src/rebel/habilis/device/adc.cpp
 
+        src/rebel/habilis/component/ads1110.cpp
         src/rebel/habilis/component/stdio.cpp
         src/rebel/habilis/component/pca9685.cpp
 
+        src/rebel/habilis/module/accelerator.cpp
         src/rebel/habilis/module/engine.cpp
         src/rebel/habilis/module/logger.cpp
 

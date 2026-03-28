@@ -5,6 +5,7 @@
 #pragma once
 
 #include <rebel/habilis/component/stdio.hpp>
+#include <rebel/habilis/device/i2c.hpp>
 #include <rebel/habilis/device/usart.hpp>
 #include <rebel/habilis/module/logger.hpp>
 
@@ -13,6 +14,7 @@ namespace Rebel::Habilis {
     public:
         struct {
             Device::USART *usart1, *usart2;
+            Device::I2C *i2c1, *i2c2;
         } Devices{};
 
         struct {

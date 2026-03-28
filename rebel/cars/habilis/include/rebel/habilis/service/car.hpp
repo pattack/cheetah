@@ -4,14 +4,26 @@
 
 #pragma once
 
-#include <rebellion/agent.hpp>
+#include <rebellion/process.hpp>
+
+#include <rebel/habilis/module/accelerator.hpp>
 
 namespace Rebel::Habilis::Service {
-    class Car : public Rebellion::Agent {
+    class Car : public Rebellion::Process {
     public:
-        void Connect(Rebellion::ReceiveBus *ibus, Rebellion::SendBus *obus) override;
+        Car();
 
-    protected:
+        void Attach(Rebellion::ReceiveBus *ibus, Rebellion::SendBus *obus) override;
+
+        void Proceed() override;
+
+    private:
+        Rebellion::SendBus *events = nullptr;
+
+        Rebel::Habilis::Module::Accelerator *accelerator;
+
+        void move(float speed);
+
         void boot() const;
 
         void scanDevices() const;

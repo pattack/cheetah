@@ -1,0 +1,102 @@
+//
+// Created by pouyan on 7/13/25.
+//
+
+#include <cmath>
+
+#include <rebel/habilis/device/i2c.hpp>
+
+namespace Rebel::Habilis::Device {
+    I2C::I2C(I2C_TypeDef *instance) : hi2c{} {
+        this->configure(instance);
+    }
+
+    I2CDevice I2C::device(const uint16_t address) {
+        return I2CDevice(this, address);
+    }
+
+    void I2C::handleEventIRQ() {
+        HAL_I2C_EV_IRQHandler(&this->hi2c);
+    }
+
+    void I2C::handleErrorIRQ() {
+        HAL_I2C_ER_IRQHandler(&this->hi2c);
+    }
+
+    HAL_StatusTypeDef I2C::isDeviceReady(const uint16_t address) {
+        this->waitForReadiness();
+
+        return HAL_I2C_IsDeviceReady(&this->hi2c, I2C::addressOnWire(address), 1, 1);
+    }
+
+    HAL_StatusTypeDef I2C::write(const uint16_t address, const uint8_t *data, const size_t length) {
+        this->waitForReadiness();
+
+        const auto status = HAL_I2C_Master_Transmit_IT(&this->hi2c, I2C::addressOnWire(address),
+                                                    const_cast<uint8_t *>(data), length);
+        if (status != HAL_OK) {
+            this->recover();
+        }
+
+        return status;
+    }
+
+    HAL_StatusTypeDef I2C::read(const uint16_t address, uint8_t *data, const size_t length) {
+        this->waitForReadiness();
+
+        const auto status = HAL_I2C_Master_Receive_IT(&this->hi2c, I2C::addressOnWire(address), data, length);
+        if (status != HAL_OK) {
+            this->recover();
+        }
+
+        return status;
+    }
+
+    uint32_t I2C::error() {
+        return HAL_I2C_GetError(&this->hi2c);
+    }
+
+    void I2C::configure(I2C_TypeDef *instance) {
+        this->hi2c.Instance = instance;
+        this->hi2c.Init.ClockSpeed = 100000;
+        this->hi2c.Init.DutyCycle = I2C_DUTYCYCLE_2;
+        this->hi2c.Init.OwnAddress1 = 0x00;
+        this->hi2c.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+        this->hi2c.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+        this->hi2c.Init.OwnAddress2 = 0x00;
+        this->hi2c.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+        this->hi2c.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+        if (HAL_I2C_Init(&this->hi2c) != HAL_OK) {
+            // todo: indicate failure
+        }
+    }
+
+    void I2C::waitForReadiness() {
+        while (HAL_I2C_GetState(&this->hi2c) != HAL_I2C_STATE_READY) {
+        }
+    }
+
+    void I2C::recover() {
+        // HAL_I2C_DeInit(&this->hi2c);
+        // this->configure(this->hi2c.Instance);
+    }
+
+    uint16_t I2C::addressOnWire(const uint16_t address) {
+        return address << 1;
+    }
+
+    I2CDevice::I2CDevice(I2C *bus, const uint16_t address) : bus(bus), address(address) {
+    }
+
+    bool I2CDevice::isReady() const {
+        return this->bus->isDeviceReady(this->address) == HAL_OK;
+    }
+
+    bool I2CDevice::send(const uint8_t *data, const size_t length) const {
+        return this->bus->write(this->address, data, length) == HAL_OK;
+    }
+
+    bool I2CDevice::receive(uint8_t *data, const size_t length) const {
+        return this->bus->read(this->address, data, length) == HAL_OK;
+    }
+}

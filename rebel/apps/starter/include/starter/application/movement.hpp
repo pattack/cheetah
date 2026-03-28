@@ -4,18 +4,19 @@
 
 #pragma once
 
-#include <rebellion/agent.hpp>
+#include <rebellion/process.hpp>
 
 namespace Starter {
-    class Movement : public Rebellion::Agent {
+    class Movement : public Rebellion::Process {
     public:
-        void Connect(Rebellion::ReceiveBus *ibus, Rebellion::SendBus *obus) override;
+        void Attach(Rebellion::ReceiveBus *ibus, Rebellion::SendBus *obus) override;
+
+        void Proceed() override;
 
     private:
-        void OnThrottle(float pressure);
+        void onAcceleratorPressed(float pressure) const;
 
-        void OnSteer(float angle);
-
-        void OnBrake(float pressure);
+    protected:
+        Rebellion::SendBus *commands = nullptr;
     };
 };

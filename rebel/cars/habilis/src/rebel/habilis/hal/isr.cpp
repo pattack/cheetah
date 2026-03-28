@@ -4,75 +4,81 @@
 
 #include <rebel/habilis/hal/hal.h>
 
+#include <rebel/habilis/kit.hpp>
+
 /******************************************************************************/
 /*           Cortex-M4 Processor Interruption and Exception Handlers          */
 /******************************************************************************/
+
+extern "C" {
+    [[noreturn]] void NMI_Handler();
+    [[noreturn]] void HardFault_Handler();
+    [[noreturn]] void MemManage_Handler();
+    [[noreturn]] void BusFault_Handler();
+    [[noreturn]] void UsageFault_Handler();
+    void SVC_Handler();
+    void DebugMon_Handler();
+    void PendSV_Handler();
+    void SysTick_Handler();
+}
+
 /**
   * @brief This function handles Non maskable interrupt.
   */
-void NMI_Handler(void)
-{
-    while (1);
+void NMI_Handler() {
+    while (true);
 }
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
-void HardFault_Handler(void)
-{
-    while (1);
+void HardFault_Handler() {
+    while (true);
 }
 
 /**
   * @brief This function handles Memory management fault.
   */
-void MemManage_Handler(void)
-{
-    while (1);
+void MemManage_Handler() {
+    while (true);
 }
 
 /**
   * @brief This function handles Pre-fetch fault, memory access fault.
   */
-void BusFault_Handler(void)
-{
-    while (1);
+void BusFault_Handler() {
+    while (true);
 }
 
 /**
   * @brief This function handles Undefined instruction or illegal state.
   */
-void UsageFault_Handler(void)
-{
-    while (1);
+void UsageFault_Handler() {
+    while (true);
 }
 
 /**
   * @brief This function handles System service call via SWI instruction.
   */
-void SVC_Handler(void)
-{
+void SVC_Handler() {
 }
 
 /**
   * @brief This function handles Debug monitor.
   */
-void DebugMon_Handler(void)
-{
+void DebugMon_Handler() {
 }
 
 /**
   * @brief This function handles Pendable request for system service.
   */
-void PendSV_Handler(void)
-{
+void PendSV_Handler() {
 }
 
 /**
   * @brief This function handles System tick timer.
   */
-void SysTick_Handler(void)
-{
+void SysTick_Handler() {
     HAL_IncTick();
 }
 
@@ -83,17 +89,35 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
 
-void USART1_IRQHandler(void)
-{
-  HAL_UART_IRQHandler(GetPeripherals()->huart);
+extern "C" {
+    void USART1_IRQHandler();
+    void USART2_IRQHandler();
+    void I2C1_EV_IRQHandler();
+    void I2C1_ER_IRQHandler();
+    void I2C2_EV_IRQHandler();
+    void I2C2_ER_IRQHandler();
 }
 
-void I2C1_EV_IRQHandler(void)
-{
-  HAL_I2C_EV_IRQHandler(GetPeripherals()->hi2c);
+void USART1_IRQHandler() {
+    Rebel::Habilis::Kit::Default().Devices.usart1->handleIRQ();
 }
 
-void I2C1_ER_IRQHandler(void)
-{
-  HAL_I2C_ER_IRQHandler(GetPeripherals()->hi2c);
+void USART2_IRQHandler() {
+    Rebel::Habilis::Kit::Default().Devices.usart2->handleIRQ();
+}
+
+void I2C1_EV_IRQHandler() {
+    Rebel::Habilis::Kit::Default().Devices.i2c1->handleEventIRQ();
+}
+
+void I2C1_ER_IRQHandler() {
+    Rebel::Habilis::Kit::Default().Devices.i2c1->handleErrorIRQ();
+}
+
+void I2C2_EV_IRQHandler() {
+    Rebel::Habilis::Kit::Default().Devices.i2c2->handleEventIRQ();
+}
+
+void I2C2_ER_IRQHandler() {
+    Rebel::Habilis::Kit::Default().Devices.i2c2->handleErrorIRQ();
 }

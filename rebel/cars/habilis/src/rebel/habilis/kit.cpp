@@ -19,6 +19,9 @@ namespace Rebel::Habilis {
         this->Devices = {
             .usart1 = new Device::USART(USART1, 115200),
             .usart2 = new Device::USART(USART2, 115200),
+
+            .i2c1 = new Device::I2C(I2C1),
+            .i2c2 = new Device::I2C(I2C2),
         };
 
         this->Components = {

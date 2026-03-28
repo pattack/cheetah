@@ -28,14 +28,19 @@ void HAL_MspInit(void)
     __HAL_RCC_PWR_CLK_ENABLE();
 
     /* System interrupt init*/
-    // HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
-    // HAL_NVIC_EnableIRQ(USART1_IRQn);
+    HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USART1_IRQn);
+    HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USART2_IRQn);
 
-    // HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
-    // HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
-
-    // HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
-    // HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
+    HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
+    HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
+    HAL_NVIC_SetPriority(I2C2_EV_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(I2C2_EV_IRQn);
+    HAL_NVIC_SetPriority(I2C2_ER_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(I2C2_ER_IRQn);
 }
 
 /**
@@ -290,16 +295,4 @@ void HAL_USART_MspDeInit(USART_HandleTypeDef* husart)
 void HAL_USART_TxCpltCallback(USART_HandleTypeDef *husart)
 {
 
-}
-
-Peripherals *connectedDevices;
-
-void SetPeripherals(Peripherals *peripherals)
-{
-    connectedDevices = peripherals;
-}
-
-Peripherals* GetPeripherals()
-{
-    return connectedDevices;
 }

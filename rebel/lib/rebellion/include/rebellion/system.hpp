@@ -6,7 +6,7 @@
 
 #include <vector>
 
-#include <rebellion/agent.hpp>
+#include <rebellion/process.hpp>
 
 namespace Rebellion {
     class System {
@@ -14,7 +14,7 @@ namespace Rebellion {
         [[noreturn]] static void Boot();
 
     private:
-        static std::vector<Agent*> applications();
-        static std::vector<Agent*> services();
+        static std::vector<Process*> applications();
+        static std::vector<Process*> services();
     };
 };

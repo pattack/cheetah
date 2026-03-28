@@ -7,29 +7,31 @@
 #include <rebel/habilis/device/usart.hpp>
 
 namespace Rebel::Habilis::Device {
-    USART::USART(USART_TypeDef *instance, uint32_t baudrate) : huart{} {
-        this->configure(instance, baudrate);
+    USART::USART(USART_TypeDef *instance, const uint32_t baudRate) : husart{} {
+        this->configure(instance, baudRate);
     }
 
     bool USART::write(const char *message) {
-        while (HAL_UART_GetState(&this->huart) != HAL_UART_STATE_READY) {
+        while (HAL_USART_GetState(&this->husart) != HAL_USART_STATE_READY) {
         }
 
-        return HAL_UART_Transmit(&this->huart, reinterpret_cast<uint8_t *>(const_cast<char *>(message)),
-                                 std::strlen(message), 100) == HAL_OK;
+        return HAL_USART_Transmit_IT(&this->husart, reinterpret_cast<uint8_t *>(const_cast<char *>(message)),
+                                 std::strlen(message)) == HAL_OK;
     }
 
-    void USART::configure(USART_TypeDef *instance, uint32_t baudrate) {
-        this->huart.Instance = instance;
-        this->huart.Init.BaudRate = baudrate;
-        this->huart.Init.WordLength = UART_WORDLENGTH_8B;
-        this->huart.Init.StopBits = UART_STOPBITS_1;
-        this->huart.Init.Parity = UART_PARITY_NONE;
-        this->huart.Init.Mode = UART_MODE_TX_RX;
-        this->huart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-        this->huart.Init.OverSampling = UART_OVERSAMPLING_16;
-        if (HAL_UART_Init(&this->huart) != HAL_OK) {
-            // todo: log error
+    void USART::handleIRQ() {
+        HAL_USART_IRQHandler(&this->husart);
+    }
+
+    void USART::configure(USART_TypeDef *instance, const uint32_t baudRate) {
+        this->husart.Instance = instance;
+        this->husart.Init.BaudRate = baudRate;
+        this->husart.Init.WordLength = USART_WORDLENGTH_8B;
+        this->husart.Init.StopBits = USART_STOPBITS_1;
+        this->husart.Init.Parity = USART_PARITY_NONE;
+        this->husart.Init.Mode = USART_MODE_TX_RX;
+        if (HAL_USART_Init(&this->husart) != HAL_OK) {
+            // todo: indicate failure
         }
     }
 };

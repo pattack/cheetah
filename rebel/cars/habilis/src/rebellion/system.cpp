@@ -8,11 +8,11 @@
 #include <rebel/habilis/service/car.hpp>
 
 namespace Rebellion {
-    std::vector<Agent*> System::services() {
-        static std::vector<Agent*> svcs {
+    std::vector<Process*> System::services() {
+        static std::vector<Process*> procs {
             new Rebel::Habilis::Service::Car(),
         };
 
-        return svcs;
+        return procs;
     }
 };

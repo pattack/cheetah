@@ -7,11 +7,11 @@
 #include <rebellion/system.hpp>
 
 namespace Rebellion {
-    std::vector<Agent*> System::applications() {
-        static std::vector<Agent*> apps {
+    std::vector<Process*> System::applications() {
+        static std::vector<Process*> procs {
             new Starter::Movement(),
         };
 
-        return apps;
+        return procs;
     }
 };
