@@ -8,11 +8,11 @@
 namespace Rebel::Habilis::Service {
     Car::Car() {
         this->accelerator = new Rebel::Habilis::Module::Accelerator(
-            Rebel::Habilis::Component::ADS1110(Rebel::Habilis::Kit::Default().Devices.i2c1->device(0x48))
+            Rebel::Habilis::Component::ADS1110(Rebel::Habilis::Kit::Default().Devices.i2c1->slot(0x48))
         );
 
         this->engine = new Rebel::Habilis::Module::Engine(
-            Rebel::Habilis::Component::PCA9685(Rebel::Habilis::Kit::Default().Devices.i2c1->device(0x41))
+            Rebel::Habilis::Component::PCA9685(Rebel::Habilis::Kit::Default().Devices.i2c1->slot(0x41))
         );
     }
 

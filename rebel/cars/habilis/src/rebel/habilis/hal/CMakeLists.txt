@@ -42,6 +42,7 @@ set(CAR_HAL_STM32_HAL_SOURCES
         ${STM32_HAL_DIR}/stm32f4xx_hal_i2c_ex.c
         ${STM32_HAL_DIR}/stm32f4xx_hal_pwr.c
         ${STM32_HAL_DIR}/stm32f4xx_hal_pwr_ex.c
+        ${STM32_HAL_DIR}/stm32f4xx_hal_spi.c
         ${STM32_HAL_DIR}/stm32f4xx_hal_rcc.c
         ${STM32_HAL_DIR}/stm32f4xx_hal_rcc_ex.c
         ${STM32_HAL_DIR}/stm32f4xx_hal_uart.c

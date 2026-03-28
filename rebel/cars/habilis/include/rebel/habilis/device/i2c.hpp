@@ -7,10 +7,10 @@
 #include <rebel/habilis/hal/hal.h>
 
 namespace Rebel::Habilis::Device {
-    class I2CDevice;
+    class I2CSlot;
 
     class I2C {
-        friend class I2CDevice;
+        friend class I2CSlot;
 
     public:
         explicit I2C(I2C_TypeDef *instance);
@@ -23,7 +23,7 @@ namespace Rebel::Habilis::Device {
 
         I2C &operator=(I2C &&) = delete;
 
-        I2CDevice device(uint16_t address);
+        I2CSlot slot(uint16_t address);
 
         void handleEventIRQ();
         void handleErrorIRQ();
@@ -49,9 +49,9 @@ namespace Rebel::Habilis::Device {
         static uint16_t addressOnWire(uint16_t address);
     };
 
-    class I2CDevice {
+    class I2CSlot {
     public:
-        explicit I2CDevice(I2C *bus, uint16_t address);
+        explicit I2CSlot(I2C *bus, uint16_t address);
 
         [[nodiscard]] bool isReady() const;
 

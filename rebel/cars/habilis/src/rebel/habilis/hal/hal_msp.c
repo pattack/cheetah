@@ -22,8 +22,7 @@
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void)
-{
+void HAL_MspInit(void) {
     __HAL_RCC_SYSCFG_CLK_ENABLE();
     __HAL_RCC_PWR_CLK_ENABLE();
 
@@ -49,15 +48,13 @@ void HAL_MspInit(void)
   * @param hi2c: I2C handle pointer
   * @retval None
   */
-void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
-{
+void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c) {
     GPIO_InitTypeDef igpio = {0};
     igpio.Mode = GPIO_MODE_AF_OD;
     igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     igpio.Pull = GPIO_PULLUP;
 
-    if (hi2c->Instance == I2C1)
-    {
+    if (hi2c->Instance == I2C1) {
         __HAL_RCC_GPIOB_CLK_ENABLE();
         /**I2C1 GPIO Configuration
         PB6     ------> I2C1_SCL
@@ -69,9 +66,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
 
         /* Peripheral clock enable */
         __HAL_RCC_I2C1_CLK_ENABLE();
-    }
-    else if (hi2c->Instance == I2C2)
-    {
+    } else if (hi2c->Instance == I2C2) {
         __HAL_RCC_GPIOB_CLK_ENABLE();
         /**I2C2 GPIO Configuration
         PB10     ------> I2C2_SCL
@@ -96,10 +91,8 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
   * @param hi2c: I2C handle pointer
   * @retval None
   */
-void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
-{
-    if (hi2c->Instance == I2C1)
-    {
+void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c) {
+    if (hi2c->Instance == I2C1) {
         /* Peripheral clock disable */
         __HAL_RCC_I2C1_CLK_DISABLE();
 
@@ -110,9 +103,7 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
         HAL_GPIO_DeInit(GPIOB, GPIO_PIN_6);
 
         HAL_GPIO_DeInit(GPIOB, GPIO_PIN_7);
-    }
-    else if (hi2c->Instance == I2C2)
-    {
+    } else if (hi2c->Instance == I2C2) {
         /* Peripheral clock disable */
         __HAL_RCC_I2C2_CLK_DISABLE();
 
@@ -126,9 +117,7 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
     }
 }
 
-void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef* hi2c)
-{
-
+void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c) {
 }
 
 /**
@@ -137,11 +126,9 @@ void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef* hi2c)
   * @param huart: UART handle pointer
   * @retval None
   */
-void HAL_UART_MspInit(UART_HandleTypeDef* huart)
-{
+void HAL_UART_MspInit(UART_HandleTypeDef *huart) {
     GPIO_InitTypeDef igpio = {0};
-    if (huart->Instance == USART1)
-    {
+    if (huart->Instance == USART1) {
         /* Peripheral clock enable */
         __HAL_RCC_USART1_CLK_ENABLE();
 
@@ -160,9 +147,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
         /* USART1 interrupt Init */
         HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
         HAL_NVIC_EnableIRQ(USART1_IRQn);
-    }
-    else if (huart->Instance == USART2)
-    {
+    } else if (huart->Instance == USART2) {
         /* Peripheral clock enable */
         __HAL_RCC_USART2_CLK_ENABLE();
 
@@ -186,10 +171,8 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
   * @param huart: UART handle pointer
   * @retval None
   */
-void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
-{
-    if (huart->Instance == USART1)
-    {
+void HAL_UART_MspDeInit(UART_HandleTypeDef *huart) {
+    if (huart->Instance == USART1) {
         /* Peripheral clock disable */
         __HAL_RCC_USART1_CLK_DISABLE();
 
@@ -201,9 +184,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 
         /* USART1 interrupt DeInit */
         HAL_NVIC_DisableIRQ(USART1_IRQn);
-    }
-    else if (huart->Instance == USART2)
-    {
+    } else if (huart->Instance == USART2) {
         /* Peripheral clock disable */
         __HAL_RCC_USART2_CLK_DISABLE();
 
@@ -215,16 +196,12 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
     }
 }
 
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
-{
-
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
 }
 
-void HAL_USART_MspInit(USART_HandleTypeDef* husart)
-{
+void HAL_USART_MspInit(USART_HandleTypeDef *husart) {
     GPIO_InitTypeDef igpio = {0};
-    if (husart->Instance == USART1)
-    {
+    if (husart->Instance == USART1) {
         /* Peripheral clock enable */
         __HAL_RCC_USART1_CLK_ENABLE();
 
@@ -243,9 +220,7 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
         /* USART1 interrupt Init */
         HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
         HAL_NVIC_EnableIRQ(USART1_IRQn);
-    }
-    else if (husart->Instance == USART2)
-    {
+    } else if (husart->Instance == USART2) {
         /* Peripheral clock enable */
         __HAL_RCC_USART2_CLK_ENABLE();
 
@@ -263,10 +238,8 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
     }
 }
 
-void HAL_USART_MspDeInit(USART_HandleTypeDef* husart)
-{
-    if (husart->Instance == USART1)
-    {
+void HAL_USART_MspDeInit(USART_HandleTypeDef *husart) {
+    if (husart->Instance == USART1) {
         /* Peripheral clock disable */
         __HAL_RCC_USART1_CLK_DISABLE();
 
@@ -278,9 +251,7 @@ void HAL_USART_MspDeInit(USART_HandleTypeDef* husart)
 
         /* USART1 interrupt DeInit */
         HAL_NVIC_DisableIRQ(USART1_IRQn);
-    }
-    else if (husart->Instance == USART2)
-    {
+    } else if (husart->Instance == USART2) {
         /* Peripheral clock disable */
         __HAL_RCC_USART2_CLK_DISABLE();
 
@@ -292,7 +263,11 @@ void HAL_USART_MspDeInit(USART_HandleTypeDef* husart)
     }
 }
 
-void HAL_USART_TxCpltCallback(USART_HandleTypeDef *husart)
-{
+void HAL_USART_TxCpltCallback(USART_HandleTypeDef *husart) {
+}
 
+void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi) {
+}
+
+void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi) {
 }

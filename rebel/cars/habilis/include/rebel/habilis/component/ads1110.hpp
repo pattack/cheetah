@@ -11,12 +11,12 @@
 namespace Rebel::Habilis::Component {
     class ADS1110 {
     public:
-        explicit ADS1110(Rebel::Habilis::Device::I2CDevice device);
+        explicit ADS1110(Rebel::Habilis::Device::I2CSlot device);
 
         [[nodiscard]] std::pair<float, bool> read() const;
 
     private:
-        Rebel::Habilis::Device::I2CDevice device;
+        Rebel::Habilis::Device::I2CSlot device;
 
         const float pga = 1; // Gain = 1
         const float minCode = -(1 << 15); // Data Rate = 15SPS (16 bits)

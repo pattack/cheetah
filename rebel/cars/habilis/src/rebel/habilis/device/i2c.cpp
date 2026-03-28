@@ -7,12 +7,12 @@
 #include <rebel/habilis/device/i2c.hpp>
 
 namespace Rebel::Habilis::Device {
-    I2C::I2C(I2C_TypeDef *instance) : hi2c{} {
+    I2C::I2C(I2C_TypeDef *instance) : hi2c() {
         this->configure(instance);
     }
 
-    I2CDevice I2C::device(const uint16_t address) {
-        return I2CDevice(this, address);
+    I2CSlot I2C::slot(const uint16_t address) {
+        return I2CSlot(this, address);
     }
 
     void I2C::handleEventIRQ() {
@@ -85,18 +85,18 @@ namespace Rebel::Habilis::Device {
         return address << 1;
     }
 
-    I2CDevice::I2CDevice(I2C *bus, const uint16_t address) : bus(bus), address(address) {
+    I2CSlot::I2CSlot(I2C *bus, const uint16_t address) : bus(bus), address(address) {
     }
 
-    bool I2CDevice::isReady() const {
+    bool I2CSlot::isReady() const {
         return this->bus->isDeviceReady(this->address) == HAL_OK;
     }
 
-    bool I2CDevice::send(const uint8_t *data, const size_t length) const {
+    bool I2CSlot::send(const uint8_t *data, const size_t length) const {
         return this->bus->write(this->address, data, length) == HAL_OK;
     }
 
-    bool I2CDevice::receive(uint8_t *data, const size_t length) const {
+    bool I2CSlot::receive(uint8_t *data, const size_t length) const {
         return this->bus->read(this->address, data, length) == HAL_OK;
     }
 }

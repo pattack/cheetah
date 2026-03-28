@@ -6,7 +6,7 @@
 #include <rebel/habilis/kit.hpp>
 
 namespace Rebel::Habilis::Component {
-    ADS1110::ADS1110(const Rebel::Habilis::Device::I2CDevice device) : device(device) {
+    ADS1110::ADS1110(const Rebel::Habilis::Device::I2CSlot device) : device(device) {
         if (!this->configure()) {
             Rebel::Habilis::Kit::Default().Modules.logger->log(Rebellion::Module::Logger::LogLevel::Error,
                                                                "[Habilis/Component/ADS1110] configuration failed \r\n");
