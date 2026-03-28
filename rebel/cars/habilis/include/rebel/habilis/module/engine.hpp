@@ -4,62 +4,24 @@
 
 #pragma once
 
-#include <rebel/habilis/module/engine_driver.hpp>
-#include <rebel/habilis/module/engine_sensor.hpp>
-#include <rebel/habilis/module/rotation_direction.hpp>
+#include <rebel/habilis/component/pca9685.hpp>
 
-namespace Rebel::Habilis::Module
-{
-    enum class RPM
-    {
-        Stopped,
-        MaxSpeed,
-    };
-
-    class Engine
-    {
+namespace Rebel::Habilis::Module {
+    class Engine {
     public:
-        Engine(int maxRPM);
-
-        Engine(int maxRPM, EngineDriver* driver);
-
-        Engine(int maxRPM, EngineDriver* driver, EngineSensor* sensor);
+        explicit Engine(const Rebel::Habilis::Component::PCA9685 &driver);
 
         /**
-         * @brief Sets target rpm using driver.
+         * @brief Perform actions in order to reach the desired speed
+         *
+         * @param speed desired speed from stopped=0 to max-speed=1
+         * @return whether if operation was successful
          */
-        void Install(EngineDriver* driver);
-
-        /**
-         * @brief Read engine's actual rpm from sensor.
-         */
-        void Calibrate(EngineSensor* sensor);
-
-        /**
-         * @brief Attempt to reach to target rpm.
-         * @param ratio A value between 0 (= stopped) and 1 (= running at max rpm).
-         */
-        int AdjustRPM(float ratio) const;
-
-        /**
-         * @brief Returns actual engine's speed in rpm.
-         */
-        int RPM() const;
-
-        /**
-         * @brief Changes rotaions direction of the engine.
-         */
-        int ChangeDirection(RotationDirection direction) const;
-
-        /**
-         * @brief Returns actual engine's rotation direction.
-         */
-        RotationDirection Direction() const;
+        [[nodiscard]] bool reach(float speed) const;
 
     private:
-        const int maxRPM;
+        Rebel::Habilis::Component::PCA9685 driver;
 
-        EngineDriver* driver{};
-        EngineSensor* sensor{};
+        const int maxRPM = 1000;
     };
 }

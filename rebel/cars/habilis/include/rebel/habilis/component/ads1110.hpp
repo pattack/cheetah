@@ -23,6 +23,7 @@ namespace Rebel::Habilis::Component {
         const float refVoltage = 2.048;
         const float maxVoltage = 5.0;
 
+        [[nodiscard]] bool configure() const;
         [[nodiscard]] float diffVoltage(int value) const;
         [[nodiscard]] float normalize(float value) const;
     };

@@ -3,10 +3,14 @@
 //
 
 #include <rebel/habilis/component/ads1110.hpp>
+#include <rebel/habilis/kit.hpp>
 
 namespace Rebel::Habilis::Component {
     ADS1110::ADS1110(const Rebel::Habilis::Device::I2CDevice device) : device(device) {
-        this->device.send(new uint8_t[] { 0x8C }, 1);
+        if (!this->configure()) {
+            Rebel::Habilis::Kit::Default().Modules.logger->log(Rebellion::Module::Logger::LogLevel::Error,
+                                                               "[Habilis/Component/ADS1110] configuration failed \r\n");
+        }
     }
 
     std::pair<float, bool> ADS1110::read() const {
@@ -18,6 +22,12 @@ namespace Rebel::Habilis::Component {
         const auto value = (pressure[0] << 8) | pressure[1];
 
         return {this->normalize(this->diffVoltage(value)), true};
+    }
+
+    bool ADS1110::configure() const {
+        constexpr uint8_t cmd[] = {0x8C};
+
+        return this->device.send(cmd, 1);
     }
 
     float ADS1110::diffVoltage(const int value) const {
