@@ -23,37 +23,38 @@ namespace Rebel::Habilis::Device {
         HAL_I2C_ER_IRQHandler(&this->hi2c);
     }
 
-    HAL_StatusTypeDef I2C::isDeviceReady(const uint16_t address) {
+    std::pair<HAL_StatusTypeDef, uint32_t> I2C::isDeviceReady(const uint16_t address) {
         this->waitForReadiness();
 
-        return HAL_I2C_IsDeviceReady(&this->hi2c, I2C::addressOnWire(address), 1, 1);
+        const auto status = HAL_I2C_IsDeviceReady(&this->hi2c, I2C::addressOnWire(address), 1, 1);
+        const auto err = HAL_I2C_GetError(&this->hi2c);
+
+        return {status, err};
     }
 
-    HAL_StatusTypeDef I2C::write(const uint16_t address, const uint8_t *data, const size_t length) {
+    std::pair<HAL_StatusTypeDef, uint32_t> I2C::write(const uint16_t address, const uint8_t *data, const size_t length) {
         this->waitForReadiness();
 
         const auto status = HAL_I2C_Master_Transmit_IT(&this->hi2c, I2C::addressOnWire(address),
                                                     const_cast<uint8_t *>(data), length);
+        const auto err = HAL_I2C_GetError(&this->hi2c);
         if (status != HAL_OK) {
             this->recover();
         }
 
-        return status;
+        return {status, err};
     }
 
-    HAL_StatusTypeDef I2C::read(const uint16_t address, uint8_t *data, const size_t length) {
+    std::pair<HAL_StatusTypeDef, uint32_t> I2C::read(const uint16_t address, uint8_t *data, const size_t length) {
         this->waitForReadiness();
 
         const auto status = HAL_I2C_Master_Receive_IT(&this->hi2c, I2C::addressOnWire(address), data, length);
+        const auto err = HAL_I2C_GetError(&this->hi2c);
         if (status != HAL_OK) {
             this->recover();
         }
 
-        return status;
-    }
-
-    uint32_t I2C::error() {
-        return HAL_I2C_GetError(&this->hi2c);
+        return {status, err};
     }
 
     void I2C::configure(I2C_TypeDef *instance) {
@@ -88,15 +89,21 @@ namespace Rebel::Habilis::Device {
     I2CSlot::I2CSlot(I2C *bus, const uint16_t address) : bus(bus), address(address) {
     }
 
-    bool I2CSlot::isReady() const {
-        return this->bus->isDeviceReady(this->address) == HAL_OK;
+    std::pair<bool, uint32_t> I2CSlot::isReady() const {
+        auto [status, err] = this->bus->isDeviceReady(this->address);
+
+        return {status == HAL_OK, err};
     }
 
-    bool I2CSlot::send(const uint8_t *data, const size_t length) const {
-        return this->bus->write(this->address, data, length) == HAL_OK;
+    std::pair<bool, uint32_t> I2CSlot::send(const uint8_t *data, const size_t length) const {
+        auto [status, err] = this->bus->write(this->address, data, length);
+
+        return {status == HAL_OK, err};
     }
 
-    bool I2CSlot::receive(uint8_t *data, const size_t length) const {
-        return this->bus->read(this->address, data, length) == HAL_OK;
+    std::pair<bool, uint32_t> I2CSlot::receive(uint8_t *data, const size_t length) const {
+        auto [status, err] = this->bus->read(this->address, data, length);
+
+        return {status == HAL_OK, err};
     }
 }

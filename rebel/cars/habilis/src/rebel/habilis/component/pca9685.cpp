@@ -24,12 +24,16 @@ namespace Rebel::Habilis::Component {
         cmd[3] = off & 0xFF;
         cmd[4] = off >> 8;
 
-        return this->device.send(cmd, 5);
+        const auto [ok, err] = this->device.send(cmd, 5);
+
+        return ok;
     }
 
     bool PCA9685::configure() const {
         constexpr uint8_t cmd[] = {0x00, 0x20};
 
-        return this->device.send(cmd, 2);
+        const auto [ok, err] = this->device.send(cmd, 2);
+
+        return ok;
     }
 };

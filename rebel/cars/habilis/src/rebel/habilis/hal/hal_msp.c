@@ -118,6 +118,15 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c) {
 }
 
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c) {
+    // I2C transmit completed
+}
+
+void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c) {
+    // I2C receive completed
+}
+
+void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c) {
+    // I2C error
 }
 
 /**
@@ -197,6 +206,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *huart) {
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
+    // UART transmit completed
 }
 
 void HAL_USART_MspInit(USART_HandleTypeDef *husart) {
@@ -264,6 +274,7 @@ void HAL_USART_MspDeInit(USART_HandleTypeDef *husart) {
 }
 
 void HAL_USART_TxCpltCallback(USART_HandleTypeDef *husart) {
+    // USART transmit completed
 }
 
 void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi) {

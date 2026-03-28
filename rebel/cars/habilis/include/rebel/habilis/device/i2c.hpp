@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <utility>
+
 #include <rebel/habilis/hal/hal.h>
 
 namespace Rebel::Habilis::Device {
@@ -28,16 +30,14 @@ namespace Rebel::Habilis::Device {
         void handleEventIRQ();
         void handleErrorIRQ();
 
-        uint32_t error();
-
     private:
         I2C_HandleTypeDef hi2c;
 
-        HAL_StatusTypeDef isDeviceReady(uint16_t address);
+        std::pair<HAL_StatusTypeDef, uint32_t> isDeviceReady(uint16_t address);
 
-        HAL_StatusTypeDef write(uint16_t address, const uint8_t *data, size_t length);
+        std::pair<HAL_StatusTypeDef, uint32_t> write(uint16_t address, const uint8_t *data, size_t length);
 
-        HAL_StatusTypeDef read(uint16_t address, uint8_t *data, size_t length);
+        std::pair<HAL_StatusTypeDef, uint32_t> read(uint16_t address, uint8_t *data, size_t length);
 
     protected:
         void configure(I2C_TypeDef *instance);
@@ -53,11 +53,11 @@ namespace Rebel::Habilis::Device {
     public:
         explicit I2CSlot(I2C *bus, uint16_t address);
 
-        [[nodiscard]] bool isReady() const;
+        [[nodiscard]] std::pair<bool, uint32_t> isReady() const;
 
-        bool send(const uint8_t *data, size_t length) const;
+        std::pair<bool, uint32_t> send(const uint8_t *data, size_t length) const;
 
-        bool receive(uint8_t *data, size_t length) const;
+        std::pair<bool, uint32_t> receive(uint8_t *data, size_t length) const;
 
     private:
         I2C *bus;
