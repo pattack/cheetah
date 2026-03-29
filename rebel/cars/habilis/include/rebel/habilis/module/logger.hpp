@@ -16,7 +16,7 @@ namespace Rebel::Habilis::Module {
         void log(Rebellion::Module::Logger::LogLevel level, const char *message) const;
 
     private:
-        // note: can depend on Stream interface which STDIO is one implementation
+        // todo: depend on Stream interface which STDIO is one implementation
         Rebel::Habilis::Component::STDIO *stdio;
     };
 }

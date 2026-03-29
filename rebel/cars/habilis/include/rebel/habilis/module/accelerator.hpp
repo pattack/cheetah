@@ -16,7 +16,7 @@ namespace Rebel::Habilis::Module {
         /**
          * @brief reads accelerator value from sensor and returns the value and changed indicator
          *
-         * @return float pressure, bool changed:
+         * @return pair{pressure, changed}:
          *   pressure value from 0 to 1
          *   changed indicates if value differs from last read
          */

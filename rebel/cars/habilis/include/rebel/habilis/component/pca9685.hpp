@@ -9,12 +9,12 @@
 namespace Rebel::Habilis::Component {
     class PCA9685 {
     public:
-        explicit PCA9685(Rebel::Habilis::Device::I2CSlot device);
+        explicit PCA9685(Rebel::Habilis::Device::I2CSlot slot);
 
         [[nodiscard]] bool write(uint8_t channel, float ratio) const;
 
     private:
-        Rebel::Habilis::Device::I2CSlot device;
+        Rebel::Habilis::Device::I2CSlot slot;
 
         [[nodiscard]] bool configure() const;
     };

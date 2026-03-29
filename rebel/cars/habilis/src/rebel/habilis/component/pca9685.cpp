@@ -6,7 +6,7 @@
 #include <rebel/habilis/kit.hpp>
 
 namespace Rebel::Habilis::Component {
-    PCA9685::PCA9685(const Rebel::Habilis::Device::I2CSlot device) : device(device) {
+    PCA9685::PCA9685(const Rebel::Habilis::Device::I2CSlot slot) : slot(slot) {
         if (!this->configure()) {
             Rebel::Habilis::Kit::Default().Modules.logger->log(Rebellion::Module::Logger::LogLevel::Error,
                                                                "[Habilis/Component/PCA9685] configuration failed \r\n");
@@ -24,7 +24,7 @@ namespace Rebel::Habilis::Component {
         cmd[3] = off & 0xFF;
         cmd[4] = off >> 8;
 
-        const auto [ok, err] = this->device.send(cmd, 5);
+        const auto [ok, err] = this->slot.send(cmd, 5);
 
         return ok;
     }
@@ -32,7 +32,7 @@ namespace Rebel::Habilis::Component {
     bool PCA9685::configure() const {
         constexpr uint8_t cmd[] = {0x00, 0x20};
 
-        const auto [ok, err] = this->device.send(cmd, 2);
+        const auto [ok, err] = this->slot.send(cmd, 2);
 
         return ok;
     }

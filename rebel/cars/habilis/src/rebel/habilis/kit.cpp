@@ -30,6 +30,10 @@ namespace Rebel::Habilis {
 
         this->Modules = {
             .logger = new Module::Logger(this->Components.stdio),
+            .indicator = new Module::Indicator(
+                Component::LED(Device::GPIO(GPIOB, GPIO_PIN_0)),
+                Component::LED(Device::GPIO(GPIOB, GPIO_PIN_1))
+            )
         };
     }
 

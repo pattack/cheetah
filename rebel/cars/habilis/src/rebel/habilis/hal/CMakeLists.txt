@@ -50,8 +50,15 @@ set(CAR_HAL_STM32_HAL_SOURCES
 )
 
 set(CAR_HAL_LOWLEVEL_SOURCES
+        ${CMAKE_CURRENT_LIST_DIR}/gpio.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/i2c.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/spi.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/usart.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/uart.cpp
+
         ${CMAKE_CURRENT_LIST_DIR}/isr.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/hal_msp.c
+        ${CMAKE_CURRENT_LIST_DIR}/msp.c
+
         ${CMAKE_CURRENT_LIST_DIR}/sysmem.c
         ${CMAKE_CURRENT_LIST_DIR}/syscalls.c
         ${CMAKE_CURRENT_LIST_DIR}/startup.s

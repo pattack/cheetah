@@ -17,6 +17,7 @@ namespace Rebel::Habilis::Service {
     }
 
     void Car::Attach(Rebellion::ReceiveBus *ibus, Rebellion::SendBus *obus) {
+        Rebel::Habilis::Kit::Default().Modules.indicator->showTransient();
         Rebel::Habilis::Kit::Default().Modules.logger->log(Rebellion::Module::Logger::LogLevel::Info,
                                                            "[Habilis/Svc/Car] Attach\r\n");
 

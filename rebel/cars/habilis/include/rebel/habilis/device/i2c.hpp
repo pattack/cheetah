@@ -44,7 +44,7 @@ namespace Rebel::Habilis::Device {
 
         void waitForReadiness();
 
-        void recover();
+        void recover(uint32_t err);
 
         static uint16_t addressOnWire(uint16_t address);
     };

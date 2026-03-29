@@ -21,11 +21,13 @@ target_sources(car_habilis INTERFACE
         src/rebel/habilis/device/adc.cpp
 
         src/rebel/habilis/component/ads1110.cpp
+        src/rebel/habilis/component/led.cpp
         src/rebel/habilis/component/stdio.cpp
         src/rebel/habilis/component/pca9685.cpp
 
         src/rebel/habilis/module/accelerator.cpp
         src/rebel/habilis/module/engine.cpp
+        src/rebel/habilis/module/indicator.cpp
         src/rebel/habilis/module/logger.cpp
 
         src/rebel/habilis/service/car.cpp

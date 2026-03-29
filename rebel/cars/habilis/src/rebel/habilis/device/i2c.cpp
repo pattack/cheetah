@@ -4,6 +4,7 @@
 
 #include <cmath>
 
+#include <rebel/habilis/kit.hpp>
 #include <rebel/habilis/device/i2c.hpp>
 
 namespace Rebel::Habilis::Device {
@@ -39,7 +40,7 @@ namespace Rebel::Habilis::Device {
                                                     const_cast<uint8_t *>(data), length);
         const auto err = HAL_I2C_GetError(&this->hi2c);
         if (status != HAL_OK) {
-            this->recover();
+            this->recover(err);
         }
 
         return {status, err};
@@ -51,7 +52,7 @@ namespace Rebel::Habilis::Device {
         const auto status = HAL_I2C_Master_Receive_IT(&this->hi2c, I2C::addressOnWire(address), data, length);
         const auto err = HAL_I2C_GetError(&this->hi2c);
         if (status != HAL_OK) {
-            this->recover();
+            this->recover(err);
         }
 
         return {status, err};
@@ -60,7 +61,7 @@ namespace Rebel::Habilis::Device {
     void I2C::configure(I2C_TypeDef *instance) {
         this->hi2c.Instance = instance;
         this->hi2c.Init.ClockSpeed = 100000;
-        this->hi2c.Init.DutyCycle = I2C_DUTYCYCLE_2;
+        this->hi2c.Init.DutyCycle = I2C_DUTYCYCLE_16_9;
         this->hi2c.Init.OwnAddress1 = 0x00;
         this->hi2c.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
         this->hi2c.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -77,7 +78,11 @@ namespace Rebel::Habilis::Device {
         }
     }
 
-    void I2C::recover() {
+    void I2C::recover(const uint32_t err) {
+        if (err != HAL_I2C_ERROR_AF) {
+            Rebel::Habilis::Kit::Default().Modules.indicator->showError();
+        }
+
         // HAL_I2C_DeInit(&this->hi2c);
         // this->configure(this->hi2c.Instance);
     }

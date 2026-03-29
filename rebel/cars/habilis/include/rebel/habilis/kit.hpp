@@ -8,6 +8,7 @@
 #include <rebel/habilis/device/i2c.hpp>
 #include <rebel/habilis/device/usart.hpp>
 #include <rebel/habilis/module/logger.hpp>
+#include <rebel/habilis/module/indicator.hpp>
 
 namespace Rebel::Habilis {
     class Kit {
@@ -23,6 +24,7 @@ namespace Rebel::Habilis {
 
         struct {
             Module::Logger *logger;
+            Module::Indicator *indicator;
         } Modules{};
 
         static Kit &Default();
