@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include <rebellion/process.hpp>
+#include <rebel/sys/process.hpp>
 
 namespace Starter {
-    class Movement : public Rebellion::Process {
+    class Movement : public Rebel::Process {
     public:
-        void Attach(Rebellion::ReceiveBus *ibus, Rebellion::SendBus *obus) override;
+        void Attach(Rebel::ReceiveBus *ibus, Rebel::SendBus *obus) override;
 
         void Proceed() override;
 
@@ -17,6 +17,6 @@ namespace Starter {
         void onAcceleratorPressed(float pressure) const;
 
     protected:
-        Rebellion::SendBus *commands = nullptr;
+        Rebel::SendBus *commands = nullptr;
     };
 };

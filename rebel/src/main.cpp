@@ -1,5 +1,5 @@
-#include <rebellion/system.hpp>
+#include <rebel/sys/system.hpp>
 
 int main() {
-    Rebellion::System::Boot();
+    Rebel::System::Boot();
 }

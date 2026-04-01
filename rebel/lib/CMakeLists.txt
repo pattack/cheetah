@@ -1,1 +1,1 @@
-add_subdirectory(rebellion)
+add_subdirectory(rebel)
