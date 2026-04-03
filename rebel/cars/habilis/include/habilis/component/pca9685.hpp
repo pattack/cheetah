@@ -4,17 +4,19 @@
 
 #pragma once
 
-#include <habilis/device/i2c.hpp>
+#include <memory>
+
+#include <habilis/io/i2c.hpp>
 
 namespace Habilis {
     class PCA9685 {
     public:
-        explicit PCA9685(I2CSlot slot);
+        explicit PCA9685(std::unique_ptr<I2C_Slot> slot);
 
         [[nodiscard]] bool write(uint8_t channel, float ratio) const;
 
     private:
-        I2CSlot slot;
+        std::unique_ptr<I2C_Slot> slot;
 
         [[nodiscard]] bool configure() const;
     };

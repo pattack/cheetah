@@ -9,7 +9,7 @@
 namespace Habilis {
     class Engine {
     public:
-        explicit Engine(const PCA9685 &driver);
+        explicit Engine(std::unique_ptr<PCA9685> driver);
 
         /**
          * @brief Perform actions in order to reach the desired speed
@@ -20,7 +20,7 @@ namespace Habilis {
         [[nodiscard]] bool reach(float speed) const;
 
     private:
-        PCA9685 driver;
+        std::unique_ptr<PCA9685> driver;
 
         const int maxRPM = 1000;
     };

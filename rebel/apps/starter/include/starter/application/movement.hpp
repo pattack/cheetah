@@ -9,14 +9,14 @@
 namespace Starter {
     class Movement : public Rebel::Process {
     public:
-        void Attach(Rebel::ReceiveBus *ibus, Rebel::SendBus *obus) override;
+        void Attach(Rebel::Receive_Bus *b_receive, Rebel::Send_Bus *b_send) override;
 
         void Proceed() override;
 
     private:
-        void onAcceleratorPressed(float pressure) const;
+        void on_accelerator_pressed(float pressure) const;
 
     protected:
-        Rebel::SendBus *commands = nullptr;
+        Rebel::Send_Bus *commands = nullptr;
     };
 };

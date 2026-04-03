@@ -4,6 +4,9 @@
 
 #pragma once
 
+#include <string>
+#include <string_view>
+
 #include <habilis/hal/hal.h>
 
 namespace Habilis {
@@ -11,14 +14,17 @@ namespace Habilis {
     public:
         USART(USART_TypeDef *instance, uint32_t baudRate);
 
-        bool write(const char *message);
+        bool write(std::string_view message);
+        const std::string &read();
 
-        void handleIRQ();
+        void handle_irq();
 
     private:
         USART_HandleTypeDef husart;
 
     protected:
         void configure(USART_TypeDef *instance, uint32_t baudRate);
+
+        void wait_for_readiness();
     };
 }

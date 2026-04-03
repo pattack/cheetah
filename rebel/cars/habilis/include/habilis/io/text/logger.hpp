@@ -4,19 +4,19 @@
 
 #pragma once
 
-#include <rebel/io/text/logger.hpp>
+#include <memory>
 
-#include <habilis/component/stdio.hpp>
+#include <rebel/io/text/logger.hpp>
+#include <rebel/io/text/printer.hpp>
 
 namespace Habilis {
     class Logger {
     public:
-        explicit Logger(STDIO *stdio);
+        explicit Logger(std::shared_ptr<Rebel::Printer> printer);
 
-        void log(Rebel::Logger::LogLevel level, const char *message) const;
+        void log(Rebel::Logger::Log_Level level, std::string_view message) const;
 
     private:
-        // todo: depend on Stream interface which STDIO is one implementation
-        STDIO *stdio;
+        std::shared_ptr<Rebel::Printer> printer;
     };
 }

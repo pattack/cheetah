@@ -5,10 +5,10 @@
 #include <habilis/module/engine.hpp>
 
 namespace Habilis {
-    Engine::Engine(const PCA9685 &driver) : driver(driver) {
+    Engine::Engine(std::unique_ptr<PCA9685> driver) : driver(std::move(driver)) {
     }
 
     bool Engine::reach(const float speed) const {
-        return this->driver.write(0, speed);
+        return this->driver->write(0, speed);
     }
 }

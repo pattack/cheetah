@@ -5,5 +5,5 @@
 #pragma once
 
 namespace Rebel {
-    class ElectricMotor {};
+    class Electric_Motor {};
 }

@@ -10,19 +10,19 @@ namespace Habilis {
 
     }
 
-    void CarService::Attach(Rebel::ReceiveBus *ibus, Rebel::SendBus *obus) {
+    void CarService::Attach(Rebel::Receive_Bus *ibus, Rebel::Send_Bus *obus) {
         Kit::Default().Modules.indicator->showTransient();
-        Kit::Default().Modules.logger->log(Rebel::Logger::LogLevel::Info,
+        Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Info,
                                                            "[Habilis/Svc/Car] Attach\r\n");
 
         this->events = obus;
-        ibus->On("action/move", [this](const Rebel::EventPayload &payload) {
+        ibus->On("action/move", [this](const Rebel::Event_Payload &payload) {
             // this->move(std::any_cast<float>(payload));
         });
     }
 
     void CarService::Proceed() {
-        Kit::Default().Modules.logger->log(Rebel::Logger::LogLevel::Debug,
+        Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Debug,
                                                            "[Habilis/Svc/Car] Proceed\r\n");
 
         // if (const auto [pressure, changed] = this->accelerator->status(); changed) {

@@ -7,5 +7,5 @@
 #include <rebel/motion/motor/electric.hpp>
 
 namespace Rebel {
-    class DCMotor : public ElectricMotor {};
+    class DC_Motor : public Electric_Motor {};
 }

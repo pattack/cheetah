@@ -4,19 +4,21 @@
 
 #pragma once
 
+#include <string_view>
+
 namespace Rebel {
     class Logger {
     public:
         Logger() = delete;
         ~Logger() = delete;
 
-        enum class LogLevel {
+        enum class Log_Level {
             Error,
             Info,
             Debug
         };
 
-        static void Log(LogLevel level, const char *message);
+        static void Log(Log_Level level, std::string_view message);
 
         // Prevent copy/move construction.
         Logger(const Logger&) = delete;

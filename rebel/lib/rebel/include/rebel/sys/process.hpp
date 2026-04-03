@@ -14,7 +14,7 @@ namespace Rebel {
         /**
          * @brief activates the process on input and output buses
          */
-        virtual void Attach(ReceiveBus *ibus, SendBus *obus) = 0;
+        virtual void Attach(Receive_Bus *b_receive, Send_Bus *b_send) = 0;
 
         virtual void Proceed() = 0;
     };

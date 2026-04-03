@@ -6,11 +6,11 @@
 #include <habilis/io/text/logger.hpp>
 
 namespace Habilis {
-    Logger::Logger(STDIO *stdio) : stdio(stdio) {
+    Logger::Logger(std::shared_ptr<Rebel::Printer> printer) : printer(std::move(printer)) {
     }
 
-    void Logger::log(Rebel::Logger::LogLevel level, const char *message) const {
+    void Logger::log(Rebel::Logger::Log_Level level, const std::string_view message) const {
         // todo: filter with minimum level and add it to the message
-        this->stdio->print(message);
+        this->printer->print(message);
     }
 };

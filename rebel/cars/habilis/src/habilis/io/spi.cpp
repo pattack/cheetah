@@ -2,7 +2,7 @@
 // Created by pouyan on 3/15/26.
 //
 
-#include <habilis/device/spi.hpp>
+#include <habilis/io/spi.hpp>
 
 namespace Habilis {
     SPI::SPI(SPI_TypeDef *instance) : hspi() {

@@ -7,17 +7,17 @@
 
 namespace Rebel {
     void System::Boot() {
-        const auto eventBus = new Bus();
-        const auto commandBus = new Bus();
+        const auto b_events = new Bus();
+        const auto b_commands = new Bus();
 
         // attach controllers to the event bus, command bus
         for (const auto proc : System::applications()) {
-            proc->Attach(eventBus, commandBus);
+            proc->Attach(b_events, b_commands);
         }
 
         // attach services to the command bus, event bus
         for (const auto proc : System::services()) {
-            proc->Attach(commandBus, eventBus);
+            proc->Attach(b_commands, b_events);
         }
 
         for (;;) {

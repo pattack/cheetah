@@ -5,5 +5,11 @@
 #pragma once
 
 namespace Rebel {
-    class Reader {};
+    template<typename T>
+    class Reader {
+    public:
+        virtual ~Reader() = default;
+
+        virtual T read() = 0;
+    };
 }

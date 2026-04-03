@@ -6,16 +6,16 @@
 #include <habilis/kit.hpp>
 
 namespace Habilis {
-    ADS1110::ADS1110(const I2CSlot device) : device(device) {
-        if (const auto [ok, err] = this->configure(); !ok) {
-            Kit::Default().Modules.logger->log(Rebel::Logger::LogLevel::Error,
-                                                               "[Habilis/Component/ADS1110] configuration failed \r\n");
+    ADS1110::ADS1110(std::unique_ptr<I2C_Slot> device) : device(std::move(device)) {
+        if (!this->configure()) {
+            Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Error,
+                                               "[Habilis/Component/ADS1110] configuration failed \r\n");
         }
     }
 
     std::pair<float, bool> ADS1110::read() const {
-        uint8_t raw[2] = {};
-        if (const auto [ok, err] = this->device.receive(raw, 2); !ok) {
+        const auto raw = this->device->receive();
+        if (raw.empty()) {
             return {0, false};
         }
 
@@ -24,10 +24,10 @@ namespace Habilis {
         return {this->normalize(this->diffVoltage(value)), true};
     }
 
-    std::pair<bool, uint32_t> ADS1110::configure() const {
-        constexpr uint8_t cmd[] = {0x8C};
+    bool ADS1110::configure() const {
+        const std::vector<uint8_t> cmd{0x8C};
 
-        return this->device.send(cmd, 1);
+        return this->device->send(cmd);
     }
 
     float ADS1110::diffVoltage(const int value) const {

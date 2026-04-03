@@ -7,7 +7,7 @@
 #include <rebel/io/text/logger.hpp>
 
 namespace Rebel {
-    void Logger::Log(const LogLevel level, const char *message) {
+    void Logger::Log(const Log_Level level, const std::string_view message) {
         Habilis::Kit::Default().Modules.logger->log(level, message);
     }
 }

@@ -11,31 +11,31 @@
 #include <vector>
 
 namespace Rebel {
-    typedef std::string EventTopic;
-    typedef std::any EventPayload;
-    typedef std::function<void(EventPayload payload)> EventHandler;
+    typedef std::string Event_Topic;
+    typedef std::any Event_Payload;
+    typedef std::function<void(Event_Payload payload)> Event_Handler;
 
-    class ReceiveBus {
+    class Receive_Bus {
     public:
-        virtual ~ReceiveBus() = default;
+        virtual ~Receive_Bus() = default;
 
-        virtual void On(EventTopic topic, EventHandler handler) = 0;
+        virtual void On(Event_Topic topic, Event_Handler handler) = 0;
     };
 
-    class SendBus {
+    class Send_Bus {
     public:
-        virtual ~SendBus() = default;
+        virtual ~Send_Bus() = default;
 
-        virtual void Raise(EventTopic topic, EventPayload payload) = 0;
+        virtual void Raise(Event_Topic topic, Event_Payload payload) = 0;
     };
 
-    class Bus : public ReceiveBus, public SendBus {
+    class Bus : public Receive_Bus, public Send_Bus {
     public:
-        void On(EventTopic topic, EventHandler handler) override;
+        void On(Event_Topic topic, Event_Handler handler) override;
 
-        void Raise(EventTopic topic, EventPayload payload) override;
+        void Raise(Event_Topic topic, Event_Payload payload) override;
 
     private:
-        std::unordered_map<EventTopic, std::vector<EventHandler>> handlers;
+        std::unordered_map<Event_Topic, std::vector<Event_Handler>> handlers;
     };
 };

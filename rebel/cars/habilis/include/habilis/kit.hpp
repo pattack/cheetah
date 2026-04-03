@@ -4,9 +4,11 @@
 
 #pragma once
 
-#include <habilis/component/stdio.hpp>
-#include <habilis/device/i2c.hpp>
-#include <habilis/device/usart.hpp>
+#include <memory>
+
+#include <habilis/io/i2c.hpp>
+#include <habilis/io/usart.hpp>
+#include <habilis/io/text/usart_printer.hpp>
 #include <habilis/io/text/logger.hpp>
 #include <habilis/module/indicator.hpp>
 
@@ -14,17 +16,17 @@ namespace Habilis {
     class Kit {
     public:
         struct {
-            USART *usart1, *usart2;
-            I2C *i2c1, *i2c2;
+            std::shared_ptr<USART> usart1, usart2;
+            std::shared_ptr<I2C> i2c1, i2c2;
         } Devices{};
 
         struct {
-            STDIO *stdio;
+            std::shared_ptr<USART_Printer> usart_printer;
         } Components{};
 
         struct {
-            Logger *logger;
-            Indicator *indicator;
+            std::shared_ptr<Logger> logger;
+            std::shared_ptr<Indicator> indicator;
         } Modules{};
 
         static Kit &Default();
@@ -32,6 +34,6 @@ namespace Habilis {
     private:
         Kit();
 
-        bool setup(bool internalOsc);
+        bool setup(bool internalOsc = true);
     };
 }

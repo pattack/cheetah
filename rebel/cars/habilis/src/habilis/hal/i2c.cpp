@@ -127,17 +127,17 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c) {
 /******************************************************************************/
 
 void I2C1_EV_IRQHandler() {
-    Habilis::Kit::Default().Devices.i2c1->handleEventIRQ();
+    Habilis::Kit::Default().Devices.i2c1->handle_event_irq();
 }
 
 void I2C1_ER_IRQHandler() {
-    Habilis::Kit::Default().Devices.i2c1->handleErrorIRQ();
+    Habilis::Kit::Default().Devices.i2c1->handle_error_irq();
 }
 
 void I2C2_EV_IRQHandler() {
-    Habilis::Kit::Default().Devices.i2c2->handleEventIRQ();
+    Habilis::Kit::Default().Devices.i2c2->handle_event_irq();
 }
 
 void I2C2_ER_IRQHandler() {
-    Habilis::Kit::Default().Devices.i2c2->handleErrorIRQ();
+    Habilis::Kit::Default().Devices.i2c2->handle_error_irq();
 }

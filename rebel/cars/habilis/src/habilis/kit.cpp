@@ -13,26 +13,30 @@ namespace Habilis {
     }
 
     Kit::Kit() {
-        this->setup(true);
+        this->setup();
 
         this->Devices = {
-            .usart1 = new USART(USART1, 115200),
-            .usart2 = new USART(USART2, 115200),
+            .usart1{new USART{USART1, 115200}},
+            .usart2{new USART{USART2, 115200}},
 
-            .i2c1 = new I2C(I2C1),
-            .i2c2 = new I2C(I2C2),
+            .i2c1{new I2C{I2C1}},
+            .i2c2{new I2C{I2C2}},
         };
 
         this->Components = {
-            .stdio = new STDIO(this->Devices.usart1),
+            .usart_printer{new USART_Printer{this->Devices.usart1}},
         };
 
+        const std::shared_ptr<GPIO_TypeDef> gpiob {GPIOB};
+
         this->Modules = {
-            .logger = new Logger(this->Components.stdio),
-            .indicator = new Indicator(
-                LED(GPIO(GPIOB, GPIO_PIN_0)),
-                LED(GPIO(GPIOB, GPIO_PIN_1))
-            )
+            .logger{new Logger{this->Components.usart_printer}},
+            .indicator{
+                new Indicator{
+                    LED(GPIO(gpiob, GPIO_PIN_0)),
+                    LED(GPIO(gpiob, GPIO_PIN_1))
+                }
+            }
         };
     }
 

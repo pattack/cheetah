@@ -7,21 +7,22 @@
 #include <starter/application/movement.hpp>
 
 namespace Starter {
-    void Movement::Attach(Rebel::ReceiveBus *ibus, Rebel::SendBus *obus) {
-        Rebel::Logger::Log(Rebel::Logger::LogLevel::Info, "[Starter/App/Movement] Attach\r\n");
+    void Movement::Attach(Rebel::Receive_Bus *b_receive, Rebel::Send_Bus *b_send) {
+        Rebel::Logger::Log(Rebel::Logger::Log_Level::Info, "[Starter/App/Movement] Attach\r\n");
 
-        this->commands = obus;
-        ibus->On("event/accelerator_pressed", [this](const Rebel::EventPayload &payload) {
-            this->onAcceleratorPressed(std::any_cast<float>(payload));
+        this->commands = b_send;
+        b_receive->On("event/accelerator_pressed", [this](const Rebel::Event_Payload &payload) {
+            this->on_accelerator_pressed(std::any_cast<float>(payload));
         });
     }
 
     void Movement::Proceed() {
-        Rebel::Logger::Log(Rebel::Logger::LogLevel::Debug, "[Starter/App/Movement] Proceed\r\n");
+        Rebel::Logger::Log(Rebel::Logger::Log_Level::Debug, "[Starter/App/Movement] Proceed\r\n");
     }
 
-    void Movement::onAcceleratorPressed(float pressure) const {
-        Rebel::Logger::Log(Rebel::Logger::LogLevel::Debug, "[Starter/App/Movement] OnAcceleratorPressed\r\n");
+    void Movement::on_accelerator_pressed(float pressure) const {
+        // todo: resolve swprintf in __strftime to be able to use std::format
+        Rebel::Logger::Log(Rebel::Logger::Log_Level::Debug, "[Starter/App/Movement] on_accelerator_pressed {}\r\n");
 
         this->commands->Raise("action/move", pressure);
     }

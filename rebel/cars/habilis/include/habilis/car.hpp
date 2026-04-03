@@ -15,14 +15,14 @@ namespace Habilis {
     public:
         CarService();
 
-        void Attach(Rebel::ReceiveBus *ibus, Rebel::SendBus *obus) override;
+        void Attach(Rebel::Receive_Bus *ibus, Rebel::Send_Bus *obus) override;
 
         void Proceed() override;
 
     private:
-        Rebel::SendBus *events = nullptr;
+        Rebel::Send_Bus *events = nullptr;
 
-        Rebel::Reader *accelerator;
+        Rebel::Reader<float> *accelerator;
         Rebel::Motor *engine;
         Rebel::Brake *brake;
         Rebel::Servo *steering;

@@ -3,9 +3,10 @@
 //
 
 #include <habilis/module/indicator.hpp>
+#include <utility>
 
 namespace Habilis {
-    Indicator::Indicator(const LED &ledStatus, const LED &ledError) : ledStatus(ledStatus), ledError(ledError) {
+    Indicator::Indicator(LED ledStatus, LED ledError) : ledStatus(std::move(ledStatus)), ledError(std::move(ledError)) {
     }
 
     void Indicator::showTransient() const {

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <habilis/device/gpio.hpp>
+#include <habilis/io/gpio.hpp>
 
 namespace Habilis {
     class LED {

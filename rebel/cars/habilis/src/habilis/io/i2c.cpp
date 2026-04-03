@@ -5,27 +5,27 @@
 #include <cmath>
 
 #include <habilis/kit.hpp>
-#include <habilis/device/i2c.hpp>
+#include <habilis/io/i2c.hpp>
 
 namespace Habilis {
     I2C::I2C(I2C_TypeDef *instance) : hi2c() {
         this->configure(instance);
     }
 
-    I2CSlot I2C::slot(const uint16_t address) {
-        return I2CSlot(this, address);
+    I2C_Slot I2C::slot(const uint16_t address) const {
+        return I2C_Slot(std::as_const(*this), address);
     }
 
-    void I2C::handleEventIRQ() {
+    void I2C::handle_event_irq() {
         HAL_I2C_EV_IRQHandler(&this->hi2c);
     }
 
-    void I2C::handleErrorIRQ() {
+    void I2C::handle_error_irq() {
         HAL_I2C_ER_IRQHandler(&this->hi2c);
     }
 
-    std::pair<HAL_StatusTypeDef, uint32_t> I2C::isDeviceReady(const uint16_t address) {
-        this->waitForReadiness();
+    std::pair<HAL_StatusTypeDef, uint32_t> I2C::is_device_ready(const uint16_t address) {
+        this->wait_for_readiness();
 
         const auto status = HAL_I2C_IsDeviceReady(&this->hi2c, I2C::addressOnWire(address), 1, 1);
         const auto err = HAL_I2C_GetError(&this->hi2c);
@@ -33,11 +33,12 @@ namespace Habilis {
         return {status, err};
     }
 
-    std::pair<HAL_StatusTypeDef, uint32_t> I2C::write(const uint16_t address, const uint8_t *data, const size_t length) {
-        this->waitForReadiness();
+    std::pair<HAL_StatusTypeDef, uint32_t>
+    I2C::write(const uint16_t address, const uint8_t *data, const size_t length) {
+        this->wait_for_readiness();
 
         const auto status = HAL_I2C_Master_Transmit_IT(&this->hi2c, I2C::addressOnWire(address),
-                                                    const_cast<uint8_t *>(data), length);
+                                                       const_cast<uint8_t *>(data), length);
         const auto err = HAL_I2C_GetError(&this->hi2c);
         if (status != HAL_OK) {
             this->recover(err);
@@ -47,7 +48,7 @@ namespace Habilis {
     }
 
     std::pair<HAL_StatusTypeDef, uint32_t> I2C::read(const uint16_t address, uint8_t *data, const size_t length) {
-        this->waitForReadiness();
+        this->wait_for_readiness();
 
         const auto status = HAL_I2C_Master_Receive_IT(&this->hi2c, I2C::addressOnWire(address), data, length);
         const auto err = HAL_I2C_GetError(&this->hi2c);
@@ -73,7 +74,7 @@ namespace Habilis {
         }
     }
 
-    void I2C::waitForReadiness() {
+    void I2C::wait_for_readiness() {
         while (HAL_I2C_GetState(&this->hi2c) != HAL_I2C_STATE_READY) {
         }
     }
@@ -91,24 +92,47 @@ namespace Habilis {
         return address << 1;
     }
 
-    I2CSlot::I2CSlot(I2C *bus, const uint16_t address) : bus(bus), address(address) {
+    I2C_Slot::I2C_Slot(const I2C &bus, const uint16_t address) : I2C(bus), address(address) {
     }
 
-    std::pair<bool, uint32_t> I2CSlot::isReady() const {
-        auto [status, err] = this->bus->isDeviceReady(this->address);
+    bool I2C_Slot::is_ready() {
+        if (auto [status, err] = this->is_device_ready(this->address); status == HAL_OK) {
+            return true;
+        }
 
-        return {status == HAL_OK, err};
+        // todo: handle error
+
+        return false;
     }
 
-    std::pair<bool, uint32_t> I2CSlot::send(const uint8_t *data, const size_t length) const {
-        auto [status, err] = this->bus->write(this->address, data, length);
+    bool I2C_Slot::send(const std::vector<uint8_t> &data) {
+        if (auto [status, err] = this->write(this->address, data.data(), data.size()); status == HAL_OK) {
+            return true;
+        }
 
-        return {status == HAL_OK, err};
+        // todo: handle error
+
+        return false;
     }
 
-    std::pair<bool, uint32_t> I2CSlot::receive(uint8_t *data, const size_t length) const {
-        auto [status, err] = this->bus->read(this->address, data, length);
+    std::vector<uint8_t> I2C_Slot::receive() {
+        std::vector<uint8_t> buffer{};
 
-        return {status == HAL_OK, err};
+        const auto rx = new uint8_t();
+        for (;;) {
+            if (auto [status, err] = this->read(this->address, rx, 1); status == HAL_OK) {
+                if (*rx == '\n') {
+                    break;
+                }
+
+                buffer.push_back(*rx);
+            } else {
+                // todo: handle error
+
+                break;
+            }
+        }
+
+        return buffer;
     }
 }

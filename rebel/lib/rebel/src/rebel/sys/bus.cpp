@@ -5,15 +5,15 @@
 #include <rebel/sys/bus.hpp>
 
 namespace Rebel {
-    void Bus::On(const EventTopic topic, const EventHandler handler) {
+    void Bus::On(const Event_Topic topic, const Event_Handler handler) {
         if (!this->handlers.contains(topic)) {
-            this->handlers[topic] = std::vector<EventHandler>();
+            this->handlers[topic] = std::vector<Event_Handler>();
         }
 
         this->handlers[topic].push_back(handler);
     }
 
-    void Bus::Raise(const EventTopic topic, const std::any payload) {
+    void Bus::Raise(const Event_Topic topic, const std::any payload) {
         if (!this->handlers.contains(topic)) {
             return;
         }

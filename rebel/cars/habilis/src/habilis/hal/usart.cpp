@@ -87,9 +87,9 @@ void HAL_USART_TxCpltCallback(USART_HandleTypeDef *husart) {
 /******************************************************************************/
 
 void USART1_IRQHandler() {
-    Habilis::Kit::Default().Devices.usart1->handleIRQ();
+    Habilis::Kit::Default().Devices.usart1->handle_irq();
 }
 
 void USART2_IRQHandler() {
-    Habilis::Kit::Default().Devices.usart2->handleIRQ();
+    Habilis::Kit::Default().Devices.usart2->handle_irq();
 }
