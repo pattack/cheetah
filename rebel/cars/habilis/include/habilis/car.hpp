@@ -4,27 +4,28 @@
 
 #pragma once
 
+#include <rebel/io/analog/sensor.hpp>
 #include <rebel/motion/brake.hpp>
 #include <rebel/motion/motor.hpp>
 #include <rebel/motion/servo.hpp>
 #include <rebel/sys/process.hpp>
-#include <rebel/io/reader.hpp>
 
 namespace Habilis {
     class CarService : public Rebel::Process {
     public:
         CarService();
 
-        void Attach(Rebel::Receive_Bus *ibus, Rebel::Send_Bus *obus) override;
+        void Attach(std::shared_ptr<Rebel::Receive_Bus> b_receive, std::shared_ptr<Rebel::Send_Bus> b_send) override;
 
         void Proceed() override;
 
     private:
-        Rebel::Send_Bus *events = nullptr;
+        std::shared_ptr<Rebel::Receive_Bus> commands;
+        std::shared_ptr<Rebel::Send_Bus> events;
 
-        Rebel::Reader<float> *accelerator;
-        Rebel::Motor *engine;
-        Rebel::Brake *brake;
-        Rebel::Servo *steering;
+        std::unique_ptr<Rebel::Sensor<float>> accelerator;
+        std::unique_ptr<Rebel::Motor> engine;
+        std::unique_ptr<Rebel::Brake> brake;
+        std::unique_ptr<Rebel::Servo> steering;
     };
 }

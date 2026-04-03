@@ -3,3 +3,12 @@
 //
 
 #pragma once
+
+#include <rebel/io/reader.hpp>
+
+namespace Rebel {
+    template<typename T>
+    class Sensor : public Reader<T> {
+
+    };
+}

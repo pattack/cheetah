@@ -10,13 +10,15 @@ namespace Habilis {
 
     }
 
-    void CarService::Attach(Rebel::Receive_Bus *ibus, Rebel::Send_Bus *obus) {
+    void CarService::Attach(std::shared_ptr<Rebel::Receive_Bus> b_receive, std::shared_ptr<Rebel::Send_Bus> b_send) {
         Kit::Default().Modules.indicator->showTransient();
         Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Info,
                                                            "[Habilis/Svc/Car] Attach\r\n");
 
-        this->events = obus;
-        ibus->On("action/move", [this](const Rebel::Event_Payload &payload) {
+        this->commands = std::move(b_receive);
+        this->events = std::move(b_send);
+
+        this->commands->On("action/move", [this](const Rebel::Event_Payload &payload) {
             // this->move(std::any_cast<float>(payload));
         });
     }

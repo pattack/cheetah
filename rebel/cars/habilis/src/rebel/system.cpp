@@ -8,9 +8,9 @@
 #include <habilis/car.hpp>
 
 namespace Rebel {
-    std::vector<Process*> System::services() {
-        static std::vector<Process*> procs {
-            new Habilis::CarService(),
+    std::vector<std::shared_ptr<Process>> System::services() {
+        static std::vector<std::shared_ptr<Process>> procs {
+            std::make_shared<Habilis::CarService>(),
         };
 
         return procs;

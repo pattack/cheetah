@@ -14,7 +14,7 @@ namespace Rebel {
         [[noreturn]] static void Boot();
 
     private:
-        static std::vector<Process*> applications();
-        static std::vector<Process*> services();
+        static std::vector<std::shared_ptr<Process>> applications();
+        static std::vector<std::shared_ptr<Process>> services();
     };
 };

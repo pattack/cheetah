@@ -7,11 +7,13 @@
 #include <starter/application/movement.hpp>
 
 namespace Starter {
-    void Movement::Attach(Rebel::Receive_Bus *b_receive, Rebel::Send_Bus *b_send) {
+    void Movement::Attach(std::shared_ptr<Rebel::Receive_Bus> b_receive, std::shared_ptr<Rebel::Send_Bus> b_send) {
         Rebel::Logger::Log(Rebel::Logger::Log_Level::Info, "[Starter/App/Movement] Attach\r\n");
 
-        this->commands = b_send;
-        b_receive->On("event/accelerator_pressed", [this](const Rebel::Event_Payload &payload) {
+        this->events = std::move(b_receive);
+        this->commands = std::move(b_send);
+
+        this->events->On("event/accelerator_pressed", [this](const Rebel::Event_Payload &payload) {
             this->on_accelerator_pressed(std::any_cast<float>(payload));
         });
     }
