@@ -5,19 +5,20 @@
 #pragma once
 
 #include <memory>
-#include <utility>
+
+#include <rebel/io/reader.hpp>
 
 #include <habilis/io/dev/i2c.hpp>
 
 namespace Habilis {
-    class ADS1110 {
+    class ADS1110 : public Rebel::Reader<float> {
     public:
         explicit ADS1110(std::unique_ptr<I2C_Slot> device);
 
-        [[nodiscard]] std::pair<float, bool> read() const;
+        float read() override;
 
     private:
-        std::unique_ptr<I2C_Slot> device;
+        std::unique_ptr<I2C_Slot> m_device;
 
         const float pga = 1; // Gain = 1
         const float minCode = -(1 << 15); // Data Rate = 15SPS (16 bits)

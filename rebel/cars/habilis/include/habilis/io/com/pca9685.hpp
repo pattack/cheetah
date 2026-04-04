@@ -6,17 +6,20 @@
 
 #include <memory>
 
+#include <rebel/io/writer.hpp>
+
 #include <habilis/io/dev/i2c.hpp>
 
 namespace Habilis {
-    class PCA9685 {
+    class PCA9685 : public Rebel::Writer<float> {
     public:
-        explicit PCA9685(std::unique_ptr<I2C_Slot> slot);
+        explicit PCA9685(std::unique_ptr<I2C_Slot> slot, short int channel);
 
-        [[nodiscard]] bool write(uint8_t channel, float ratio) const;
+        void write(float value) override;
 
     private:
-        std::unique_ptr<I2C_Slot> slot;
+        std::unique_ptr<I2C_Slot> m_device;
+        short int m_channel;
 
         [[nodiscard]] bool configure() const;
     };

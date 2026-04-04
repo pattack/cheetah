@@ -1,34 +1,29 @@
 //
-// Created by pouyan on 3/31/26.
+// Created by pouyan on 4/4/26.
 //
 
 #pragma once
 
+#include <memory>
+
 #include <rebel/io/reader.hpp>
-#include <rebel/sys/process.hpp>
 
 #include <habilis/motion/brake.hpp>
 #include <habilis/motion/motor.hpp>
 #include <habilis/motion/servo.hpp>
 
 namespace Habilis {
-    class CarService : public Rebel::Process {
+    class Car {
     public:
-        CarService();
+        Car() = default;
 
-        void Attach(std::shared_ptr<Rebel::Receive_Bus> b_receive, std::shared_ptr<Rebel::Send_Bus> b_send) override;
+        void move(float speed) const;
 
-        void Proceed() override;
-
-    private:
-        std::shared_ptr<Rebel::Receive_Bus> m_commands;
-        std::shared_ptr<Rebel::Send_Bus> m_events;
-
+    protected:
         std::unique_ptr<Motor> m_engine;
         std::unique_ptr<Servo> m_steering;
         std::unique_ptr<Brake> m_brake;
 
-        std::unique_ptr<Rebel::Reader<float>> m_accelerator;
         std::unique_ptr<Rebel::Reader<float>> m_gyroscope;
     };
 }

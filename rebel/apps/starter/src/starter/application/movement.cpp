@@ -7,7 +7,7 @@
 #include <starter/application/movement.hpp>
 
 namespace Starter {
-    void Movement::Attach(std::shared_ptr<Rebel::Receive_Bus> b_receive, std::shared_ptr<Rebel::Send_Bus> b_send) {
+    void Movement::attach(std::shared_ptr<Rebel::Receive_Bus> b_receive, std::shared_ptr<Rebel::Send_Bus> b_send) {
         Rebel::Logger::Log(Rebel::Logger::Log_Level::Info, "[Starter/App/Movement] Attach\r\n");
 
         this->events = std::move(b_receive);
@@ -18,10 +18,10 @@ namespace Starter {
         });
     }
 
-    void Movement::Proceed() {
+    void Movement::proceed() {
     }
 
-    void Movement::on_accelerator_pressed(float pressure) const {
+    void Movement::on_accelerator_pressed(const float pressure) const {
         // todo: resolve swprintf in __strftime to be able to use std::format
         Rebel::Logger::Log(Rebel::Logger::Log_Level::Debug, "[Starter/App/Movement] on_accelerator_pressed {}\r\n");
 

@@ -5,14 +5,11 @@
 #include <habilis/io/mod/accelerator.hpp>
 
 namespace Habilis {
-    Accelerator::Accelerator(std::unique_ptr<ADS1110> sensor) : sensor(std::move(sensor)) {
+    Accelerator::Accelerator(std::unique_ptr<Rebel::Reader<float>> sensor) : sensor(std::move(sensor)) {
     }
 
-    std::pair<float, bool> Accelerator::status() {
-        auto [value, ok] = this->sensor->read();
-        if (!ok) {
-            return {this->lastPressure, false};
-        }
+    std::pair<float, bool> Accelerator::read() {
+        auto value = this->sensor->read();
 
         auto changed = this->lastPressure != value;
         this->lastPressure = value;

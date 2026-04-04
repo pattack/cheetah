@@ -9,9 +9,9 @@
 namespace Starter {
     class Movement : public Rebel::Process {
     public:
-        void Attach(std::shared_ptr<Rebel::Receive_Bus> b_receive, std::shared_ptr<Rebel::Send_Bus> b_send) override;
+        void attach(std::shared_ptr<Rebel::Receive_Bus> b_receive, std::shared_ptr<Rebel::Send_Bus> b_send) override;
 
-        void Proceed() override;
+        void proceed() override;
 
     private:
         void on_accelerator_pressed(float pressure) const;

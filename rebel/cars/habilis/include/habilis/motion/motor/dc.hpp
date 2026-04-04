@@ -14,6 +14,8 @@
 namespace Habilis {
     class DC_Motor : public Motor {
     public:
+        explicit DC_Motor(std::unique_ptr<Rebel::Writer<float>> controller);
+
         void revolve(float rate, bool cw) override;
 
         int rpm() override;

@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -16,7 +17,7 @@ namespace Habilis {
     public:
         explicit I2C(I2C_TypeDef *instance);
 
-        [[nodiscard]] I2C_Slot slot(uint16_t address) const;
+        [[nodiscard]] std::unique_ptr<I2C_Slot> slot(uint16_t address) const;
 
         void handle_event_irq();
 

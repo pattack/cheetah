@@ -12,8 +12,8 @@ namespace Habilis {
         this->configure(instance);
     }
 
-    I2C_Slot I2C::slot(const uint16_t address) const {
-        return I2C_Slot(std::as_const(*this), address);
+    std::unique_ptr<I2C_Slot> I2C::slot(const uint16_t address) const {
+        return std::make_unique<I2C_Slot>(std::as_const(*this), address);
     }
 
     void I2C::handle_event_irq() {

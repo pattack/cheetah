@@ -11,7 +11,7 @@
 namespace Habilis {
     class Accelerator {
     public:
-        explicit Accelerator(std::unique_ptr<ADS1110> sensor);
+        explicit Accelerator(std::unique_ptr<Rebel::Reader<float>> sensor);
 
         /**
          * @brief reads accelerator value from sensor and returns the value and changed indicator
@@ -20,10 +20,10 @@ namespace Habilis {
          *   pressure value from 0 to 1
          *   changed indicates if value differs from last read
          */
-        std::pair<float, bool> status();
+        std::pair<float, bool> read();
 
     private:
-        std::unique_ptr<ADS1110> sensor;
+        std::unique_ptr<Rebel::Reader<float>> sensor;
 
         float lastPressure = 0;
     };
