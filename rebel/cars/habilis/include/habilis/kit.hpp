@@ -6,11 +6,11 @@
 
 #include <memory>
 
-#include <habilis/io/i2c.hpp>
-#include <habilis/io/usart.hpp>
+#include <habilis/io/dev/i2c.hpp>
+#include <habilis/io/dev/usart.hpp>
 #include <habilis/io/text/usart_printer.hpp>
-#include <habilis/io/text/logger.hpp>
-#include <habilis/module/indicator.hpp>
+#include <habilis/io/mod/logger.hpp>
+#include <habilis/io/mod/indicator.hpp>
 
 namespace Habilis {
     class Kit {

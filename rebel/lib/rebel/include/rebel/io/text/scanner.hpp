@@ -6,11 +6,9 @@
 
 #include <string>
 
-namespace Rebel {
-    class Scanner {
-    public:
-        virtual ~Scanner() = default;
+#include <rebel/io/reader.hpp>
 
-        virtual const std::string &scan() = 0;
+namespace Rebel {
+    class Scanner : public Reader<const std::string &> {
     };
 }

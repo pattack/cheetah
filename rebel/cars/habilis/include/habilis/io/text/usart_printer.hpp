@@ -8,16 +8,16 @@
 
 #include <rebel/io/text/printer.hpp>
 
-#include <habilis/io/usart.hpp>
+#include <habilis/io/dev/usart.hpp>
 
 namespace Habilis {
     class USART_Printer : public Rebel::Printer {
     public:
         explicit USART_Printer(std::shared_ptr<USART> usart);
 
-        void print(std::string_view message) override;
+        void write(std::string_view message) override;
 
     private:
-        std::shared_ptr<USART> usart;
+        std::shared_ptr<USART> m_usart;
     };
 }

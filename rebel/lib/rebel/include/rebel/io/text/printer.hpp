@@ -6,11 +6,9 @@
 
 #include <string_view>
 
-namespace Rebel {
-    class Printer {
-    public:
-        virtual ~Printer() = default;
+#include <rebel/io/writer.hpp>
 
-        virtual void print(std::string_view message) = 0;
+namespace Rebel {
+    class Printer : public Writer<std::string_view> {
     };
 }

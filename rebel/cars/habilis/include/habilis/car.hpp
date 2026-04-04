@@ -4,11 +4,12 @@
 
 #pragma once
 
-#include <rebel/io/analog/sensor.hpp>
-#include <rebel/motion/brake.hpp>
-#include <rebel/motion/motor.hpp>
-#include <rebel/motion/servo.hpp>
+#include <rebel/io/reader.hpp>
 #include <rebel/sys/process.hpp>
+
+#include <habilis/motion/brake.hpp>
+#include <habilis/motion/motor.hpp>
+#include <habilis/motion/servo.hpp>
 
 namespace Habilis {
     class CarService : public Rebel::Process {
@@ -20,12 +21,14 @@ namespace Habilis {
         void Proceed() override;
 
     private:
-        std::shared_ptr<Rebel::Receive_Bus> commands;
-        std::shared_ptr<Rebel::Send_Bus> events;
+        std::shared_ptr<Rebel::Receive_Bus> m_commands;
+        std::shared_ptr<Rebel::Send_Bus> m_events;
 
-        std::unique_ptr<Rebel::Sensor<float>> accelerator;
-        std::unique_ptr<Rebel::Motor> engine;
-        std::unique_ptr<Rebel::Brake> brake;
-        std::unique_ptr<Rebel::Servo> steering;
+        std::unique_ptr<Motor> m_engine;
+        std::unique_ptr<Servo> m_steering;
+        std::unique_ptr<Brake> m_brake;
+
+        std::unique_ptr<Rebel::Reader<float>> m_accelerator;
+        std::unique_ptr<Rebel::Reader<float>> m_gyroscope;
     };
 }

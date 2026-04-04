@@ -15,18 +15,15 @@ namespace Habilis {
         Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Info,
                                                            "[Habilis/Svc/Car] Attach\r\n");
 
-        this->commands = std::move(b_receive);
-        this->events = std::move(b_send);
+        this->m_commands = std::move(b_receive);
+        this->m_events = std::move(b_send);
 
-        this->commands->On("action/move", [this](const Rebel::Event_Payload &payload) {
+        this->m_commands->On("action/move", [this](const Rebel::Event_Payload &payload) {
             // this->move(std::any_cast<float>(payload));
         });
     }
 
     void CarService::Proceed() {
-        Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Debug,
-                                                           "[Habilis/Svc/Car] Proceed\r\n");
-
         // if (const auto [pressure, changed] = this->accelerator->status(); changed) {
         //     if (pressure > 0) {
         //         this->events->Raise("event/accelerator_pressed", pressure);

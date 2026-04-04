@@ -5,10 +5,10 @@
 #include <habilis/io/text/usart_printer.hpp>
 
 namespace Habilis {
-    USART_Printer::USART_Printer(std::shared_ptr<USART> usart) : usart(std::move(usart)) {
+    USART_Printer::USART_Printer(std::shared_ptr<USART> usart) : m_usart(std::move(usart)) {
     }
 
-    void USART_Printer::print(const std::string_view message) {
-        this->usart->write(message);
+    void USART_Printer::write(const std::string_view message) {
+        this->m_usart->write(message);
     }
 };

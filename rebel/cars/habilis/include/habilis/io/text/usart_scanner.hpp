@@ -4,18 +4,20 @@
 
 #pragma once
 
+#include <memory>
+
 #include <rebel/io/text/scanner.hpp>
 
-#include <habilis/io/usart.hpp>
+#include <habilis/io/dev/usart.hpp>
 
 namespace Habilis {
     class USART_Scanner : public Rebel::Scanner {
     public:
-        explicit USART_Scanner(USART &usart);
+        explicit USART_Scanner(std::shared_ptr<USART> usart);
 
-        const std::string &scan() override;
+        const std::string &read() override;
 
     private:
-        USART &usart;
+        std::shared_ptr<USART> m_usart;
     };
 }

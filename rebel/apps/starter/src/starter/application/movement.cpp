@@ -2,7 +2,7 @@
 // Created by pouyan on 7/21/25.
 //
 
-#include <rebel/io/text/logger.hpp>
+#include <rebel/io/mod/logger.hpp>
 
 #include <starter/application/movement.hpp>
 
@@ -19,7 +19,6 @@ namespace Starter {
     }
 
     void Movement::Proceed() {
-        Rebel::Logger::Log(Rebel::Logger::Log_Level::Debug, "[Starter/App/Movement] Proceed\r\n");
     }
 
     void Movement::on_accelerator_pressed(float pressure) const {
