@@ -7,14 +7,17 @@
 
 namespace Habilis {
     ADS1110::ADS1110(std::unique_ptr<I2C_Slot> device) : m_device(std::move(device)) {
-        if (!this->configure()) {
+        if (this->configure()) {
             Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Error,
-                                               "[Habilis/Component/ADS1110] configuration failed \r\n");
+                                               "[Habilis/Component/ADS1110] configured successfully\r\n");
+        } else {
+            Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Error,
+                                               "[Habilis/Component/ADS1110] configuration failed\r\n");
         }
     }
 
     float ADS1110::read() {
-        const auto raw = this->m_device->receive();
+        const auto raw = this->m_device->read();
         if (raw.empty()) {
             return 0;
         }
@@ -27,7 +30,7 @@ namespace Habilis {
     bool ADS1110::configure() const {
         const std::vector<uint8_t> cmd{0x8C};
 
-        return this->m_device->send(cmd);
+        return this->m_device->write(cmd);
     }
 
     float ADS1110::diffVoltage(const int value) const {

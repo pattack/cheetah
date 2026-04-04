@@ -11,19 +11,19 @@
 
 namespace Habilis {
     Driver::Driver() {
-        this->m_engine = std::make_unique<DC_Motor>(
-            std::make_unique<PCA9685>(Kit::Default().Devices.i2c1->slot(0x41), 0)
-        );
-
         this->m_accelerator = std::make_unique<Accelerator>(
             std::make_unique<ADS1110>(Kit::Default().Devices.i2c1->slot(0x48))
+        );
+
+        this->m_engine = std::make_unique<DC_Motor>(
+            std::make_unique<PCA9685>(Kit::Default().Devices.i2c1->slot(0x41), 0)
         );
     }
 
     void Driver::attach(std::shared_ptr<Rebel::Receive_Bus> b_receive, std::shared_ptr<Rebel::Send_Bus> b_send) {
         Kit::Default().Modules.indicator->showTransient();
         Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Info,
-                                           "[Habilis/Svc/Car] Attach\r\n");
+                                           "[Habilis/Svc/Car] attach\r\n");
 
         this->m_commands = std::move(b_receive);
         this->m_events = std::move(b_send);

@@ -10,7 +10,10 @@
 namespace Habilis {
     PCA9685::PCA9685(std::unique_ptr<I2C_Slot> slot, const short int channel) : m_device(std::move(slot)),
         m_channel(channel) {
-        if (!this->configure()) {
+        if (this->configure()) {
+            Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Error,
+                                               "[Habilis/Component/PCA9685] configured successfully\r\n");
+        } else {
             Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Error,
                                                "[Habilis/Component/PCA9685] configuration failed\r\n");
         }
@@ -29,13 +32,12 @@ namespace Habilis {
             static_cast<uint8_t>(off >> 8),
         };
 
-        const auto ok = this->m_device->send(cmd);
+        const auto ok = this->m_device->write(cmd);
     }
 
     bool PCA9685::configure() const {
         const std::vector<uint8_t> cmd{0x00, 0x20};
-        const auto ok = this->m_device->send(cmd);
 
-        return ok;
+        return this->m_device->write(cmd);
     }
 };

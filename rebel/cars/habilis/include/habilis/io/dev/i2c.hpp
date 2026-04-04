@@ -26,12 +26,12 @@ namespace Habilis {
     protected:
         std::pair<HAL_StatusTypeDef, uint32_t> is_device_ready(uint16_t address);
 
-        std::pair<HAL_StatusTypeDef, uint32_t> write(uint16_t address, const uint8_t *data, size_t length);
+        std::pair<HAL_StatusTypeDef, uint32_t> transmit(uint16_t address, const uint8_t *data, size_t length);
 
-        std::pair<HAL_StatusTypeDef, uint32_t> read(uint16_t address, uint8_t *data, size_t length);
+        std::pair<HAL_StatusTypeDef, uint32_t> receive(uint16_t address, uint8_t *data, size_t length);
 
     private:
-        I2C_HandleTypeDef hi2c;
+        I2C_HandleTypeDef m_hi2c;
 
         void configure(I2C_TypeDef *instance);
 
@@ -46,13 +46,13 @@ namespace Habilis {
     public:
         explicit I2C_Slot(const I2C &bus, uint16_t address);
 
-        [[nodiscard]] bool is_ready();
+        [[nodiscard]] bool probe();
 
-        [[nodiscard]] bool send(const std::vector<uint8_t> &data);
+        [[nodiscard]] bool write(const std::vector<uint8_t> &data);
 
-        [[nodiscard]] std::vector<uint8_t> receive();
+        [[nodiscard]] std::vector<uint8_t> read();
 
     private:
-        uint16_t address;
+        uint16_t m_address;
     };
 }

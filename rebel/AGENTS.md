@@ -25,6 +25,7 @@ Keep these boundaries strict:
 - I2C1 devices:
   - `PCA9685 @ 0x41`
   - `ADS1110 @ 0x48`
+  - `TC74 @ 0x4D`
   - `24C04A @ 0x50`
   - Proteus I2C debugger
 - Virtual terminal: `USART1` (`PA9=TX`, `PA10=RX`).
