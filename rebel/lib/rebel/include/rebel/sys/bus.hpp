@@ -36,6 +36,6 @@ namespace Rebel {
         void Raise(Event_Topic topic, Event_Payload payload) override;
 
     private:
-        std::unordered_map<Event_Topic, std::vector<Event_Handler>> handlers;
+        std::unordered_map<Event_Topic, std::vector<Event_Handler>> m_handlers;
     };
 };

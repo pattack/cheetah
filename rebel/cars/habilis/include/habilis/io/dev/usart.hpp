@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 #include <string_view>
 
@@ -14,17 +15,17 @@ namespace Habilis {
     public:
         USART(USART_TypeDef *instance, uint32_t baudRate);
 
-        bool write(std::string_view message);
-        const std::string &read();
+        [[nodiscard]] bool write(std::string_view message) const;
+        [[nodiscard]] const std::string &read() const;
 
-        void handle_irq();
+        void handle_irq() const;
 
     private:
-        USART_HandleTypeDef husart;
+        std::shared_ptr<USART_HandleTypeDef> m_husart;
 
     protected:
         void configure(USART_TypeDef *instance, uint32_t baudRate);
 
-        void wait_for_readiness();
+        void wait_for_readiness() const;
     };
 }

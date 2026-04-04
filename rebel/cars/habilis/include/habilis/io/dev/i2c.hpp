@@ -19,9 +19,9 @@ namespace Habilis {
 
         [[nodiscard]] std::unique_ptr<I2C_Slot> slot(uint16_t address) const;
 
-        void handle_event_irq();
+        void handle_event_irq() const;
 
-        void handle_error_irq();
+        void handle_error_irq() const;
 
     protected:
         std::pair<HAL_StatusTypeDef, uint32_t> is_device_ready(uint16_t address);
@@ -31,11 +31,11 @@ namespace Habilis {
         std::pair<HAL_StatusTypeDef, uint32_t> receive(uint16_t address, uint8_t *data, size_t length);
 
     private:
-        I2C_HandleTypeDef m_hi2c;
+        std::shared_ptr<I2C_HandleTypeDef> m_hi2c;
 
         void configure(I2C_TypeDef *instance);
 
-        void wait_for_readiness();
+        void wait_for_readiness() const;
 
         void recover(uint32_t err);
 

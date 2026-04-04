@@ -25,5 +25,7 @@ namespace Habilis {
         std::unique_ptr<Brake> m_brake;
 
         std::unique_ptr<Rebel::Reader<float>> m_gyroscope;
+
+        void reset_devices();
     };
 }

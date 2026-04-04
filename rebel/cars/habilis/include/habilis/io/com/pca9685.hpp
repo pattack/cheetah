@@ -13,7 +13,7 @@
 namespace Habilis {
     class PCA9685 : public Rebel::Writer<float> {
     public:
-        explicit PCA9685(std::unique_ptr<I2C_Slot> slot, short int channel);
+        explicit PCA9685(std::unique_ptr<I2C_Slot> device, short int channel);
 
         void write(float value) override;
 

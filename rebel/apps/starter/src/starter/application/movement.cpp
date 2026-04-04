@@ -8,14 +8,14 @@
 
 namespace Starter {
     void Movement::attach(std::shared_ptr<Rebel::Receive_Bus> b_receive, std::shared_ptr<Rebel::Send_Bus> b_send) {
-        Rebel::Logger::Log(Rebel::Logger::Log_Level::Info, "[Starter/App/Movement] attach\r\n");
-
         this->events = std::move(b_receive);
         this->commands = std::move(b_send);
 
         this->events->On("event/accelerator_pressed", [this](const Rebel::Event_Payload &payload) {
             this->on_accelerator_pressed(std::any_cast<float>(payload));
         });
+
+        Rebel::Logger::Log(Rebel::Logger::Log_Level::Info, "[Starter/App/Movement] attached\r\n");
     }
 
     void Movement::proceed() {

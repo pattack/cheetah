@@ -38,6 +38,8 @@ namespace Habilis {
                 }
             }
         };
+
+        this->Modules.logger->log(Rebel::Logger::Log_Level::Info, "[Habilis/Kit] created\r\n");
     }
 
     bool Kit::setup(const bool internalOsc) {

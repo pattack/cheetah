@@ -6,19 +6,19 @@
 
 namespace Rebel {
     void Bus::On(const Event_Topic topic, const Event_Handler handler) {
-        if (!this->handlers.contains(topic)) {
-            this->handlers[topic] = std::vector<Event_Handler>();
+        if (!this->m_handlers.contains(topic)) {
+            this->m_handlers[topic] = std::vector<Event_Handler>();
         }
 
-        this->handlers[topic].push_back(handler);
+        this->m_handlers[topic].push_back(handler);
     }
 
     void Bus::Raise(const Event_Topic topic, const std::any payload) {
-        if (!this->handlers.contains(topic)) {
+        if (!this->m_handlers.contains(topic)) {
             return;
         }
 
-        for (const auto& handler : this->handlers[topic]) {
+        for (const auto& handler : this->m_handlers[topic]) {
             handler(payload);
         }
     }

@@ -8,7 +8,7 @@
 #include <habilis/kit.hpp>
 
 namespace Habilis {
-    PCA9685::PCA9685(std::unique_ptr<I2C_Slot> slot, const short int channel) : m_device(std::move(slot)),
+    PCA9685::PCA9685(std::unique_ptr<I2C_Slot> device, const short int channel) : m_device(std::move(device)),
         m_channel(channel) {
         if (this->configure()) {
             Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Error,
@@ -40,4 +40,4 @@ namespace Habilis {
 
         return this->m_device->write(cmd);
     }
-};
+}
