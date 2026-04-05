@@ -61,9 +61,9 @@ namespace Habilis {
     void I2C::configure(I2C_TypeDef *instance) {
         this->m_hi2c = std::make_shared<I2C_HandleTypeDef>();
         this->m_hi2c->Instance = instance;
-        this->m_hi2c->Init.ClockSpeed = 400000;
-        this->m_hi2c->Init.DutyCycle = I2C_DUTYCYCLE_2;
-        this->m_hi2c->Init.OwnAddress1 = 0x00;
+        this->m_hi2c->Init.ClockSpeed = 100000;
+        this->m_hi2c->Init.DutyCycle = I2C_DUTYCYCLE_16_9;
+        this->m_hi2c->Init.OwnAddress1 = 0x3E;
         this->m_hi2c->Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
         this->m_hi2c->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
         this->m_hi2c->Init.OwnAddress2 = 0x00;

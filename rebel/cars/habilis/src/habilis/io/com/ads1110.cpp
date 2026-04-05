@@ -28,7 +28,7 @@ namespace Habilis {
     }
 
     bool ADS1110::configure() const {
-        const std::vector<uint8_t> cmd{0x8C};
+        const std::vector<uint8_t> cmd{0x80};
 
         return this->m_device->write(cmd);
     }

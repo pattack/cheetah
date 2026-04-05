@@ -11,4 +11,4 @@ namespace Habilis {
     void USART_Printer::write(const std::string_view message) {
         this->m_usart->write(message);
     }
-};
+}
