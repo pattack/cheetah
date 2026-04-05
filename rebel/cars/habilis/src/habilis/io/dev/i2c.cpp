@@ -118,8 +118,7 @@ namespace Habilis {
     }
 
     std::vector<uint8_t> I2C_Slot::read(const size_t length) const {
-        std::vector<uint8_t> buffer{};
-        buffer.reserve(length);
+        std::vector<uint8_t> buffer(length);
 
         auto [status, err] = this->receive(this->m_address, buffer.data(), length);
 
