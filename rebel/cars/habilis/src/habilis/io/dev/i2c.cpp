@@ -22,7 +22,7 @@ namespace Habilis {
         HAL_I2C_ER_IRQHandler(this->m_hi2c.get());
     }
 
-    std::pair<HAL_StatusTypeDef, uint32_t> I2C::is_device_ready(const uint16_t address) {
+    std::pair<HAL_StatusTypeDef, uint32_t> I2C::is_device_ready(const uint16_t address) const {
         this->wait_for_readiness();
 
         const auto status = HAL_I2C_IsDeviceReady(this->m_hi2c.get(), I2C::addressOnWire(address), 1, 1);
@@ -32,7 +32,7 @@ namespace Habilis {
     }
 
     std::pair<HAL_StatusTypeDef, uint32_t>
-    I2C::transmit(const uint16_t address, const uint8_t *data, const size_t length) {
+    I2C::transmit(const uint16_t address, const uint8_t *data, const size_t length) const {
         this->wait_for_readiness();
 
         const auto status = HAL_I2C_Master_Transmit(this->m_hi2c.get(), I2C::addressOnWire(address),
@@ -45,7 +45,8 @@ namespace Habilis {
         return {status, err};
     }
 
-    std::pair<HAL_StatusTypeDef, uint32_t> I2C::receive(const uint16_t address, uint8_t *data, const size_t length) {
+    std::pair<HAL_StatusTypeDef, uint32_t> I2C::receive(const uint16_t address, uint8_t *data,
+                                                        const size_t length) const {
         this->wait_for_readiness();
 
         const auto status = HAL_I2C_Master_Receive(this->m_hi2c.get(), I2C::addressOnWire(address), data, length, 100);
@@ -78,7 +79,7 @@ namespace Habilis {
         }
     }
 
-    void I2C::recover(const uint32_t err) {
+    void I2C::recover(const uint32_t err) const {
         if (err != HAL_I2C_ERROR_AF) {
             Kit::Default().Modules.indicator->showError();
         }
@@ -96,7 +97,7 @@ namespace Habilis {
                                            "[Habilis/Device/I2C] slot created\r\n");
     }
 
-    bool I2C_Slot::probe() {
+    bool I2C_Slot::probe() const {
         if (auto [status, err] = this->is_device_ready(this->m_address); status == HAL_OK) {
             return true;
         }
@@ -106,7 +107,7 @@ namespace Habilis {
         return false;
     }
 
-    bool I2C_Slot::write(const std::vector<uint8_t> &data) {
+    bool I2C_Slot::write(const std::vector<uint8_t> &data) const {
         if (auto [status, err] = this->transmit(this->m_address, data.data(), data.size()); status == HAL_OK) {
             return true;
         }
@@ -116,23 +117,11 @@ namespace Habilis {
         return false;
     }
 
-    std::vector<uint8_t> I2C_Slot::read() {
+    std::vector<uint8_t> I2C_Slot::read(const size_t length) const {
         std::vector<uint8_t> buffer{};
+        buffer.reserve(length);
 
-        const auto rx = new uint8_t();
-        for (;;) {
-            if (auto [status, err] = this->receive(this->m_address, rx, 1); status == HAL_OK) {
-                if (*rx == '\n') {
-                    break;
-                }
-
-                buffer.push_back(*rx);
-            } else {
-                // todo: handle error
-
-                break;
-            }
-        }
+        auto [status, err] = this->receive(this->m_address, buffer.data(), length);
 
         return buffer;
     }

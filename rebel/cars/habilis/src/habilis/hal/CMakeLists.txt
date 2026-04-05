@@ -21,9 +21,10 @@ set(CAR_HAL_DEFINES
 set(CAR_HAL_INCLUDES
         ${CMAKE_SOURCE_DIR}/cars/habilis/include
         ${CMAKE_SOURCE_DIR}/lib/rebel/include
+
         ${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Inc
-        ${STM32CUBE_DIR}/Drivers/CMSIS/Include
         ${STM32CUBE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+        ${STM32CUBE_DIR}/Drivers/CMSIS/Include
 )
 
 set(STM32_HAL_DIR "${STM32CUBE_DIR}/Drivers/STM32F4xx_HAL_Driver/Src")

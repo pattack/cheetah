@@ -5,6 +5,7 @@
 #pragma once
 
 #include <memory>
+#include <mutex>
 
 #include <habilis/io/dev/i2c.hpp>
 #include <habilis/io/dev/usart.hpp>
@@ -32,8 +33,10 @@ namespace Habilis {
         static Kit &Default();
 
     private:
+        std::once_flag m_initialized;
+
         Kit();
 
-        bool setup(bool internalOsc = true);
+        bool initialize(bool internal_osc = true);
     };
 }

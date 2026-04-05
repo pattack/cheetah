@@ -17,7 +17,7 @@ namespace Habilis {
     }
 
     float ADS1110::read() {
-        const auto raw = this->m_device->read();
+        const auto raw = this->m_device->read(2);
         if (raw.empty()) {
             return 0;
         }

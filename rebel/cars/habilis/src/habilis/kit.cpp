@@ -13,7 +13,7 @@ namespace Habilis {
     }
 
     Kit::Kit() {
-        this->setup();
+        std::call_once(this->m_initialized, [this]()-> bool { return this->initialize(); });
 
         this->Devices = {
             .usart1{new USART{USART1, 115200}},
@@ -27,7 +27,7 @@ namespace Habilis {
             .usart_printer{new USART_Printer{this->Devices.usart1}},
         };
 
-        const std::shared_ptr<GPIO_TypeDef> gpiob {GPIOB};
+        const std::shared_ptr<GPIO_TypeDef> gpiob{GPIOB};
 
         this->Modules = {
             .logger{new Logger{this->Components.usart_printer}},
@@ -42,20 +42,14 @@ namespace Habilis {
         this->Modules.logger->log(Rebel::Logger::Log_Level::Info, "[Habilis/Kit] created\r\n");
     }
 
-    bool Kit::setup(const bool internalOsc) {
-        static auto done = false;
-        if (done) {
-            return done;
-        }
-
+    bool Kit::initialize(const bool internal_osc) {
         RCC_OscInitTypeDef iosc = {};
-        RCC_ClkInitTypeDef iclk = {};
-        uint32_t mco1Source = RCC_MCO1SOURCE_HSE;
-
         iosc.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-        iosc.HSIState = RCC_HSE_ON;
+        iosc.HSEState = RCC_HSE_ON;
         iosc.PLL.PLLState = RCC_PLL_NONE;
+        iosc.PLL.PLLSource = RCC_PLLSOURCE_HSE;
 
+        RCC_ClkInitTypeDef iclk = {};
         iclk.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
                          | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
         iclk.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
@@ -63,23 +57,27 @@ namespace Habilis {
         iclk.APB1CLKDivider = RCC_HCLK_DIV1;
         iclk.APB2CLKDivider = RCC_HCLK_DIV1;
 
-        if (internalOsc) {
+        uint32_t mco1Source = RCC_MCO1SOURCE_HSE;
+        if (internal_osc) {
             iosc.OscillatorType = RCC_OSCILLATORTYPE_HSI;
             iosc.HSIState = RCC_HSI_ON;
+            iosc.HSEState = RCC_HSE_OFF;
+            iosc.PLL.PLLState = RCC_PLL_NONE;
+            iosc.PLL.PLLSource = RCC_PLLSOURCE_HSI;
             iosc.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
             iclk.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
             mco1Source = RCC_MCO1SOURCE_HSI;
         }
 
         HAL_Init();
-        HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE2);
         HAL_RCC_OscConfig(&iosc);
+        HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE2);
         HAL_RCC_ClockConfig(&iclk, FLASH_LATENCY_0);
+        HAL_RCC_EnableCSS();
+
         HAL_RCC_MCOConfig(RCC_MCO1, mco1Source, RCC_MCODIV_1);
         SystemCoreClockUpdate();
 
-        done = true;
-
-        return done;
+        return true;
     }
 }

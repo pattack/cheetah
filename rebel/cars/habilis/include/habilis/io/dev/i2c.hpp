@@ -24,11 +24,11 @@ namespace Habilis {
         void handle_error_irq() const;
 
     protected:
-        std::pair<HAL_StatusTypeDef, uint32_t> is_device_ready(uint16_t address);
+        std::pair<HAL_StatusTypeDef, uint32_t> is_device_ready(uint16_t address) const;
 
-        std::pair<HAL_StatusTypeDef, uint32_t> transmit(uint16_t address, const uint8_t *data, size_t length);
+        std::pair<HAL_StatusTypeDef, uint32_t> transmit(uint16_t address, const uint8_t *data, size_t length) const;
 
-        std::pair<HAL_StatusTypeDef, uint32_t> receive(uint16_t address, uint8_t *data, size_t length);
+        std::pair<HAL_StatusTypeDef, uint32_t> receive(uint16_t address, uint8_t *data, size_t length) const;
 
     private:
         std::shared_ptr<I2C_HandleTypeDef> m_hi2c;
@@ -37,7 +37,7 @@ namespace Habilis {
 
         void wait_for_readiness() const;
 
-        void recover(uint32_t err);
+        void recover(uint32_t err) const;
 
         static uint16_t addressOnWire(uint16_t address);
     };
@@ -46,11 +46,11 @@ namespace Habilis {
     public:
         explicit I2C_Slot(const I2C &bus, uint16_t address);
 
-        [[nodiscard]] bool probe();
+        [[nodiscard]] bool probe() const;
 
-        [[nodiscard]] bool write(const std::vector<uint8_t> &data);
+        [[nodiscard]] bool write(const std::vector<uint8_t> &data) const;
 
-        [[nodiscard]] std::vector<uint8_t> read();
+        [[nodiscard]] std::vector<uint8_t> read(size_t length) const;
 
     private:
         uint16_t m_address;
