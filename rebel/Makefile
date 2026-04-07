@@ -7,11 +7,10 @@ BUILD_DIR = build/$(CAR)-$(APP)
 all: configure build
 
 configure:
-	mkdir -p $(BUILD_DIR)
-	cd $(BUILD_DIR) && cmake --preset=$(CAR)-$(APP) ../..
+	cmake --preset=$(CAR)-$(APP)
 
 build:
-	cd $(BUILD_DIR) && cmake --build .
+	cmake --build $(BUILD_DIR)
 
 clean:
-	rm -rf build
+	rm -rf $(BUILD_DIR)

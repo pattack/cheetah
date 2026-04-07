@@ -7,20 +7,30 @@
   },
   "configurePresets": [
     {
-      "name": "habilis-starter",
-      "hidden": false,
+      "name": "default",
+      "hidden": true,
       "generator": "Unix Makefiles",
+      "binaryDir": "build/${presetName}"
+    },
+    {
+      "name": "habilis-starter",
+      "inherits": ["default"],
+      "hidden": false,
       "description": "Build for Habilis using Starter app",
       "cacheVariables": {
         "CAR": "habilis",
         "APP": "starter"
       }
-    }
-  ],
-  "buildPresets": [
+    },
     {
-      "name": "habilis-starter",
-      "configurePreset": "habilis-starter"
+      "name": "cheaper-starter",
+      "inherits": ["default"],
+      "hidden": false,
+      "description": "Build for Cheaper using Starter app",
+      "cacheVariables": {
+        "CAR": "cheaper",
+        "APP": "starter"
+      }
     }
   ]
 }

@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.25)
+set(CMAKE_VERBOSE_MAKEFILE ON)
+add_subdirectory(cmake)
 
 set(APPS_ROOT "${CMAKE_SOURCE_DIR}/apps")
 set(CARS_ROOT "${CMAKE_SOURCE_DIR}/cars")
@@ -36,11 +38,15 @@ endif()
 set(CAR_DIR ${CARS_ROOT}/${CAR})
 set(CMAKE_TOOLCHAIN_FILE ${CAR_DIR}/toolchain.cmake)
 
-# Print selected car and app for clarity
-message(STATUS "Building app: ${APP} for car: ${CAR}")
-message(STATUS "Toolchain file: ${CMAKE_TOOLCHAIN_FILE}")
-
 project(rebel C CXX ASM)
+
+# Print current configuration
+message(STATUS "Current system name is: ${CMAKE_SYSTEM_NAME}")
+message(STATUS "Current system processor is: ${CMAKE_SYSTEM_PROCESSOR}")
+message(STATUS "Toolchain file: ${CMAKE_TOOLCHAIN_FILE}")
+message(STATUS "Current C++ compiler is: ${CMAKE_C_COMPILER}")
+message(STATUS "Current C compiler is: ${CMAKE_CXX_COMPILER}")
+message(STATUS "Building app: ${APP} for car: ${CAR}")
 
 # ========== Directories ==========
 set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")

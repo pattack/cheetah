@@ -1,17 +1,10 @@
-set(STM32CUBE_DIR "${CMAKE_SOURCE_DIR}/vendor/stm32cubef4")
-# Only download if directory doesn't exist.
-if (NOT EXISTS "${STM32CUBE_DIR}")
-    message(STATUS "Downloading STM32CubeF4...")
-    execute_process(
-            COMMAND git clone --depth 1 --branch v1.28.3 --recurse-submodules
-            https://github.com/STMicroelectronics/STM32CubeF4.git
-            "${STM32CUBE_DIR}"
-            RESULT_VARIABLE GIT_RESULT
-    )
-    if (NOT GIT_RESULT EQUAL "0")
-        message(FATAL_ERROR "Failed to clone STM32CubeF4")
-    endif ()
-endif ()
+pat_install_dep(
+        NAME stm32cubef4
+        ADDRESS https://github.com/STMicroelectronics/STM32CubeF4.git
+        VERSION v1.28.3
+
+        RES_INSTALL_DIR STM32CUBE_DIR
+)
 
 set(CAR_HAL_DEFINES
         USE_HAL_DRIVER
