@@ -41,6 +41,10 @@ namespace Habilis {
 
     void Driver::proceed() {
         if (const auto [pressure, changed] = this->m_accelerator->read(); changed) {
+            char log[50];
+            snprintf(log, sizeof(log), "[Habilis/Svc/Driver] pressure changed to %d%%\r\n", static_cast<int>(pressure * 100));
+            Kit::Default().Modules.logger->log(Rebel::Logger::Log_Level::Debug, log);
+
             if (pressure > 0) {
                 this->m_events->Raise("event/accelerator_pressed", pressure);
             } else {

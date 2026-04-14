@@ -9,11 +9,13 @@ namespace Habilis {
     }
 
     std::pair<float, bool> Accelerator::read() {
-        auto value = this->sensor->read();
+        const auto value = this->sensor->read();
 
-        auto changed = this->lastPressure != value;
-        this->lastPressure = value;
+        const auto changed = std::abs(this->lastPressure - value) > 1e-2;
+        if (changed) {
+            this->lastPressure = value;
+        }
 
-        return {value, changed};
+        return {this->lastPressure, changed};
     }
 }
