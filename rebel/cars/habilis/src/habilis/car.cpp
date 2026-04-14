@@ -7,7 +7,7 @@
 
 namespace Habilis {
     void Car::move(const float speed) const {
-        this->m_engine->revolve(speed, false);
+        this->m_engine->revolve(speed, true);
     }
 
     void Car::reset_devices() {

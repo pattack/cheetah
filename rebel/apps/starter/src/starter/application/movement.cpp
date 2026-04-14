@@ -23,7 +23,7 @@ namespace Starter {
 
     void Movement::on_accelerator_pressed(const float pressure) const {
         // todo: resolve swprintf in __strftime to be able to use std::format
-        Rebel::Logger::Log(Rebel::Logger::Log_Level::Debug, "[Starter/App/Movement] on_accelerator_pressed {}\r\n");
+        // Rebel::Logger::Log(Rebel::Logger::Log_Level::Debug, "[Starter/App/Movement] on_accelerator_pressed\r\n");
 
         this->commands->Raise("action/move", pressure);
     }

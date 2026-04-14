@@ -21,6 +21,7 @@ target_sources(car_habilis INTERFACE
         src/habilis/io/dev/usart.cpp
 
         src/habilis/io/com/ads1110.cpp
+        src/habilis/io/com/ads1115.cpp
         src/habilis/io/com/led.cpp
         src/habilis/io/com/pca9685.cpp
 

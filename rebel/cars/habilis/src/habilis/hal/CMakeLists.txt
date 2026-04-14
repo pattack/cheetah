@@ -8,7 +8,7 @@ pat_install_dep(
 
 set(CAR_HAL_DEFINES
         USE_HAL_DRIVER
-        STM32F401xE
+        STM32F401xC
 )
 
 set(CAR_HAL_INCLUDES

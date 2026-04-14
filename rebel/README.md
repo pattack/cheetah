@@ -1,6 +1,31 @@
 # Rebel
 This is the car
 
+# Deploy
+```bash
+st-flash write build/habilis-starter/firmware.hex 0x08000000
+```
+
+```bash
+minicom -D /dev/ttyUSB0 -b 115200
+```
+
+# Debug
+On-chip using SWG
+```bash
+openocd -f interface/stlink-v2.cfg -f target/stm32f4x.cfg
+```
+
+```bash
+arm-none-eabi-gdb build/habilis-starter/firmware.elf
+```
+
+```gdb
+monitor reset halt
+load
+monitor reset halt
+```
+
 # Example Use-Case Journeys
 
 ## 1. Remote "Steer Left" Signal → Car Turns Left

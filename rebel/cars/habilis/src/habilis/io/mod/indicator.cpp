@@ -7,21 +7,18 @@
 #include <habilis/io/mod/indicator.hpp>
 
 namespace Habilis {
-    Indicator::Indicator(LED ledStatus, LED ledError) : ledStatus(std::move(ledStatus)), ledError(std::move(ledError)) {
+    Indicator::Indicator(LED led) : led(std::move(led)) {
     }
 
     void Indicator::showTransient() const {
-        this->ledError.turnOff();
-        this->ledStatus.turnOn(); // todo: blink
+        this->led.turnOff(); // todo: blink
     }
 
     void Indicator::showSteady() const {
-        this->ledError.turnOff();
-        this->ledStatus.turnOn();
+        this->led.turnOff();
     }
 
     void Indicator::showError() const {
-        this->ledStatus.turnOff();
-        this->ledError.turnOn();
+        this->led.turnOn();
     }
 }

@@ -27,14 +27,13 @@ namespace Habilis {
             .usart_printer{new USART_Printer{this->Devices.usart1}},
         };
 
-        const std::shared_ptr<GPIO_TypeDef> gpiob{GPIOB};
+        const std::shared_ptr<GPIO_TypeDef> gpioc{GPIOC};
 
         this->Modules = {
             .logger{new Logger{this->Components.usart_printer}},
             .indicator{
                 new Indicator{
-                    LED(GPIO(gpiob, GPIO_PIN_0)),
-                    LED(GPIO(gpiob, GPIO_PIN_1))
+                    LED(GPIO(gpioc, GPIO_PIN_13))
                 }
             }
         };

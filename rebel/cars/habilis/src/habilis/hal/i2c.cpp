@@ -16,7 +16,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c) {
     GPIO_InitTypeDef igpio {};
     igpio.Mode = GPIO_MODE_AF_OD;
     igpio.Pull = GPIO_NOPULL;
-    igpio.Speed = GPIO_SPEED_FREQ_HIGH;
+    igpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 
     if (hi2c->Instance == I2C1) {
         /* Peripheral clock enable */

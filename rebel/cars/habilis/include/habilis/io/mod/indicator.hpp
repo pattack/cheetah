@@ -9,14 +9,13 @@
 namespace Habilis {
     class Indicator {
     public:
-        explicit Indicator(LED ledStatus, LED ledError);
+        explicit Indicator(LED led);
 
         void showTransient() const;
         void showSteady() const;
         void showError() const;
 
     private:
-        LED ledStatus;
-        LED ledError;
+        LED led;
     };
 };
