@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.25)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 add_subdirectory(cmake)
 
-set(APPS_ROOT "${CMAKE_SOURCE_DIR}/apps")
-set(CARS_ROOT "${CMAKE_SOURCE_DIR}/cars")
+project(rebel C CXX ASM)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -17,6 +16,9 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug")
 endif()
 message("Build type: " ${CMAKE_BUILD_TYPE})
+
+set(APPS_ROOT "${CMAKE_SOURCE_DIR}/apps")
+set(CARS_ROOT "${CMAKE_SOURCE_DIR}/cars")
 
 # ========== App setup ==========
 set(APP starter CACHE STRING "Application logic target")
@@ -37,8 +39,6 @@ endif()
 # Include car toolchain
 set(CAR_DIR ${CARS_ROOT}/${CAR})
 set(CMAKE_TOOLCHAIN_FILE ${CAR_DIR}/toolchain.cmake)
-
-project(rebel C CXX ASM)
 
 # Print current configuration
 message(STATUS "Current system name is: ${CMAKE_SYSTEM_NAME}")
