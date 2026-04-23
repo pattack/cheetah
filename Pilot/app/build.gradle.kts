@@ -11,7 +11,7 @@ android {
 
 	defaultConfig {
 		applicationId = "org.pattack.cheetah.pilot"
-		minSdk = 30
+		minSdk = 19
 		targetSdk = 36
 		versionCode = 1
 		versionName = "1.0"
@@ -33,13 +33,7 @@ android {
 		jvmTarget = "11"
 	}
 	buildFeatures {
-		prefab = false
-	}
-	externalNativeBuild {
-		cmake {
-			path = file("src/main/cpp/CMakeLists.txt")
-			version = "4.2.3"
-		}
+		viewBinding = true
 	}
 }
 
@@ -48,7 +42,9 @@ dependencies {
 	implementation(libs.androidx.core.ktx)
 	implementation(libs.androidx.appcompat)
 	implementation(libs.material)
-	implementation(libs.androidx.games.activity)
+	implementation(libs.androidx.constraintlayout)
+	implementation(libs.androidx.navigation.fragment.ktx)
+	implementation(libs.androidx.navigation.ui.ktx)
 	testImplementation(libs.junit)
 	androidTestImplementation(libs.androidx.junit)
 	androidTestImplementation(libs.androidx.espresso.core)
